@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="page-version" content="v20">
+<meta name="page-version" content="v21">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Dublift — Grow your YouTube audience by localizing your best videos</title>
 <meta name="description" content="We turn your best-performing YouTube videos into ready-to-publish localized versions. AI speed, native human review, flat prices. Free 30-second sample of your own video.">
@@ -576,8 +576,8 @@ footer .who{font-family:var(--body);font-size:.85rem;margin-bottom:8px}
           </div>
         </div>
         <div>
-          <label for="f-link">YouTube link (yours or your client’s)</label>
-          <input id="f-link" name="link" type="url" placeholder="https://youtube.com/watch?v=..." required>
+          <label for="f-link">YouTube link (yours or your client’s) · optional</label>
+          <input id="f-link" name="link" type="url" placeholder="https://youtube.com/watch?v=... — or leave empty, we’ll ask later">
         </div>
         <div>
           <label for="f-lang">Language to test</label>
@@ -878,7 +878,7 @@ document.getElementById('pilotForm').addEventListener('submit', function(e){
   e.preventDefault();
   var data = {
     offer: document.querySelector('input[name="offer"]:checked').value,
-    link: document.getElementById('f-link').value,
+    link: document.getElementById('f-link').value.trim() || '(no link yet — will share later)',
     language: document.getElementById('f-lang').value,
     email: document.getElementById('f-email').value
   };
