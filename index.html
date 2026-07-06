@@ -1,0 +1,958 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="page-version" content="v20">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dublift — Grow your YouTube audience by localizing your best videos</title>
+<meta name="description" content="We turn your best-performing YouTube videos into ready-to-publish localized versions. AI speed, native human review, flat prices. Free 30-second sample of your own video.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Caveat:wght@500;600&family=IBM+Plex+Mono:wght@400;500&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#0E1116;
+  --ink-soft:#3D444F;
+  --paper:#F4F5F7;
+  --card:#FFFFFF;
+  --line:#DCDFE4;
+  --red:#E5342B;
+  --red-dark:#C2251D;
+  --green:#1E9E6A;
+  --pencil:#B4530A;
+  --hl:#FFE9A8;
+  --trk-en:#0E1116;
+  --trk-es:#E8A33D;
+  --trk-pl:#2FA98C;
+  --trk-de:#6B6BD6;
+  --radius:14px;
+  --max:1120px;
+  --display:"Bricolage Grotesque",sans-serif;
+  --body:"Instrument Sans",sans-serif;
+  --mono:"IBM Plex Mono",monospace;
+  --hand:"Caveat",cursive;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:var(--body);color:var(--ink);background:var(--paper);line-height:1.6;font-size:17px}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 24px}
+h1,h2,h3{font-family:var(--display);line-height:1.08;letter-spacing:-0.01em}
+h1{font-size:clamp(2rem,4.3vw,3.25rem);font-weight:800}
+h2{font-size:clamp(1.7rem,3.4vw,2.5rem);font-weight:800}
+h3{font-size:1.15rem;font-weight:600}
+p{color:var(--ink-soft)}
+a{color:inherit}
+section{padding:88px 0}
+.eyebrow{font-family:var(--mono);font-size:.78rem;text-transform:uppercase;letter-spacing:.14em;color:var(--red);margin-bottom:12px;display:block}
+.hl{background:linear-gradient(180deg,transparent 55%,var(--hl) 55%,var(--hl) 92%,transparent 92%);padding:0 2px}
+.squiggle{position:relative;white-space:nowrap}
+.squiggle svg{position:absolute;left:0;bottom:-8px;width:100%;height:10px;overflow:visible}
+.squiggle svg path{fill:none;stroke:var(--red);stroke-width:2.5;stroke-linecap:round}
+.note-hand{font-family:var(--hand);font-size:1.25rem;color:var(--pencil);line-height:1.25}
+.btn{display:inline-block;font-family:var(--body);font-weight:600;font-size:1rem;padding:15px 28px;border-radius:999px;border:none;cursor:pointer;text-decoration:none;transition:transform .12s ease,box-shadow .12s ease}
+.btn:focus-visible{outline:3px solid var(--red);outline-offset:3px}
+.btn-primary{background:var(--red);color:#fff;box-shadow:0 6px 20px rgba(229,52,43,.28)}
+.btn-primary:hover{background:var(--red-dark);transform:translateY(-2px)}
+.btn-ghost{background:transparent;color:var(--ink);border:1.5px solid var(--ink)}
+.btn-ghost:hover{background:var(--ink);color:#fff}
+.micro{font-family:var(--mono);font-size:.75rem;color:var(--ink-soft);margin-top:14px}
+
+/* infographics */
+.infog{padding:72px 0;border-bottom:1px solid var(--line)}
+.infog-grid{display:grid;grid-template-columns:auto 1fr;gap:52px;align-items:center;max-width:880px;margin:0 auto}
+@media(max-width:760px){.infog-grid{grid-template-columns:1fr;justify-items:center;text-align:center}}
+.donut-wrap{position:relative;width:230px;height:230px}
+.donut-wrap svg{width:100%;height:100%;transform:rotate(-90deg)}
+.donut-wrap .ring-bg{fill:none;stroke:var(--line);stroke-width:26}
+.donut-wrap .ring-val{fill:none;stroke:var(--red);stroke-width:26;stroke-linecap:butt;stroke-dasharray:454 528;transition:stroke-dasharray 1s ease}
+@media(prefers-reduced-motion:reduce){.donut-wrap .ring-val{transition:none}}
+.donut-center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.donut-center b{font-family:var(--display);font-weight:800;font-size:3rem;line-height:1;color:var(--red)}
+.donut-center span{font-family:var(--mono);font-size:.62rem;letter-spacing:.1em;color:var(--ink-soft);text-align:center;max-width:110px;margin-top:6px}
+.infog-text h2{margin-bottom:14px;min-height:3.2em;font-size:clamp(1.5rem,2.8vw,2.2rem)}
+.infog-text p{max-width:30rem}
+.lang-chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}
+@media(max-width:760px){.lang-chips{justify-content:center}}
+.lang-chips button{font-family:var(--mono);font-size:.74rem;font-weight:500;letter-spacing:.06em;border:1px solid var(--line);background:var(--card);color:var(--ink-soft);padding:7px 14px;border-radius:999px;cursor:pointer;transition:all .15s}
+.lang-chips button.active{background:var(--ink);border-color:var(--ink);color:#fff}
+.lang-chips button:focus-visible{outline:2px solid var(--red)}
+.infog-legend{display:flex;gap:22px;margin-top:18px;flex-wrap:wrap}
+@media(max-width:760px){.infog-legend{justify-content:center}}
+.infog-legend span{font-family:var(--mono);font-size:.72rem;color:var(--ink-soft);display:flex;align-items:center;gap:8px}
+.infog-legend i{width:12px;height:12px;border-radius:3px;display:inline-block}
+
+
+.fit .icon{width:44px;height:44px;margin-bottom:14px}
+.fit .icon svg{width:100%;height:100%}
+
+
+/* youtube-association layer: scrubber, chapters, subtitle hooks */
+#scrubber{position:fixed;top:0;left:0;height:3px;width:0;background:var(--red);z-index:60;box-shadow:0 0 8px rgba(229,52,43,.5)}
+.logo .play{display:inline-flex;width:22px;height:16px;background:var(--red);border-radius:4px;align-items:center;justify-content:center;flex-shrink:0;position:relative;top:1px}
+.logo .play::after{content:"";border-left:6px solid #fff;border-top:4px solid transparent;border-bottom:4px solid transparent;margin-left:1px}
+.ts{color:var(--ink-soft);margin-right:10px}
+.proof .ts{color:#8B929D}
+.hook{padding:26px 0 30px;text-align:center}
+.hook .cap{display:inline-block;background:rgba(14,17,22,.93);color:#fff;font-family:var(--display);font-weight:800;font-size:clamp(1.25rem,3.4vw,2.1rem);line-height:1.25;padding:8px 20px;border-radius:8px;margin:3px 0}
+.hook .cap em{font-style:normal;color:#FFD666}
+.hook .cc{display:block;font-family:var(--mono);font-size:.68rem;letter-spacing:.12em;color:var(--ink-soft);margin-top:14px}
+.hook .cc b{border:1.5px solid var(--ink-soft);border-radius:3px;padding:1px 5px;margin-right:8px}
+.hook-dark{background:var(--ink)}
+.hook-dark .cap{background:#fff;color:var(--ink)}
+.hook-dark .cap em{color:var(--red)}
+
+/* nav */
+nav{position:sticky;top:0;background:var(--paper);border-bottom:1px solid var(--line);z-index:50}
+@supports(backdrop-filter:blur(10px)){nav{background:rgba(244,245,247,.94);backdrop-filter:blur(10px)}}
+.nav-in{display:flex;align-items:center;justify-content:space-between;height:64px}
+.logo{font-family:var(--display);font-weight:800;font-size:1.25rem;text-decoration:none;display:inline-flex;align-items:center;gap:8px;line-height:1}
+.logo .word em{font-style:normal;color:var(--red)}
+.nav-links{display:flex;gap:26px;align-items:center}
+.nav-links a{text-decoration:none;font-size:.92rem;font-weight:500;color:var(--ink-soft)}
+.nav-links a:hover{color:var(--ink)}
+.nav-cta{background:var(--ink);color:#fff !important;padding:9px 18px;border-radius:999px}
+@media(max-width:760px){.nav-links a:not(.nav-cta){display:none}}
+
+/* hero */
+.hero{padding:44px 0 64px}
+.hero-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:56px;align-items:center}
+@media(max-width:900px){.hero-grid{grid-template-columns:1fr}}
+.hero p.sub{font-size:1.08rem;margin:16px 0 24px;max-width:34rem}
+.hero .cta-row{display:flex;gap:14px;flex-wrap:wrap}
+.hero-trust{display:flex;gap:18px;flex-wrap:wrap;margin-top:18px}
+.hero-trust span{font-family:var(--mono);font-size:.72rem;color:var(--ink-soft)}
+.hero-trust span::before{content:"✓";color:var(--green);font-weight:700;margin-right:6px}
+
+/* multitrack visual */
+.deck{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:22px;box-shadow:0 18px 50px rgba(14,17,22,.08)}
+.deck-head{display:flex;justify-content:space-between;font-family:var(--mono);font-size:.72rem;color:var(--ink-soft);margin-bottom:16px}
+.deck-head .live{color:var(--red)}
+.arow{display:grid;grid-template-columns:1fr auto;gap:7px 12px;padding:12px 0;border-top:1px dashed var(--line);opacity:0;transform:translateY(6px);transition:opacity .5s ease,transform .5s ease}
+.arow:first-of-type{border-top:none}
+.arow.on{opacity:1;transform:none}
+.arow .lang{font-family:var(--mono);font-size:.78rem;font-weight:500;color:var(--ink)}
+.arow .val{font-family:var(--mono);font-size:.72rem;color:var(--ink-soft);text-align:right}
+.abar{grid-column:1/-1;height:10px;background:var(--paper);border-radius:5px;overflow:hidden}
+.abar i{display:block;height:100%;width:0;background:var(--c);border-radius:5px;transition:width .9s ease}
+.arow.on .abar i{width:var(--w)}
+@media(prefers-reduced-motion:reduce){.arow{transition:none}.abar i{transition:none}}
+.deck-foot{margin-top:16px;font-family:var(--mono);font-size:.72rem;color:var(--ink-soft)}
+.deck-foot b{color:var(--ink)}
+.deck-note{margin-top:10px;text-align:right}
+
+/* proof */
+.proof{background:var(--ink);color:#fff}
+.proof .eyebrow{color:#FF6B62}
+.proof h2{color:#fff;max-width:38rem}
+.proof p{color:#B9BEC7}
+.case-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:44px}
+@media(max-width:900px){.case-grid{grid-template-columns:1fr}}
+.case{background:#171B22;border:1px solid #2A2F38;border-radius:var(--radius);padding:28px;display:flex;flex-direction:column}
+.case .num{font-family:var(--display);font-weight:800;font-size:2.3rem;color:#fff;line-height:1.1}
+.case .num em{font-style:normal;color:var(--trk-es)}
+.case h3{color:#fff;margin:6px 0 10px}
+.case p{font-size:.95rem;flex:1}
+.case .src{font-family:var(--mono);font-size:.7rem;margin-top:16px}
+.case .src a{color:#8B929D;text-decoration:none;border-bottom:1px solid #3a4049}
+.case .src a:hover{color:#fff}
+
+/* demo */
+.demo-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:44px;align-items:center;margin-top:44px}
+@media(max-width:900px){.demo-grid{grid-template-columns:1fr}}
+.lang-toggle{display:inline-flex;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:5px;gap:4px;margin:20px 0 18px}
+.lang-toggle button{font-family:var(--mono);font-size:.8rem;font-weight:500;letter-spacing:.06em;border:none;background:transparent;color:var(--ink-soft);padding:10px 22px;border-radius:999px;cursor:pointer;transition:background .15s,color .15s}
+.lang-toggle button.active{background:var(--ink);color:#fff}
+.lang-toggle button:focus-visible{outline:2px solid var(--red)}
+.player{position:relative;border-radius:var(--radius);overflow:hidden;border:1px solid var(--line);background:#000;box-shadow:0 18px 50px rgba(14,17,22,.10)}
+.player::before{content:"";display:block;padding-top:56.25%}
+.player iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.player-tag{position:absolute;top:12px;left:12px;z-index:2;font-family:var(--mono);font-size:.68rem;letter-spacing:.1em;background:rgba(14,17,22,.85);color:#fff;padding:5px 12px;border-radius:999px;pointer-events:none}
+.player-tag i{font-style:normal;color:var(--trk-es)}
+
+/* demo block layout */
+.demo-vert{grid-template-columns:1.15fr .85fr;align-items:start}
+.demo-lead{font-size:1.08rem;margin-top:18px;max-width:30rem}
+.demo-feats{list-style:none;margin-top:26px;display:grid;gap:13px;padding:0}
+.demo-feats li{font-size:.97rem;color:var(--ink-soft);padding-left:32px;position:relative}
+.demo-feats li::before{content:"✓";position:absolute;left:0;top:1px;width:21px;height:21px;border-radius:50%;background:#EDF8F2;color:var(--green);font-weight:700;font-size:.8rem;display:flex;align-items:center;justify-content:center}
+.demo-feats b{color:var(--ink)}
+.btn-sm{padding:12px 22px;font-size:.9rem;margin-top:28px}
+.vcap{font-family:var(--mono);font-size:.7rem;letter-spacing:.08em;color:var(--ink-soft);text-align:center;margin-top:12px}
+@media(max-width:900px){.demo-vert{grid-template-columns:1fr}}
+
+/* vertical demo video player */
+.vplayer{position:relative;max-width:315px;margin:0 auto;aspect-ratio:9/16;border-radius:var(--radius);overflow:hidden;background:#000;border:1px solid var(--line);box-shadow:0 18px 50px rgba(14,17,22,.12)}
+.vplayer video{width:100%;height:100%;object-fit:cover;display:block}
+.vplay{position:absolute;inset:0;margin:auto;width:74px;height:74px;border-radius:50%;background:var(--red);border:none;cursor:pointer;box-shadow:0 8px 26px rgba(229,52,43,.45);display:flex;align-items:center;justify-content:center;transition:transform .15s ease}
+.vplay:hover{transform:scale(1.08)}
+.vplay:focus-visible{outline:3px solid #fff}
+.vplay span{display:block;border-left:24px solid #fff;border-top:14px solid transparent;border-bottom:14px solid transparent;margin-left:6px}
+
+/* fit strip */
+.fit-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:40px}
+@media(max-width:900px){.fit-grid{grid-template-columns:1fr}}
+.fit{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:26px}
+.fit h3{margin-bottom:8px}
+.fit p{font-size:.95rem}
+.fit .k{font-family:var(--mono);font-size:.72rem;color:var(--red);text-transform:uppercase;letter-spacing:.12em;display:block;margin-bottom:12px}
+
+/* compare table */
+.compare{overflow-x:auto;margin-top:44px}
+.compare table{width:100%;border-collapse:separate;border-spacing:0;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;min-width:640px}
+.compare th,.compare td{padding:16px 18px;text-align:left;font-size:.93rem;border-top:1px solid var(--line);vertical-align:top}
+.compare thead th{border-top:none;background:var(--paper);font-family:var(--mono);font-size:.72rem;text-transform:uppercase;letter-spacing:.1em;color:var(--ink-soft)}
+.compare td:first-child{font-weight:600;color:var(--ink);width:26%;white-space:nowrap}
+.cico{width:17px;height:17px;vertical-align:-3px;margin-right:10px;fill:none;stroke:var(--ink-soft);stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.compare td{color:var(--ink-soft)}
+.compare .us{background:#FFF6F5}
+.compare thead th.us{background:#FDEBE9;color:var(--red)}
+.compare .yes{color:var(--green);font-weight:600}
+.compare .no{color:#A0A6AF}
+
+/* pricing */
+.price-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:44px}
+@media(max-width:1040px){.price-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:620px){.price-grid{grid-template-columns:1fr}}
+.plan{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:30px;display:flex;flex-direction:column}
+.plan.hot{border:2px solid var(--red);position:relative}
+.plan.hot::before{content:"⭐ MOST POPULAR";position:absolute;top:-11px;left:26px;background:var(--red);color:#fff;font-family:var(--mono);font-size:.65rem;letter-spacing:.12em;padding:3px 10px;border-radius:999px}
+.plan .name{font-family:var(--mono);font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft)}
+.plan .amount{font-family:var(--display);font-weight:800;font-size:2.4rem;margin:10px 0 4px}
+.plan .per{font-size:.85rem;color:var(--ink-soft);margin-bottom:18px}
+.plan ul{list-style:none;flex:1;margin-bottom:24px}
+.plan li{font-size:.93rem;color:var(--ink-soft);padding:7px 0;border-top:1px dashed var(--line)}
+.plan li:first-child{border-top:none}
+.plan .btn{text-align:center}
+
+/* advisor mini-block */
+.advisor{max-width:760px;margin:56px auto 0;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:30px 32px;display:grid;grid-template-columns:auto 1fr auto;gap:24px;align-items:center;box-shadow:0 12px 34px rgba(14,17,22,.06)}
+@media(max-width:760px){.advisor{grid-template-columns:1fr;text-align:center;justify-items:center}}
+.advisor .compass{width:54px;height:54px;flex-shrink:0}
+.advisor h3{font-size:1.2rem;margin-bottom:6px}
+.advisor p{font-size:.93rem}
+.advisor .tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+@media(max-width:760px){.advisor .tags{justify-content:center}}
+.advisor .tags span{font-family:var(--mono);font-size:.66rem;letter-spacing:.08em;color:var(--ink-soft);border:1px solid var(--line);border-radius:999px;padding:3px 10px}
+.advisor .btn{white-space:nowrap}
+
+/* faq */
+.faq{max-width:760px;margin:40px auto 0}
+details{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);margin-bottom:12px;overflow:hidden}
+summary{cursor:pointer;padding:20px 24px;font-weight:600;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:16px}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";font-family:var(--mono);font-size:1.2rem;color:var(--red);flex-shrink:0}
+details[open] summary::after{content:"–"}
+details p{padding:0 24px 20px;font-size:.95rem}
+
+/* final cta / form */
+.final{background:var(--ink);color:#fff;border-radius:24px;padding:64px 48px;margin:0 24px}
+@media(max-width:760px){.final{padding:44px 24px}}
+.final-in{max-width:640px;margin:0 auto;text-align:center}
+.final h2{color:#fff}
+.final p{color:#B9BEC7;margin:16px 0 32px}
+.form{display:grid;gap:14px;text-align:left}
+.form label{font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:#8B929D;display:block;margin-bottom:6px}
+.form input,.form select{width:100%;padding:14px 16px;border-radius:10px;border:1px solid #2A2F38;background:#171B22;color:#fff;font-family:var(--body);font-size:1rem}
+.form input:focus,.form select:focus{outline:2px solid var(--red)}
+.choice{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+@media(max-width:560px){.choice{grid-template-columns:1fr}}
+.choice input{position:absolute;opacity:0;pointer-events:none}
+.choice .opt{display:block;border:1px solid #2A2F38;background:#171B22;border-radius:10px;padding:14px 16px;cursor:pointer;transition:border-color .12s}
+.choice .opt b{display:block;color:#fff;font-size:.95rem}
+.choice .opt small{color:#8B929D;font-size:.8rem}
+.choice input:checked + .opt{border-color:var(--red);background:#231A1B}
+.choice input:focus-visible + .opt{outline:2px solid var(--red)}
+.form .btn{margin-top:8px;width:100%}
+.form-note{font-family:var(--mono);font-size:.72rem;color:#8B929D;margin-top:14px;text-align:center}
+.fallback{display:none;margin-top:16px;background:#171B22;border:1px dashed #3a4049;border-radius:10px;padding:16px;text-align:left}
+.fallback p{font-size:.85rem;margin:0 0 10px}
+.fallback textarea{width:100%;background:#0E1116;color:#B9BEC7;border:1px solid #2A2F38;border-radius:8px;padding:10px;font-family:var(--mono);font-size:.78rem;min-height:96px}
+.fallback button{margin-top:10px;background:#2A2F38;color:#fff;border:none;border-radius:8px;padding:9px 16px;font-family:var(--body);font-weight:600;cursor:pointer}
+
+footer{padding:44px 0;text-align:center;font-family:var(--mono);font-size:.75rem;color:var(--ink-soft)}
+footer .who{font-family:var(--body);font-size:.85rem;margin-bottom:8px}
+.center{text-align:center}
+.center h2{max-width:42rem;margin:0 auto}
+.center .lead{max-width:40rem;margin:18px auto 0;font-size:1.05rem}
+</style>
+</head>
+<body>
+<div id="scrubber" aria-hidden="true"></div>
+
+<nav>
+  <div class="wrap nav-in">
+    <a class="logo notranslate" translate="no" href="#top"><span class="play" aria-hidden="true"></span><span class="word">Dub<em>lift</em></span></a>
+    <div class="nav-links">
+      <a href="#proof">Proof</a>
+      <a href="#demo">Demo</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#start" class="nav-cta">Get a free sample</a>
+    </div>
+  </div>
+</nav>
+
+<!-- 1. HERO -->
+<header class="hero" id="top">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="eyebrow"><span class="ts">▶ 00:00</span>For YouTube creators, educators &amp; small media teams</span>
+      <h1>Grow your YouTube with videos you already made.</h1>
+      <p class="sub">Translate, dub and lip-sync your best-performing videos to reach new audiences and grow internationally — without recording everything again.</p>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="#start">Get a free 60-sec sample</a>
+        <a class="btn btn-ghost" href="#demo">Hear a real before/after</a>
+      </div>
+      <div class="hero-trust">
+        <span>Translate into 75+ languages</span>
+        <span>No studio. No re-recording.</span>
+        <span>Sounds like you (voice cloning)</span>
+        <span>Native-speaker review</span>
+        <span>Reach new audiences</span>
+      </div>
+    </div>
+    <div class="deck notranslate" translate="no" id="growthDeck" aria-label="Analytics: the same video gaining views in new languages">
+      <div class="deck-head"><span>your_best_video.mp4 · analytics</span><span class="live">● GROWING</span></div>
+      <div class="arow" style="--w:100%;--c:var(--trk-en)"><span class="lang">English</span><span class="val" data-v="2100000" data-f="m">0 views</span><div class="abar"><i></i></div></div>
+      <div class="arow" style="--w:29%;--c:var(--trk-es)"><span class="lang">+ Spanish</span><span class="val" data-v="612000" data-f="k">+0 views</span><div class="abar"><i></i></div></div>
+      <div class="arow" style="--w:11%;--c:var(--trk-pl)"><span class="lang">+ French</span><span class="val" data-v="220000" data-f="k">+0 views</span><div class="abar"><i></i></div></div>
+      <div class="arow" style="--w:5%;--c:var(--trk-de)"><span class="lang">+ German</span><span class="val" data-v="94000" data-f="k">+0 views</span><div class="abar"><i></i></div></div>
+      <div class="deck-foot">Same video. Same channel. <b>New audiences.</b></div>
+      <div class="deck-note note-hand">← this is your back catalog, doing overtime</div>
+    </div>
+  </div>
+</header>
+
+<!-- 1b. THE MISSING AUDIENCE (infographic) -->
+<section class="infog">
+  <div class="wrap infog-grid notranslate" translate="no">
+    <div class="donut-wrap" role="img" aria-label="Share of the world that cannot understand your videos, by filming language">
+      <svg viewBox="0 0 200 200">
+        <circle class="ring-bg" cx="100" cy="100" r="84"/>
+        <circle class="ring-val" id="ringVal" cx="100" cy="100" r="84"/>
+      </svg>
+      <div class="donut-center"><b id="donutPct">86%</b><span>CAN'T UNDERSTAND YOUR VIDEOS</span></div>
+    </div>
+    <div class="infog-text">
+      <h2>Filming in <span class="notranslate" translate="no"><b id="langName">English</b></span>? You're publishing for only <b id="langShare" class="notranslate" translate="no">14%</b> of the world.</h2>
+      <p>Your best videos already proved they work. Translate them once and let millions of new viewers discover them — without recording everything again.</p>
+      <div class="lang-chips" id="langChips" role="group" aria-label="Pick your filming language">
+        <button type="button" class="active" data-i="0">EN</button>
+        <button type="button" data-i="1">ES</button>
+        <button type="button" data-i="2">FR</button>
+        <button type="button" data-i="3">DE</button>
+        <button type="button" data-i="4">PL</button>
+        <button type="button" data-i="5">UK</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- HOOK -->
+<div class="hook">
+  <span class="cap">One extra language gave MrBeast</span><br>
+  <span class="cap"><em>+30% views.</em> Same videos, zero re-shoots.</span>
+  <span class="cc">BASED ON PUBLIC YOUTUBE DATA</span>
+</div>
+
+<!-- 2. PROOF -->
+<section class="proof" id="proof">
+  <div class="wrap">
+    <span class="eyebrow"><span class="ts">▶ 01:12</span>Real user cases</span>
+    <h2>AI video dubbing is one of the fastest ways to grow on YouTube.</h2>
+    <div class="case-grid">
+      <div class="case">
+        <div class="num"><em>25%+</em></div>
+        <h3>watch time from other languages</h3>
+        <p>On average, creators using Multi-Language Audio received over 25% of their watch time from viewers watching in non-primary languages.</p>
+        <div class="src"><a href="https://blog.youtube/news-and-events/multi-language-audio/" target="_blank" rel="noopener">YouTube Official Blog →</a></div>
+      </div>
+      <div class="case">
+        <div class="num"><em>3×</em></div>
+        <h3>more views — Jamie Oliver</h3>
+        <p>Adding multilingual audio helped Jamie Oliver triple views on existing videos.</p>
+        <div class="src"><a href="https://blog.youtube/news-and-events/multi-language-audio/" target="_blank" rel="noopener">YouTube Official Blog →</a></div>
+      </div>
+      <div class="case">
+        <div class="num"><em>−70%</em></div>
+        <h3>lower costs vs traditional dubbing</h3>
+        <p>AI lip-sync dubbing dramatically reduces localization costs compared to traditional dubbing — up to 70% lower per video.</p>
+        <div class="src"><a href="https://marketintelo.com/report/ai-lip-sync-market" target="_blank" rel="noopener">Market Intelo report →</a></div>
+      </div>
+    </div>
+    
+  </div>
+</section>
+
+<!-- 2b. DEMO: two variants switched by ?hero= param -->
+<section id="demo">
+  <div class="wrap">
+    <span class="eyebrow"><span class="ts">▶ 02:38</span>• See it. Hear it. Compare it.</span>
+
+    <!-- default variant: ?hero=demonstration (or no param) -->
+    <div id="demoDemonstration">
+      <div class="demo-grid demo-vert">
+        <div>
+          <h2>Your voice. Same video. New language.</h2>
+          <p class="demo-lead">Watch how recreates the creator's voice, translates every sentence naturally, and synchronizes the speaker's lip movements — without recording anything again.</p>
+          <ul class="demo-feats">
+            <li><b>Voice</b> — cloned from the original recording</li>
+            <li><b>Translation</b> — every sentence phrased like a native</li>
+            <li><b>Lip sync</b> — mouth movements match the new language</li>
+          </ul>
+          <a class="btn btn-primary btn-sm" href="#start">Send us a video. Get a dubbed sample in 48 hours.</a>
+        </div>
+        <div>
+          <div class="vplayer">
+            <video id="demoVideo" src="demo-dub.mp4" poster="demo-poster.jpg" preload="metadata" playsinline></video>
+            <button class="vplay" id="vplayBtn" aria-label="Play demo video"><span></span></button>
+          </div>
+          <div class="vcap">🔊 18-second demo · turn the sound on</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- variant: ?hero=success -->
+    <div id="demoSuccess" hidden>
+      <div class="demo-grid" style="align-items:center">
+        <div>
+          <h2>One successful video. Multiple new audiences.</h2>
+          <p class="demo-lead">This video already proved it could attract millions of viewers. Instead of filming it again, the creator localized it into Spanish and reached an entirely new audience with the same content.</p>
+          <div class="lang-toggle" role="group" aria-label="Switch demo language">
+            <button type="button" class="active" data-lang="en">▶ ENGLISH · original</button>
+            <button type="button" data-lang="es">▶ ESPAÑOL · dubbed</button>
+          </div>
+          <a class="btn btn-primary btn-sm" href="#start" style="margin-top:24px">Send us a video. Get a dubbed sample in 48 hours.</a>
+        </div>
+        <div>
+          <div class="player">
+            <span class="player-tag notranslate" translate="no" id="playerTag">NOW PLAYING: <i>ENGLISH — ORIGINAL</i></span>
+            <iframe id="demoPlayer" src="https://www.youtube-nocookie.com/embed/BZbChKzedEk?start=25" title="Veritasium — original / dubbed demo" loading="lazy" allow="accelerometer; encrypted-media; picture-in-picture" allowfullscreen></iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    
+  </div>
+</section>
+
+<!-- HOOK -->
+<div class="hook">
+  <span class="cap">3 languages. 3 audiences.</span><br>
+  <span class="cap"><em>Still one video.</em></span>
+</div>
+
+<!-- 4. WHO -->
+
+
+<!-- 5. COMPARE -->
+<section id="compare" style="padding-top:0">
+  <div class="wrap">
+    <span class="eyebrow"><span class="ts">▶ 06:12</span>Studio dub vs AI dub</span>
+    <h2>Everything you expect from a dubbing studio. Without the studio.</h2>
+    <div class="compare">
+      <table>
+        <thead>
+          <tr>
+            <th></th>
+            <th>Traditional dubbing studio</th>
+            <th class="us">Dublift</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td><svg class="cico" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M15 9.3a4 4 0 1 0 0 5.4M8 10.7h5M8 13.3h5"/></svg>Cost</td><td>Hundreds of euros per video</td><td class="us"><span class="yes">Flat price per video</span></td></tr>
+          <tr><td><svg class="cico" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg>Delivery</td><td>1–3 weeks</td><td class="us"><span class="yes">48 hours</span></td></tr>
+          <tr><td><svg class="cico" viewBox="0 0 24 24"><rect x="9" y="3.5" width="6" height="11" rx="3"/><path d="M6.5 11.5a5.5 5.5 0 0 0 11 0M12 17v3.5"/></svg>Your own voice</td><td><span class="no">✕ New voice actor</span></td><td class="us"><span class="yes">✓ Your own voice recreated</span></td></tr>
+          <tr><td><svg class="cico" viewBox="0 0 24 24"><path d="M4 10v4M8 7v10M12 4v16M16 7v10M20 10v4"/></svg>Emotion &amp; pacing</td><td>Depends on actor</td><td class="us"><span class="yes">✓ Based on your original performance</span></td></tr>
+          <tr><td><svg class="cico" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M3.5 12h17M12 3.5c2.9 2.7 2.9 14.3 0 17-2.9-2.7-2.9-14.3 0-17z"/></svg>Languages</td><td>Usually ordered separately</td><td class="us"><span class="yes">75+ languages</span></td></tr>
+          <tr><td><svg class="cico" viewBox="0 0 24 24"><rect x="3.5" y="7" width="12" height="10" rx="2"/><path d="M15.5 11.2l5-3.2v8l-5-3.2"/></svg>Lip sync</td><td>Extra service</td><td class="us"><span class="yes">Included</span></td></tr>
+          <tr><td><svg class="cico" viewBox="0 0 24 24"><path d="M4.5 12a7.5 7.5 0 0 1 12.8-5.3M19.5 12a7.5 7.5 0 0 1-12.8 5.3"/><path d="M17.5 3.5v3.2h-3.2M6.5 20.5v-3.2h3.2"/></svg>Revisions</td><td>Back-and-forth emails</td><td class="us"><span class="yes">Included before delivery</span></td></tr>
+          <tr><td><svg class="cico" viewBox="0 0 24 24"><path d="M12 16.5V5M7.5 9.5L12 5l4.5 4.5M5 19.5h14"/></svg>Ready to publish</td><td>Usually several production steps</td><td class="us"><span class="yes">Upload-ready package</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="center" style="margin-top:36px">
+      <a class="btn btn-primary" href="#start">Send us one video. Hear yourself in another language.</a>
+    </div>
+  </div>
+</section>
+
+<!-- 7. PRICING -->
+<section id="pricing" style="padding-top:0">
+  <div class="wrap">
+    <span class="eyebrow"><span class="ts">▶ 09:20</span>Transparent pricing</span>
+    <h2>Flat prices. Zero credits. No subscription required.</h2>
+    <div class="price-grid">
+      <div class="plan">
+        <span class="name">Free Sample</span>
+        <div class="amount">Free</div>
+        <div class="per">first 60 seconds of your own video</div>
+        <ul>
+          <li>Hear your own voice in another language before paying</li>
+          <li>Your own video</li>
+          <li>Your own voice</li>
+          <li>Any language</li>
+          <li>Delivered in 48h</li>
+        </ul>
+        <a class="btn btn-ghost" href="#start">Get my free sample</a>
+      </div>
+      <div class="plan">
+        <span class="name">Market Test</span>
+        <div class="amount">€69</div>
+        <div class="per">one finished video · up to 60 minutes</div>
+        <ul>
+          <li>Perfect for narration, tutorials, educational videos and screen recordings</li>
+          <li>AI voice cloning + natural translation</li>
+          <li>Native review</li>
+          <li>Audio track + translated subtitles</li>
+          <li>Publish-ready package</li>
+          <li>One revision</li>
+        </ul>
+        <a class="btn btn-ghost" href="#start">Start testing</a>
+      </div>
+      <div class="plan hot">
+        <span class="name">Creator Edition ⭐</span>
+        <div class="amount">€89</div>
+        <div class="per">one finished video · up to 60 minutes</div>
+        <ul>
+          <li>Interviews, courses, on-camera creators</li>
+          <li>Everything in Market Test, plus:</li>
+          <li>Mouth movements synchronized</li>
+          <li>Ready-to-publish video</li>
+          <li>One revision</li>
+        </ul>
+        <a class="btn btn-primary" href="#start">Create multilingual video</a>
+      </div>
+      <div class="plan">
+        <span class="name">Global Channel</span>
+        <div class="amount">Custom</div>
+        <div class="per">for creators ready to scale</div>
+        <ul>
+          <li>5+ videos</li>
+          <li>75+ languages</li>
+          <li>Consistent voice &amp; terminology</li>
+          <li>Priority delivery + dedicated reviewer</li>
+          <li>Volume discounts</li>
+        </ul>
+        <a class="btn btn-ghost" href="#start">Scale my channel</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOOK -->
+<div class="hook">
+  <span class="cap">48 hours. One link.</span><br>
+  <span class="cap"><em>A whole new audience.</em></span>
+</div>
+
+<!-- 10. FINAL CTA + FORM -->
+<section style="padding-top:0" id="start">
+  <div class="final">
+    <div class="final-in">
+      <h2>Start with one video. Grow to every market.</h2>
+      <p>Choose the option that fits your goal. Start with a free sample or get full video for localization.</p>
+      <form class="form" id="pilotForm">
+        <div>
+          <label>How would you like to start?</label>
+          <div class="choice">
+            <span>
+              <input type="radio" name="offer" id="o-sample" value="Free Sample (€0, first 60 sec)" checked>
+              <label class="opt" for="o-sample"><b>Free Sample</b><small>€0 · hear your voice in another language · first 60 seconds</small></label>
+            </span>
+            <span>
+              <input type="radio" name="offer" id="o-market" value="Market Test (€69, voice localization, up to 60 min)">
+              <label class="opt" for="o-market"><b>Market Test</b><small>€69 · voice localization · up to 60 min</small></label>
+            </span>
+            <span>
+              <input type="radio" name="offer" id="o-creator" value="Creator Edition (€89, voice + lip sync, up to 60 min)">
+              <label class="opt" for="o-creator"><b>Creator Edition ⭐</b><small>€89 · voice + mouth movements synchronized · up to 60 min</small></label>
+            </span>
+            <span>
+              <input type="radio" name="offer" id="o-channel" value="Channel Localization (Custom, 5+ videos)">
+              <label class="opt" for="o-channel"><b>Channel Localization</b><small>Custom · 5+ videos · multiple languages</small></label>
+            </span>
+          </div>
+        </div>
+        <div>
+          <label for="f-link">YouTube link (yours or your client’s)</label>
+          <input id="f-link" name="link" type="url" placeholder="https://youtube.com/watch?v=..." required>
+        </div>
+        <div>
+          <label for="f-lang">Language to test</label>
+          <select id="f-lang" name="language">
+            <option>Recommend me a language ⭐</option>
+            <option>English</option>
+            <option>Spanish</option>
+            <option>French</option>
+            <option>German</option>
+            <option>Italian</option>
+            <option>Portuguese (Portugal)</option>
+            <option>Portuguese (Brazil)</option>
+            <option>Dutch</option>
+            <option>Polish</option>
+            <option>Ukrainian</option>
+            <option>Russian</option>
+            <option>Czech</option>
+            <option>Slovak</option>
+            <option>Romanian</option>
+            <option>Bulgarian</option>
+            <option>Croatian</option>
+            <option>Danish</option>
+            <option>Swedish</option>
+            <option>Norwegian</option>
+            <option>Finnish</option>
+            <option>Greek</option>
+            <option>Turkish</option>
+            <option>Chinese (Simplified)</option>
+            <option>Chinese (Traditional)</option>
+            <option>Japanese</option>
+            <option>Korean</option>
+            <option>Hindi</option>
+            <option>Bengali</option>
+            <option>Malayalam</option>
+            <option>Thai</option>
+            <option>Vietnamese</option>
+            <option>Indonesian</option>
+            <option>Malay</option>
+            <option>Filipino / Tagalog</option>
+            <option>Arabic</option>
+          </select>
+        </div>
+        <div>
+          <label for="f-email">Your email</label>
+          <input id="f-email" name="email" type="email" placeholder="you@channel.com" required>
+        </div>
+        <button class="btn btn-primary" type="submit">Send my request</button>
+      </form>
+      <div class="fallback" id="formSuccess" style="border-style:solid;border-color:#1E9E6A">
+        <p style="color:#fff;font-weight:600;font-size:1.05rem;margin:0 0 8px">🎉 You're in.</p>
+        <p style="color:#B9BEC7;margin:0 0 6px">We'll review your video and email you.</p>
+        <p style="color:#B9BEC7;margin:0 0 6px">If it's a free sample, you'll receive your localized clip within <b style="color:#fff">48 hours</b>.</p>
+        <p style="color:#B9BEC7;margin:0">If you requested a paid project, we'll confirm the details before starting.</p>
+      </div>
+      <div class="fallback" id="fallback">
+        <p>Automatic sending didn't go through — no problem. Copy this and email it to <b style="color:#fff">suzven9@gmail.com</b>, or tap the mail button:</p>
+        <textarea id="fallbackText" readonly></textarea>
+        <button type="button" id="copyBtn">Copy to clipboard</button>
+        <a id="mailBtn" href="#" style="display:inline-block;margin:10px 0 0 10px;background:#2A2F38;color:#fff;border-radius:8px;padding:9px 16px;font-weight:600;text-decoration:none;font-size:.9rem">Open mail app</a>
+      </div>
+      <p class="form-note">No subscriptions. No credits. Just finished videos.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 9. FAQ -->
+<section id="faq">
+  <div class="wrap center">
+    <span class="eyebrow"><span class="ts">▶ 11:58</span>FAQ</span>
+    <h2>Quick answers</h2>
+  </div>
+  <div class="wrap faq">
+    <details>
+      <summary>How does this actually work?</summary>
+      <p>You send us a YouTube link. AI translates and recreates your voice in another language. A native speaker reviews everything, and we deliver a publish-ready video within 48 hours.</p>
+    </details>
+    <details>
+      <summary>How I can use translated result? I'm not technical.</summary>
+      <p>Two options: add it as an extra audio track on your existing video (if your channel has YouTube's multi-language audio feature), or publish it as a standalone localized video. We deliver both formats, with step-by-step instructions.</p>
+    </details>
+    <details>
+      <summary>Will it really sound like me?</summary>
+      <p>Yes. We recreate your voice from your original video, preserving your tone, pacing and speaking style. You'll hear it yourself in the free sample before paying anything.</p>
+    </details>
+    <details>
+      <summary>Is everything done by AI?</summary>
+      <p>AI handles transcription, translation and voice generation. Then a native speaker reviews every line before delivery, so awkward wording and translation mistakes don't make it into your final video.</p>
+    </details>
+    <details>
+      <summary>Do I need to record anything again?</summary>
+      <p>Just send your existing YouTube video. We handle transcription, translation, voice recreation, lip sync (if included) and delivery.</p>
+    </details>
+    <details>
+      <summary>Can I test it before paying?</summary>
+      <p>We localize the first 60 seconds of your own video for free, so you can judge the quality before ordering a full version.</p>
+    </details>
+    <details>
+      <summary>I'm not sure which language I should start with.</summary>
+      <p>No problem. Choose <b>"Recommend me a language"</b> in the request form, and we'll review your channel, audience, and best-performing videos. Then we'll recommend the language most likely to help you reach new viewers first.</p>
+    </details>
+    <div class="advisor">
+      <svg class="compass" viewBox="0 0 54 54" fill="none" aria-hidden="true">
+        <circle cx="27" cy="27" r="24" stroke="#E5342B" stroke-width="2.5"/>
+        <path d="M35 19 L30 30 L19 35 L24 24 Z" fill="#E5342B"/>
+        <circle cx="27" cy="27" r="2.5" fill="#fff"/>
+      </svg>
+      <div>
+        <h3>Not sure which language to start with?</h3>
+        <p>Send us your channel — we'll assess your content, your existing geo analytics and the competition in each market, and reply with the best first language for <em>your</em> niche. Free, no strings.</p>
+        <div class="tags"><span>YOUR NICHE</span><span>YOUR GEO STATS</span><span>MARKET COMPETITION</span></div>
+      </div>
+      <a class="btn btn-ghost" href="#start" id="advisorBtn">Get my language pick</a>
+    </div>
+  </div>
+</section>
+
+
+
+
+<footer>
+  <div class="wrap">
+    <div class="who">A small team of localization editors and native reviewers. Every video is checked by a human before it reaches you — and yes, a human made this page too.</div>
+    Dublift · Localize your best videos, grow everywhere · killagroup22@gmail.com · build v12-video<br>We store only what you send in the form, only to reply. Email us to delete it anytime.
+  </div>
+</footer>
+
+<script>
+console.log("Dublift landing build: v12-video (local demo player)");
+
+// Language carousel: donut + headline retype in sync
+(function(){
+  var C = 528;
+  var data = [
+    {name:'English', share:'14%', miss:86},
+    {name:'Spanish', share:'7%', miss:93},
+    {name:'French', share:'4%', miss:96},
+    {name:'German', share:'1.7%', miss:98},
+    {name:'Polish', share:'0.6%', miss:99},
+    {name:'Ukrainian', share:'0.5%', miss:99}
+  ];
+  var ring = document.getElementById('ringVal');
+  var pctEl = document.getElementById('donutPct');
+  var nameEl = document.getElementById('langName');
+  var shareEl = document.getElementById('langShare');
+  var chips = document.querySelectorAll('#langChips button');
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var cur = 0, timer = null, counting = null;
+
+  function retype(el, txt){
+    if (reduced) { el.textContent = txt; return; }
+    (function erase(){
+      var t = el.textContent;
+      if (t.length) { el.textContent = t.slice(0, -1); setTimeout(erase, 38); }
+      else (function type(){
+        var t2 = el.textContent;
+        if (t2.length < txt.length) { el.textContent = txt.slice(0, t2.length + 1); setTimeout(type, 58); }
+      })();
+    })();
+  }
+
+  function show(i){
+    cur = i;
+    var d = data[i];
+    ring.style.strokeDasharray = (d.miss / 100 * C) + ' ' + C;
+    if (counting) cancelAnimationFrame(counting);
+    var from = parseFloat(pctEl.textContent) || d.miss;
+    if (reduced) {
+      pctEl.textContent = d.miss + '%';
+    } else {
+      var t0 = null;
+      var step = function(ts){
+        if (t0 === null) t0 = ts;
+        var p = Math.min((ts - t0) / 800, 1);
+        pctEl.textContent = Math.round(from + (d.miss - from) * p) + '%';
+        if (p < 1) counting = requestAnimationFrame(step);
+      };
+      counting = requestAnimationFrame(step);
+    }
+    retype(nameEl, d.name);
+    retype(shareEl, d.share);
+    chips.forEach(function(c, j){ c.classList.toggle('active', j === i); });
+  }
+
+  chips.forEach(function(c){
+    c.addEventListener('click', function(){
+      if (timer) { clearInterval(timer); timer = null; }
+      show(parseInt(this.dataset.i, 10));
+    });
+  });
+
+  if (!reduced) {
+    var io = new IntersectionObserver(function(entries){
+      if (entries[0].isIntersecting && !timer) {
+        timer = setInterval(function(){ show((cur + 1) % data.length); }, 5000);
+        io.disconnect();
+      }
+    }, {threshold:.4});
+    io.observe(document.querySelector('.infog'));
+  }
+})();
+
+// Analytics deck: languages appear one by one, bars grow, counters count
+(function(){
+  var deck = document.getElementById('growthDeck');
+  if (!deck) return;
+  var rows = deck.querySelectorAll('.arow');
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function fmt(v, f){
+    if (f === 'm') return (v / 1e6).toFixed(1) + 'M views';
+    return '+' + Math.round(v / 1000) + 'K views';
+  }
+  function count(el, target, f){
+    var t0 = null;
+    var step = function(ts){
+      if (t0 === null) t0 = ts;
+      var p = Math.min((ts - t0) / 900, 1);
+      el.textContent = fmt(Math.round(target * p), f);
+      if (p < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  }
+  function finalState(){
+    rows.forEach(function(r){
+      r.classList.add('on');
+      var v = r.querySelector('.val');
+      v.textContent = fmt(parseInt(v.dataset.v, 10), v.dataset.f);
+    });
+  }
+  function play(){
+    rows.forEach(function(r, i){
+      setTimeout(function(){
+        r.classList.add('on');
+        var v = r.querySelector('.val');
+        count(v, parseInt(v.dataset.v, 10), v.dataset.f);
+      }, i * 1100);
+    });
+    setTimeout(function(){
+      rows.forEach(function(r){
+        r.classList.remove('on');
+        var v = r.querySelector('.val');
+        v.textContent = fmt(0, v.dataset.f);
+      });
+      setTimeout(play, 700);
+    }, rows.length * 1100 + 4200);
+  }
+
+  if (reduced) { finalState(); return; }
+  var io = new IntersectionObserver(function(entries){
+    if (entries[0].isIntersecting) { play(); io.disconnect(); }
+  }, {threshold:.4});
+  io.observe(deck);
+})();
+
+// YouTube-style scroll scrubber// YouTube-style scroll scrubber
+(function(){
+  var bar = document.getElementById('scrubber');
+  function upd(){
+    var h = document.documentElement;
+    var p = h.scrollTop / (h.scrollHeight - h.clientHeight);
+    bar.style.width = (p * 100) + '%';
+  }
+  window.addEventListener('scroll', upd, {passive:true});
+  upd();
+})();
+
+// Before/after demo: swap the same video between original (EN) and official dub (ES)
+(function(){
+  var vids = {
+    en: {id:'BZbChKzedEk', label:'ENGLISH — ORIGINAL'},
+    es: {id:'6FjUXWL2424', label:'ESPAÑOL — DUBBED'}
+  };
+  var player = document.getElementById('demoPlayer');
+  var tag = document.getElementById('playerTag');
+  document.querySelectorAll('.lang-toggle button').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var v = vids[this.dataset.lang];
+      player.src = 'https://www.youtube-nocookie.com/embed/' + v.id + '?start=25&autoplay=1';
+      tag.innerHTML = 'NOW PLAYING: <i>' + v.label + '</i>';
+      document.querySelectorAll('.lang-toggle button').forEach(function(b){b.classList.remove('active')});
+      this.classList.add('active');
+    });
+  });
+})();
+
+// Advisor CTA pre-selects "recommend one" in the language field
+document.getElementById('advisorBtn').addEventListener('click', function(){
+  document.getElementById('f-lang').value = 'Recommend me a language ⭐';
+});
+
+// FORM: sends every submission by email via FormSubmit (no backend needed).
+// Primary inbox + CC. NOTE: the very first submission triggers a one-time
+// activation email to the primary inbox — click "Activate" in it once.
+var FORM_TO = 'killagroup22@gmail.com';
+var FORM_CC = 'suzven9@gmail.com';
+
+document.getElementById('pilotForm').addEventListener('submit', function(e){
+  e.preventDefault();
+  var data = {
+    offer: document.querySelector('input[name="offer"]:checked').value,
+    link: document.getElementById('f-link').value,
+    language: document.getElementById('f-lang').value,
+    email: document.getElementById('f-email').value
+  };
+  var plain = 'Request: ' + data.offer + '\n' +
+              'Video/channel: ' + data.link + '\n' +
+              'Language: ' + data.language + '\n' +
+              'Reply to: ' + data.email;
+
+  function showPopup(){
+    document.getElementById('pilotForm').style.display = 'none';
+    document.getElementById('formSuccess').style.display = 'block';
+  }
+  function showFallback(){
+    document.getElementById('fallbackText').value = plain;
+    document.getElementById('fallback').style.display = 'block';
+    var m = document.getElementById('mailBtn');
+    if (m) m.href = 'mailto:' + FORM_TO + ',' + FORM_CC + '?subject=' +
+      encodeURIComponent('Dublift: ' + data.offer) + '&body=' + encodeURIComponent(plain);
+  }
+
+  var btn = document.querySelector('#pilotForm .btn');
+  btn.disabled = true; btn.textContent = 'Sending\u2026';
+
+  fetch('https://formsubmit.co/ajax/' + FORM_TO, {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
+    body: JSON.stringify({
+      _subject: 'Dublift request: ' + data.offer,
+      _template: 'table',
+      _captcha: 'false',
+      _cc: FORM_CC,
+      _replyto: data.email,
+      offer: data.offer,
+      video_link: data.link,
+      language: data.language,
+      email: data.email
+    })
+  }).then(function(r){ return r.json(); }).then(function(res){
+    if (res && (res.success === true || res.success === 'true')) { showPopup(); }
+    else { btn.disabled = false; btn.textContent = 'Send my request'; showPopup(); showFallback(); }
+  }).catch(function(){
+    btn.disabled = false; btn.textContent = 'Send my request';
+    showPopup(); showFallback();
+  });
+});
+
+// Demo block: variant switch via ?hero= URL param + local video player
+(function(){
+  var p = new URLSearchParams(location.search).get('hero');
+  if (p === 'success') {
+    document.getElementById('demoSuccess').hidden = false;
+    document.getElementById('demoDemonstration').hidden = true;
+  }
+  var v = document.getElementById('demoVideo');
+  var b = document.getElementById('vplayBtn');
+  if (v && b) {
+    b.addEventListener('click', function(){
+      v.controls = true;
+      v.play();
+      b.style.display = 'none';
+    });
+    v.addEventListener('ended', function(){
+      b.style.display = 'flex';
+      v.controls = false;
+    });
+  }
+})();
+
+document.getElementById('copyBtn').addEventListener('click', function(){
+  var ta = document.getElementById('fallbackText');
+  ta.select();
+  try { navigator.clipboard.writeText(ta.value); this.textContent = 'Copied ✓'; }
+  catch(err){ document.execCommand('copy'); this.textContent = 'Copied ✓'; }
+});
+</script>
+</body>
+</html>
