@@ -11,6 +11,13 @@
   gtag('config', 'G-J3H3RRKF79');
 </script>
 <!-- Google tag (gtag.js) -->
+ <!-- Script to send events -->
+<script>
+  function track(eventName, params = {}) {
+      gtag('event', eventName, params);
+  }
+</script>
+
  
 <meta charset="UTF-8">
 <meta name="page-version" content="v21">
@@ -310,8 +317,8 @@ footer .who{font-family:var(--body);font-size:.85rem;margin-bottom:8px}
       <h1>Grow your YouTube with videos you already made.</h1>
       <p class="sub">Translate, dub and lip-sync your best-performing videos to reach new audiences and grow internationally — without recording everything again.</p>
       <div class="cta-row">
-        <a class="btn btn-primary" href="#start">Get a free 60-sec sample</a>
-        <a class="btn btn-ghost" href="#demo">Hear a real before/after</a>
+        <a class="btn btn-primary" href="#start" onclick="track('cta_click', {location:'header'})">Get a free 60-sec sample</a>
+        <a class="btn btn-ghost" href="#demo" onclick="track('hero_cta_click')">Hear a real before/after</a>
       </div>
       <div class="hero-trust">
         <span>Translate into 75+ languages</span>
@@ -376,19 +383,19 @@ footer .who{font-family:var(--body);font-size:.85rem;margin-bottom:8px}
         <div class="num"><em>25%+</em></div>
         <h3>watch time from other languages</h3>
         <p>On average, creators using Multi-Language Audio received over 25% of their watch time from viewers watching in non-primary languages.</p>
-        <div class="src"><a href="https://blog.youtube/news-and-events/multi-language-audio/" target="_blank" rel="noopener">YouTube Official Blog →</a></div>
+        <div class="src"><a href="https://blog.youtube/news-and-events/multi-language-audio/" target="_blank" rel="noopener" onclick="track('article_click', {number:'1'})">YouTube Official Blog →</a></div>
       </div>
       <div class="case">
         <div class="num"><em>3×</em></div>
         <h3>more views — Jamie Oliver</h3>
         <p>Adding multilingual audio helped Jamie Oliver triple views on existing videos.</p>
-        <div class="src"><a href="https://blog.youtube/news-and-events/multi-language-audio/" target="_blank" rel="noopener">YouTube Official Blog →</a></div>
+        <div class="src"><a href="https://blog.youtube/news-and-events/multi-language-audio/" target="_blank" rel="noopener" onclick="track('article_click', {number:'2'})">YouTube Official Blog →</a></div>
       </div>
       <div class="case">
         <div class="num"><em>−70%</em></div>
         <h3>lower costs vs traditional dubbing</h3>
         <p>AI lip-sync dubbing dramatically reduces localization costs compared to traditional dubbing — up to 70% lower per video.</p>
-        <div class="src"><a href="https://marketintelo.com/report/ai-lip-sync-market" target="_blank" rel="noopener">Market Intelo report →</a></div>
+        <div class="src"><a href="https://marketintelo.com/report/ai-lip-sync-market" target="_blank" rel="noopener" onclick="track('article_click', {number:'3'})">Market Intelo report →</a></div>
       </div>
     </div>
     
@@ -411,12 +418,12 @@ footer .who{font-family:var(--body);font-size:.85rem;margin-bottom:8px}
             <li><b>Translation</b> — every sentence phrased like a native</li>
             <li><b>Lip sync</b> — mouth movements match the new language</li>
           </ul>
-          <a class="btn btn-primary btn-sm" href="#start">Send us a video. Get a dubbed sample in 48 hours.</a>
+          <a class="btn btn-primary btn-sm" href="#start" onclick="track('cta_click', {location:'hero'})">Send us a video. Get a dubbed sample in 48 hours.</a>
         </div>
         <div>
           <div class="vplayer">
             <video id="demoVideo" src="demo-dub.mp4" poster="demo-poster.jpg" preload="metadata" playsinline></video>
-            <button class="vplay" id="vplayBtn" aria-label="Play demo video"><span></span></button>
+            <button class="vplay" id="vplayBtn" aria-label="Play demo video" onclick="track('video_start')"><span></span></button>
           </div>
           <div class="vcap">🔊 18-second demo · turn the sound on</div>
         </div>
@@ -484,7 +491,7 @@ footer .who{font-family:var(--body);font-size:.85rem;margin-bottom:8px}
       </table>
     </div>
     <div class="center" style="margin-top:36px">
-      <a class="btn btn-primary" href="#start">Send us one video. Hear yourself in another language.</a>
+      <a class="btn btn-primary" href="#start" onclick="track('cta_click', {location:'compare'})">Send us one video. Hear yourself in another language.</a>
     </div>
   </div>
 </section>
@@ -506,7 +513,7 @@ footer .who{font-family:var(--body);font-size:.85rem;margin-bottom:8px}
           <li>Any language</li>
           <li>Delivered in 48h</li>
         </ul>
-        <a class="btn btn-ghost" href="#start">Get my free sample</a>
+        <a class="btn btn-ghost" href="#start" onclick="track('cta_click', {location:'pricing', plan: 'free_sample'})">Get my free sample</a>
       </div>
       <div class="plan">
         <span class="name">Market Test</span>
@@ -520,7 +527,7 @@ footer .who{font-family:var(--body);font-size:.85rem;margin-bottom:8px}
           <li>Publish-ready package</li>
           <li>One revision</li>
         </ul>
-        <a class="btn btn-ghost" href="#start">Start testing</a>
+        <a class="btn btn-ghost" href="#start" onclick="track('cta_click', {location:'pricing', plan: 'market_test'})">Start testing</a>
       </div>
       <div class="plan hot">
         <span class="name">Creator Edition ⭐</span>
@@ -533,7 +540,7 @@ footer .who{font-family:var(--body);font-size:.85rem;margin-bottom:8px}
           <li>Ready-to-publish video</li>
           <li>One revision</li>
         </ul>
-        <a class="btn btn-primary" href="#start">Create multilingual video</a>
+        <a class="btn btn-primary" href="#start" onclick="track('cta_click', {location:'pricing', plan: 'creator_editor'})">Create multilingual video</a>
       </div>
       <div class="plan">
         <span class="name">Global Channel</span>
@@ -546,7 +553,7 @@ footer .who{font-family:var(--body);font-size:.85rem;margin-bottom:8px}
           <li>Priority delivery + dedicated reviewer</li>
           <li>Volume discounts</li>
         </ul>
-        <a class="btn btn-ghost" href="#start">Scale my channel</a>
+        <a class="btn btn-ghost" href="#start" onclick="track('cta_click', {location:'pricing', plan: 'global_channel'})">Scale my channel</a>
       </div>
     </div>
   </div>
@@ -635,7 +642,7 @@ footer .who{font-family:var(--body);font-size:.85rem;margin-bottom:8px}
           <label for="f-email">Your email</label>
           <input id="f-email" name="email" type="email" placeholder="you@channel.com" required>
         </div>
-        <button class="btn btn-primary" type="submit">Send my request</button>
+        <button class="btn btn-primary" type="submit" onclick="track('lead')">Send my request</button>
       </form>
       <div class="fallback" id="formSuccess" style="border-style:solid;border-color:#1E9E6A">
         <p style="color:#fff;font-weight:600;font-size:1.05rem;margin:0 0 8px">🎉 You're in.</p>
@@ -661,31 +668,31 @@ footer .who{font-family:var(--body);font-size:.85rem;margin-bottom:8px}
     <h2>Quick answers</h2>
   </div>
   <div class="wrap faq">
-    <details>
+    <details onclick="track('faq_open', {number:'1'})">
       <summary>How does this actually work?</summary>
       <p>You send us a YouTube link. AI translates and recreates your voice in another language. A native speaker reviews everything, and we deliver a publish-ready video within 48 hours.</p>
     </details>
-    <details>
+    <details onclick="track('faq_open', {number:'2'})">
       <summary>How I can use translated result? I'm not technical.</summary>
       <p>Two options: add it as an extra audio track on your existing video (if your channel has YouTube's multi-language audio feature), or publish it as a standalone localized video. We deliver both formats, with step-by-step instructions.</p>
     </details>
-    <details>
+    <details onclick="track('faq_open', {number:'3'})">
       <summary>Will it really sound like me?</summary>
       <p>Yes. We recreate your voice from your original video, preserving your tone, pacing and speaking style. You'll hear it yourself in the free sample before paying anything.</p>
     </details>
-    <details>
+    <details onclick="track('faq_open', {number:'4'})">
       <summary>Is everything done by AI?</summary>
       <p>AI handles transcription, translation and voice generation. Then a native speaker reviews every line before delivery, so awkward wording and translation mistakes don't make it into your final video.</p>
     </details>
-    <details>
+    <details onclick="track('faq_open', {number:'5'})">
       <summary>Do I need to record anything again?</summary>
       <p>Just send your existing YouTube video. We handle transcription, translation, voice recreation, lip sync (if included) and delivery.</p>
     </details>
-    <details>
+    <details onclick="track('faq_open', {number:'6'})">
       <summary>Can I test it before paying?</summary>
       <p>We localize the first 60 seconds of your own video for free, so you can judge the quality before ordering a full version.</p>
     </details>
-    <details>
+    <details onclick="track('faq_open', {number:'7'})">
       <summary>I'm not sure which language I should start with.</summary>
       <p>No problem. Choose <b>"Recommend me a language"</b> in the request form, and we'll review your channel, audience, and best-performing videos. Then we'll recommend the language most likely to help you reach new viewers first.</p>
     </details>
