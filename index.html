@@ -30,7 +30,7 @@
 
  
 <meta charset="UTF-8">
-<meta name="page-version" content="v21">
+<meta name="page-version" content="v25">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Dublift — Grow your YouTube audience by localizing your best videos</title>
 <meta name="description" content="We turn your best-performing YouTube videos into ready-to-publish localized versions. AI speed, native human review, flat prices. Free 30-second sample of your own video.">
@@ -138,6 +138,7 @@ nav{position:sticky;top:0;background:var(--paper);border-bottom:1px solid var(--
 .nav-links{display:flex;gap:26px;align-items:center}
 .nav-links a{text-decoration:none;font-size:.92rem;font-weight:500;color:var(--ink-soft)}
 .nav-links a:hover{color:var(--ink)}
+.langsel{font-family:var(--mono);font-size:.75rem;font-weight:500;border:1px solid var(--line);border-radius:999px;padding:6px 10px;background:var(--card);color:var(--ink-soft);cursor:pointer;-webkit-appearance:none;appearance:auto}
 .nav-cta{background:var(--ink);color:#fff !important;padding:9px 18px;border-radius:999px}
 @media(max-width:760px){.nav-links a:not(.nav-cta){display:none}}
 
@@ -243,7 +244,7 @@ nav{position:sticky;top:0;background:var(--paper);border-bottom:1px solid var(--
 @media(max-width:620px){.price-grid{grid-template-columns:1fr}}
 .plan{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:30px;display:flex;flex-direction:column}
 .plan.hot{border:2px solid var(--red);position:relative}
-.plan.hot::before{content:"⭐ MOST POPULAR";position:absolute;top:-11px;left:26px;background:var(--red);color:#fff;font-family:var(--mono);font-size:.65rem;letter-spacing:.12em;padding:3px 10px;border-radius:999px}
+.plan.hot::before{content:attr(data-badge);position:absolute;top:-11px;left:26px;background:var(--red);color:#fff;font-family:var(--mono);font-size:.65rem;letter-spacing:.12em;padding:3px 10px;border-radius:999px}
 .plan .name{font-family:var(--mono);font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft)}
 .plan .amount{font-family:var(--display);font-weight:800;font-size:2.4rem;margin:10px 0 4px}
 .plan .per{font-size:.85rem;color:var(--ink-soft);margin-bottom:18px}
@@ -311,10 +312,14 @@ footer .who{font-family:var(--body);font-size:.85rem;margin-bottom:8px}
   <div class="wrap nav-in">
     <a class="logo notranslate" translate="no" href="#top"><span class="play" aria-hidden="true"></span><span class="word">Dub<em>lift</em></span></a>
     <div class="nav-links">
-      <a href="#proof">Proof</a>
-      <a href="#demo">Demo</a>
-      <a href="#pricing">Pricing</a>
-      <a href="#start" class="nav-cta">Get a free sample</a>
+      <select id="langSel" class="langsel notranslate" translate="no" aria-label="Language">
+        <option value="en">EN</option><option value="es">ES</option><option value="fr">FR</option>
+        <option value="de">DE</option><option value="pl">PL</option><option value="uk">UK</option>
+      </select>
+      <a href="#proof" data-i18n="nav_proof">Proof</a>
+      <a href="#demo" data-i18n="nav_demo">Demo</a>
+      <a href="#pricing" data-i18n="nav_pricing">Pricing</a>
+      <a href="#start" class="nav-cta" data-i18n="nav_cta">Get a free sample</a>
     </div>
   </div>
 </nav>
@@ -323,29 +328,29 @@ footer .who{font-family:var(--body);font-size:.85rem;margin-bottom:8px}
 <header class="hero" id="top">
   <div class="wrap hero-grid">
     <div>
-      <span class="eyebrow"><span class="ts">▶ 00:00</span>For YouTube creators, educators &amp; small media teams</span>
-      <h1>Grow your YouTube with videos you already made.</h1>
-      <p class="sub">Translate, dub and lip-sync your best-performing videos to reach new audiences and grow internationally — without recording everything again.</p>
+      <span class="eyebrow"><span class="ts">▶ 00:00</span><span data-i18n="ey_hero">For YouTube creators, educators &amp; small media teams</span></span>
+      <h1 data-i18n="h_h1">Grow your YouTube with videos you already made.</h1>
+      <p class="sub" data-i18n="h_sub">Translate, dub and lip-sync your best-performing videos to reach new audiences and grow internationally — without recording everything again.</p>
       <div class="cta-row">
-        <a class="btn btn-primary" href="#start" onclick="track('cta_click', {location:'header'})">Get a free 60-sec sample</a>
-        <a class="btn btn-ghost" href="#demo" onclick="track('hero_cta_click')">Hear a real before/after</a>
+        <a class="btn btn-primary" href="#start" onclick="track('cta_click', {location:'header'})"><span data-i18n="h_cta1">Get a free 60-sec sample</span></a>
+        <a class="btn btn-ghost" href="#demo" onclick="track('hero_cta_click')"><span data-i18n="h_cta2">Hear a real before/after</span></a>
       </div>
       <div class="hero-trust">
-        <span>Translate into 75+ languages</span>
-        <span>No studio. No re-recording.</span>
-        <span>Sounds like you (voice cloning)</span>
-        <span>Native-speaker review</span>
-        <span>Reach new audiences</span>
+        <span data-i18n="tr1">Translate into 75+ languages</span>
+        <span data-i18n="tr2">No studio. No re-recording.</span>
+        <span data-i18n="tr3">Sounds like you (voice cloning)</span>
+        <span data-i18n="tr4">Native-speaker review</span>
+        <span data-i18n="tr5">Reach new audiences</span>
       </div>
     </div>
     <div class="deck notranslate" translate="no" id="growthDeck" aria-label="Analytics: the same video gaining views in new languages">
       <div class="deck-head"><span>your_best_video.mp4 · analytics</span><span class="live">● GROWING</span></div>
-      <div class="arow" style="--w:100%;--c:var(--trk-en)"><span class="lang">English</span><span class="val" data-v="2100000" data-f="m">0 views</span><div class="abar"><i></i></div></div>
-      <div class="arow" style="--w:29%;--c:var(--trk-es)"><span class="lang">+ Spanish</span><span class="val" data-v="612000" data-f="k">+0 views</span><div class="abar"><i></i></div></div>
-      <div class="arow" style="--w:11%;--c:var(--trk-pl)"><span class="lang">+ French</span><span class="val" data-v="220000" data-f="k">+0 views</span><div class="abar"><i></i></div></div>
-      <div class="arow" style="--w:5%;--c:var(--trk-de)"><span class="lang">+ German</span><span class="val" data-v="94000" data-f="k">+0 views</span><div class="abar"><i></i></div></div>
-      <div class="deck-foot">Same video. Same channel. <b>New audiences.</b></div>
-      <div class="deck-note note-hand">← this is your back catalog, doing overtime</div>
+      <div class="arow" style="--w:100%;--c:var(--trk-en)"><span class="lang" data-i18n="d_en">English</span><span class="val" data-v="2100000" data-f="m">0 views</span><div class="abar"><i></i></div></div>
+      <div class="arow" style="--w:29%;--c:var(--trk-es)"><span class="lang" data-i18n="d_es">+ Spanish</span><span class="val" data-v="612000" data-f="k">+0 views</span><div class="abar"><i></i></div></div>
+      <div class="arow" style="--w:11%;--c:var(--trk-pl)"><span class="lang" data-i18n="d_fr">+ French</span><span class="val" data-v="220000" data-f="k">+0 views</span><div class="abar"><i></i></div></div>
+      <div class="arow" style="--w:5%;--c:var(--trk-de)"><span class="lang" data-i18n="d_de">+ German</span><span class="val" data-v="94000" data-f="k">+0 views</span><div class="abar"><i></i></div></div>
+      <div class="deck-foot" data-i18n="d_foot">Same video. Same channel. <b>New audiences.</b></div>
+      <div class="deck-note note-hand" data-i18n="d_note">← this is your back catalog, doing overtime</div>
     </div>
   </div>
 </header>
@@ -358,11 +363,11 @@ footer .who{font-family:var(--body);font-size:.85rem;margin-bottom:8px}
         <circle class="ring-bg" cx="100" cy="100" r="84"/>
         <circle class="ring-val" id="ringVal" cx="100" cy="100" r="84"/>
       </svg>
-      <div class="donut-center"><b id="donutPct">86%</b><span>CAN'T UNDERSTAND YOUR VIDEOS</span></div>
+      <div class="donut-center"><b id="donutPct">86%</b><span data-i18n="don_c2">CAN'T UNDERSTAND YOUR VIDEOS</span></div>
     </div>
     <div class="infog-text">
-      <h2>Filming in <span class="notranslate" translate="no"><b id="langName">English</b></span>? You're publishing for only <b id="langShare" class="notranslate" translate="no">14%</b> of the world.</h2>
-      <p>Your best videos already proved they work. Translate them once and let millions of new viewers discover them — without recording everything again.</p>
+      <h2><span data-i18n="don_a">Filming in </span><span class="notranslate" translate="no"><b id="langName">English</b></span><span data-i18n="don_b">? You're publishing for only </span><b id="langShare" class="notranslate" translate="no">14%</b><span data-i18n="don_c"> of the world.</span></h2>
+      <p data-i18n="don_p">Your best videos already proved they work. Translate them once and let millions of new viewers discover them — without recording everything again.</p>
       <div class="lang-chips" id="langChips" role="group" aria-label="Pick your filming language">
         <button type="button" class="active" data-i="0">EN</button>
         <button type="button" data-i="1">ES</button>
@@ -378,34 +383,34 @@ footer .who{font-family:var(--body);font-size:.85rem;margin-bottom:8px}
 
 <!-- HOOK -->
 <div class="hook">
-  <span class="cap">One extra language gave MrBeast</span><br>
-  <span class="cap"><em>+30% views.</em> Same videos, zero re-shoots.</span>
-  <span class="cc">BASED ON PUBLIC YOUTUBE DATA</span>
+  <span class="cap" data-i18n="hk1a">One extra language gave MrBeast</span><br>
+  <span class="cap" data-i18n="hk1b"><em>+30% views.</em> Same videos, zero re-shoots.</span>
+  <span class="cc" data-i18n="hk1c">BASED ON PUBLIC YOUTUBE DATA</span>
 </div>
 
 <!-- 2. PROOF -->
 <section class="proof" id="proof">
   <div class="wrap">
-    <span class="eyebrow"><span class="ts">▶ 01:12</span>Real user cases</span>
-    <h2>AI video dubbing is one of the fastest ways to grow on YouTube.</h2>
+    <span class="eyebrow"><span class="ts">▶ 01:12</span><span data-i18n="ey_proof">Real user cases</span></span>
+    <h2 data-i18n="pr_h2">AI video dubbing is one of the fastest ways to grow on YouTube.</h2>
     <div class="case-grid">
       <div class="case">
         <div class="num"><em>25%+</em></div>
-        <h3>watch time from other languages</h3>
-        <p>On average, creators using Multi-Language Audio received over 25% of their watch time from viewers watching in non-primary languages.</p>
-        <div class="src"><a href="https://blog.youtube/news-and-events/multi-language-audio/" target="_blank" rel="noopener" onclick="track('article_click', {number:'1'})">YouTube Official Blog →</a></div>
+        <h3 data-i18n="pr_c1h">watch time from other languages</h3>
+        <p data-i18n="pr_c1p">On average, creators using Multi-Language Audio received over 25% of their watch time from viewers watching in non-primary languages.</p>
+        <div class="src"><a href="https://blog.youtube/news-and-events/multi-language-audio/" target="_blank" rel="noopener" onclick="track('article_click', {number:'1'})"><span data-i18n="pr_src1"><span data-i18n="pr_src1">YouTube Official Blog →</span></span></a></div>
       </div>
       <div class="case">
         <div class="num"><em>3×</em></div>
-        <h3>more views — Jamie Oliver</h3>
-        <p>Adding multilingual audio helped Jamie Oliver triple views on existing videos.</p>
+        <h3 data-i18n="pr_c2h">more views — Jamie Oliver</h3>
+        <p data-i18n="pr_c2p">Adding multilingual audio helped Jamie Oliver triple views on existing videos.</p>
         <div class="src"><a href="https://blog.youtube/news-and-events/multi-language-audio/" target="_blank" rel="noopener" onclick="track('article_click', {number:'2'})">YouTube Official Blog →</a></div>
       </div>
       <div class="case">
         <div class="num"><em>−70%</em></div>
-        <h3>lower costs vs traditional dubbing</h3>
-        <p>AI lip-sync dubbing dramatically reduces localization costs compared to traditional dubbing — up to 70% lower per video.</p>
-        <div class="src"><a href="https://marketintelo.com/report/ai-lip-sync-market" target="_blank" rel="noopener" onclick="track('article_click', {number:'3'})">Market Intelo report →</a></div>
+        <h3 data-i18n="pr_c3h">lower costs vs traditional dubbing</h3>
+        <p data-i18n="pr_c3p">AI lip-sync dubbing dramatically reduces localization costs compared to traditional dubbing — up to 70% lower per video.</p>
+        <div class="src"><a href="https://marketintelo.com/report/ai-lip-sync-market" target="_blank" rel="noopener" onclick="track('article_click', {number:'3'})"><span data-i18n="pr_src3">Market Intelo report →</span></a></div>
       </div>
     </div>
     
@@ -415,27 +420,27 @@ footer .who{font-family:var(--body);font-size:.85rem;margin-bottom:8px}
 <!-- 2b. DEMO: two variants switched by ?hero= param -->
 <section id="demo">
   <div class="wrap">
-    <span class="eyebrow"><span class="ts">▶ 02:38</span>• See it. Hear it. Compare it.</span>
+    <span class="eyebrow"><span class="ts">▶ 02:38</span><span data-i18n="ey_demo">• See it. Hear it. Compare it.</span></span>
 
     <!-- default variant: ?hero=demonstration (or no param) -->
     <div id="demoDemonstration">
       <div class="demo-grid demo-vert">
         <div>
-          <h2>Your voice. Same video. New language.</h2>
-          <p class="demo-lead">Watch how recreates the creator's voice, translates every sentence naturally, and synchronizes the speaker's lip movements — without recording anything again.</p>
+          <h2 data-i18n="dm_h2">Your voice. Same video. New language.</h2>
+          <p class="demo-lead" data-i18n="dm_p">Watch how recreates the creator's voice, translates every sentence naturally, and synchronizes the speaker's lip movements — without recording anything again.</p>
           <ul class="demo-feats">
-            <li><b>Voice</b> — cloned from the original recording</li>
-            <li><b>Translation</b> — every sentence phrased like a native</li>
-            <li><b>Lip sync</b> — mouth movements match the new language</li>
+            <li data-i18n="dm_f1"><b>Voice</b> — cloned from the original recording</li>
+            <li data-i18n="dm_f2"><b>Translation</b> — every sentence phrased like a native</li>
+            <li data-i18n="dm_f3"><b>Lip sync</b> — mouth movements match the new language</li>
           </ul>
-          <a class="btn btn-primary btn-sm" href="#start" onclick="track('cta_click', {location:'hero'})">Send us a video. Get a dubbed sample in 48 hours.</a>
+          <a class="btn btn-primary btn-sm" href="#start" onclick="track('cta_click', {location:'hero'})"><span data-i18n="dm_cta"><span data-i18n="dm_cta">Send us a video. Get a dubbed sample in 48 hours.</span></span></a>
         </div>
         <div>
           <div class="vplayer">
             <video id="demoVideo" src="demo-dub.mp4" poster="demo-poster.jpg" preload="metadata" playsinline></video>
             <button class="vplay" id="vplayBtn" aria-label="Play demo video" onclick="track('video_start')"><span></span></button>
           </div>
-          <div class="vcap">🔊 18-second demo · turn the sound on</div>
+          <div class="vcap" data-i18n="dm_cap">🔊 18-second demo · turn the sound on</div>
         </div>
       </div>
     </div>
@@ -444,11 +449,11 @@ footer .who{font-family:var(--body);font-size:.85rem;margin-bottom:8px}
     <div id="demoSuccess" hidden>
       <div class="demo-grid" style="align-items:center">
         <div>
-          <h2>One successful video. Multiple new audiences.</h2>
-          <p class="demo-lead">This video already proved it could attract millions of viewers. Instead of filming it again, the creator localized it into Spanish and reached an entirely new audience with the same content.</p>
+          <h2 data-i18n="dm_h2b">One successful video. Multiple new audiences.</h2>
+          <p class="demo-lead" data-i18n="dm_pb">This video already proved it could attract millions of viewers. Instead of filming it again, the creator localized it into Spanish and reached an entirely new audience with the same content.</p>
           <div class="lang-toggle" role="group" aria-label="Switch demo language">
-            <button type="button" class="active" data-lang="en">▶ ENGLISH · original</button>
-            <button type="button" data-lang="es">▶ ESPAÑOL · dubbed</button>
+            <button type="button" class="active" data-lang="en"><span data-i18n="dm_t1">▶ ENGLISH · original</span></button>
+            <button type="button" data-lang="es"><span data-i18n="dm_t2">▶ ESPAÑOL · dubbed</span></button>
           </div>
           <a class="btn btn-primary btn-sm" href="#start" style="margin-top:24px">Send us a video. Get a dubbed sample in 48 hours.</a>
         </div>
@@ -467,8 +472,8 @@ footer .who{font-family:var(--body);font-size:.85rem;margin-bottom:8px}
 
 <!-- HOOK -->
 <div class="hook">
-  <span class="cap">3 languages. 3 audiences.</span><br>
-  <span class="cap"><em>Still one video.</em></span>
+  <span class="cap" data-i18n="hk2a">3 languages. 3 audiences.</span><br>
+  <span class="cap" data-i18n="hk2b"><em>Still one video.</em></span>
 </div>
 
 <!-- 4. WHO -->
@@ -477,31 +482,31 @@ footer .who{font-family:var(--body);font-size:.85rem;margin-bottom:8px}
 <!-- 5. COMPARE -->
 <section id="compare" style="padding-top:0">
   <div class="wrap">
-    <span class="eyebrow"><span class="ts">▶ 06:12</span>Studio dub vs AI dub</span>
-    <h2>Everything you expect from a dubbing studio. Without the studio.</h2>
+    <span class="eyebrow"><span class="ts">▶ 06:12</span><span data-i18n="ey_comp">Studio dub vs AI dub</span></span>
+    <h2 data-i18n="c_h2">Everything you expect from a dubbing studio. Without the studio.</h2>
     <div class="compare">
       <table>
         <thead>
           <tr>
             <th></th>
-            <th>Traditional dubbing studio</th>
+            <th data-i18n="c_th1">Traditional dubbing studio</th>
             <th class="us">Dublift</th>
           </tr>
         </thead>
         <tbody>
-          <tr><td><svg class="cico" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M15 9.3a4 4 0 1 0 0 5.4M8 10.7h5M8 13.3h5"/></svg>Cost</td><td>Hundreds of euros per video</td><td class="us"><span class="yes">Flat price per video</span></td></tr>
-          <tr><td><svg class="cico" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg>Delivery</td><td>1–3 weeks</td><td class="us"><span class="yes">48 hours</span></td></tr>
-          <tr><td><svg class="cico" viewBox="0 0 24 24"><rect x="9" y="3.5" width="6" height="11" rx="3"/><path d="M6.5 11.5a5.5 5.5 0 0 0 11 0M12 17v3.5"/></svg>Your own voice</td><td><span class="no">✕ New voice actor</span></td><td class="us"><span class="yes">✓ Your own voice recreated</span></td></tr>
-          <tr><td><svg class="cico" viewBox="0 0 24 24"><path d="M4 10v4M8 7v10M12 4v16M16 7v10M20 10v4"/></svg>Emotion &amp; pacing</td><td>Depends on actor</td><td class="us"><span class="yes">✓ Based on your original performance</span></td></tr>
-          <tr><td><svg class="cico" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M3.5 12h17M12 3.5c2.9 2.7 2.9 14.3 0 17-2.9-2.7-2.9-14.3 0-17z"/></svg>Languages</td><td>Usually ordered separately</td><td class="us"><span class="yes">75+ languages</span></td></tr>
-          <tr><td><svg class="cico" viewBox="0 0 24 24"><rect x="3.5" y="7" width="12" height="10" rx="2"/><path d="M15.5 11.2l5-3.2v8l-5-3.2"/></svg>Lip sync</td><td>Extra service</td><td class="us"><span class="yes">Included</span></td></tr>
-          <tr><td><svg class="cico" viewBox="0 0 24 24"><path d="M4.5 12a7.5 7.5 0 0 1 12.8-5.3M19.5 12a7.5 7.5 0 0 1-12.8 5.3"/><path d="M17.5 3.5v3.2h-3.2M6.5 20.5v-3.2h3.2"/></svg>Revisions</td><td>Back-and-forth emails</td><td class="us"><span class="yes">Included before delivery</span></td></tr>
-          <tr><td><svg class="cico" viewBox="0 0 24 24"><path d="M12 16.5V5M7.5 9.5L12 5l4.5 4.5M5 19.5h14"/></svg>Ready to publish</td><td>Usually several production steps</td><td class="us"><span class="yes">Upload-ready package</span></td></tr>
+          <tr><td><svg class="cico" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M15 9.3a4 4 0 1 0 0 5.4M8 10.7h5M8 13.3h5"/></svg><span data-i18n="c_r1">Cost</span></td><td data-i18n="c_a1">Hundreds of euros per video</td><td class="us" data-i18n="c_b1"><span class="yes">Flat price per video</span></td></tr>
+          <tr><td><svg class="cico" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg><span data-i18n="c_r2">Delivery</span></td><td data-i18n="c_a2">1–3 weeks</td><td class="us" data-i18n="c_b2"><span class="yes">48 hours</span></td></tr>
+          <tr><td><svg class="cico" viewBox="0 0 24 24"><rect x="9" y="3.5" width="6" height="11" rx="3"/><path d="M6.5 11.5a5.5 5.5 0 0 0 11 0M12 17v3.5"/></svg><span data-i18n="c_r3">Your own voice</span></td><td data-i18n="c_a3"><span class="no">✕ New voice actor</span></td><td class="us" data-i18n="c_b3"><span class="yes">✓ Your own voice recreated</span></td></tr>
+          <tr><td><svg class="cico" viewBox="0 0 24 24"><path d="M4 10v4M8 7v10M12 4v16M16 7v10M20 10v4"/></svg><span data-i18n="c_r4">Emotion &amp; pacing</span></td><td data-i18n="c_a4">Depends on actor</td><td class="us" data-i18n="c_b4"><span class="yes">✓ Based on your original performance</span></td></tr>
+          <tr><td><svg class="cico" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M3.5 12h17M12 3.5c2.9 2.7 2.9 14.3 0 17-2.9-2.7-2.9-14.3 0-17z"/></svg><span data-i18n="c_r5">Languages</span></td><td data-i18n="c_a5">Usually ordered separately</td><td class="us" data-i18n="c_b5"><span class="yes">75+ languages</span></td></tr>
+          <tr><td><svg class="cico" viewBox="0 0 24 24"><rect x="3.5" y="7" width="12" height="10" rx="2"/><path d="M15.5 11.2l5-3.2v8l-5-3.2"/></svg><span data-i18n="c_r6">Lip sync</span></td><td data-i18n="c_a6">Extra service</td><td class="us" data-i18n="c_b6"><span class="yes">Included</span></td></tr>
+          <tr><td><svg class="cico" viewBox="0 0 24 24"><path d="M4.5 12a7.5 7.5 0 0 1 12.8-5.3M19.5 12a7.5 7.5 0 0 1-12.8 5.3"/><path d="M17.5 3.5v3.2h-3.2M6.5 20.5v-3.2h3.2"/></svg><span data-i18n="c_r7">Revisions</span></td><td data-i18n="c_a7">Back-and-forth emails</td><td class="us" data-i18n="c_b7"><span class="yes">Included before delivery</span></td></tr>
+          <tr><td><svg class="cico" viewBox="0 0 24 24"><path d="M12 16.5V5M7.5 9.5L12 5l4.5 4.5M5 19.5h14"/></svg><span data-i18n="c_r8">Ready to publish</span></td><td data-i18n="c_a8">Usually several production steps</td><td class="us" data-i18n="c_b8"><span class="yes">Upload-ready package</span></td></tr>
         </tbody>
       </table>
     </div>
     <div class="center" style="margin-top:36px">
-      <a class="btn btn-primary" href="#start" onclick="track('cta_click', {location:'compare'})">Send us one video. Hear yourself in another language.</a>
+      <a class="btn btn-primary" href="#start" onclick="track('cta_click', {location:'compare'})"><span data-i18n="c_cta">Send us one video. Hear yourself in another language.</span></a>
     </div>
   </div>
 </section>
@@ -509,61 +514,61 @@ footer .who{font-family:var(--body);font-size:.85rem;margin-bottom:8px}
 <!-- 7. PRICING -->
 <section id="pricing" style="padding-top:0">
   <div class="wrap">
-    <span class="eyebrow"><span class="ts">▶ 09:20</span>Transparent pricing</span>
-    <h2>Flat prices. Zero credits. No subscription required.</h2>
+    <span class="eyebrow"><span class="ts">▶ 09:20</span><span data-i18n="ey_price">Transparent pricing</span></span>
+    <h2 data-i18n="p_h2">Flat prices. Zero credits. No subscription required.</h2>
     <div class="price-grid">
       <div class="plan">
-        <span class="name">Free Sample</span>
-        <div class="amount">Free</div>
-        <div class="per">first 60 seconds of your own video</div>
+        <span class="name" data-i18n="p1_n">Free Sample</span>
+        <div class="amount" data-i18n="p1_am">Free</div>
+        <div class="per" data-i18n="p1_per">first 60 seconds of your own video</div>
         <ul>
-          <li>Hear your own voice in another language before paying</li>
-          <li>Your own video</li>
-          <li>Your own voice</li>
-          <li>Any language</li>
-          <li>Delivered in 48h</li>
+          <li data-i18n="p1_1">Hear your own voice in another language before paying</li>
+          <li data-i18n="p1_2">Your own video</li>
+          <li data-i18n="p1_3">Your own voice</li>
+          <li data-i18n="p1_4">Any language</li>
+          <li data-i18n="p1_5">Delivered in 48h</li>
         </ul>
-        <a class="btn btn-ghost" href="#start" onclick="track('cta_click', {location:'pricing', plan: 'free_sample'})">Get my free sample</a>
+        <a class="btn btn-ghost" href="#start" onclick="track('cta_click', {location:'pricing', plan: 'free_sample'})"><span data-i18n="p1_btn">Get my free sample</span></a>
       </div>
       <div class="plan">
-        <span class="name">Market Test</span>
+        <span class="name" data-i18n="p2_n">Market Test</span>
         <div class="amount">€69</div>
-        <div class="per">one finished video · up to 60 minutes</div>
+        <div class="per" data-i18n="p2_per">one finished video · up to 60 minutes</div>
         <ul>
-          <li>Perfect for narration, tutorials, educational videos and screen recordings</li>
-          <li>AI voice cloning + natural translation</li>
-          <li>Native review</li>
-          <li>Audio track + translated subtitles</li>
-          <li>Publish-ready package</li>
-          <li>One revision</li>
+          <li data-i18n="p2_1">Perfect for narration, tutorials, educational videos and screen recordings</li>
+          <li data-i18n="p2_2">AI voice cloning + natural translation</li>
+          <li data-i18n="p2_3">Native review</li>
+          <li data-i18n="p2_4">Audio track + translated subtitles</li>
+          <li data-i18n="p2_5">Publish-ready package</li>
+          <li data-i18n="p2_6">One revision</li>
         </ul>
-        <a class="btn btn-ghost" href="#start" onclick="track('cta_click', {location:'pricing', plan: 'market_test'})">Start testing</a>
+        <a class="btn btn-ghost" href="#start" onclick="track('cta_click', {location:'pricing', plan: 'market_test'})"><span data-i18n="p2_btn">Start testing</span></a>
       </div>
-      <div class="plan hot">
-        <span class="name">Creator Edition ⭐</span>
+      <div class="plan hot" data-badge="⭐ MOST POPULAR">
+        <span class="name" data-i18n="p3_n">Creator Edition ⭐</span>
         <div class="amount">€89</div>
-        <div class="per">one finished video · up to 60 minutes</div>
+        <div class="per" data-i18n="p2_per">one finished video · up to 60 minutes</div>
         <ul>
-          <li>Interviews, courses, on-camera creators</li>
-          <li>Everything in Market Test, plus:</li>
-          <li>Mouth movements synchronized</li>
-          <li>Ready-to-publish video</li>
-          <li>One revision</li>
+          <li data-i18n="p3_1">Interviews, courses, on-camera creators</li>
+          <li data-i18n="p3_2">Everything in Market Test, plus:</li>
+          <li data-i18n="p3_3">Mouth movements synchronized</li>
+          <li data-i18n="p3_4">Ready-to-publish video</li>
+          <li data-i18n="p2_6">One revision</li>
         </ul>
-        <a class="btn btn-primary" href="#start" onclick="track('cta_click', {location:'pricing', plan: 'creator_editor'})">Create multilingual video</a>
+        <a class="btn btn-primary" href="#start" onclick="track('cta_click', {location:'pricing', plan: 'creator_editor'})"><span data-i18n="p3_btn">Create multilingual video</span></a>
       </div>
       <div class="plan">
-        <span class="name">Global Channel</span>
-        <div class="amount">Custom</div>
-        <div class="per">for creators ready to scale</div>
+        <span class="name" data-i18n="p4_n">Global Channel</span>
+        <div class="amount" data-i18n="p4_am">Custom</div>
+        <div class="per" data-i18n="p4_per">for creators ready to scale</div>
         <ul>
-          <li>5+ videos</li>
-          <li>75+ languages</li>
-          <li>Consistent voice &amp; terminology</li>
-          <li>Priority delivery + dedicated reviewer</li>
-          <li>Volume discounts</li>
+          <li data-i18n="p4_1">5+ videos</li>
+          <li data-i18n="p4_2">75+ languages</li>
+          <li data-i18n="p4_3">Consistent voice &amp; terminology</li>
+          <li data-i18n="p4_4">Priority delivery + dedicated reviewer</li>
+          <li data-i18n="p4_5">Volume discounts</li>
         </ul>
-        <a class="btn btn-ghost" href="#start" onclick="track('cta_click', {location:'pricing', plan: 'global_channel'})">Scale my channel</a>
+        <a class="btn btn-ghost" href="#start" onclick="track('cta_click', {location:'pricing', plan: 'global_channel'})"><span data-i18n="p4_btn">Scale my channel</span></a>
       </div>
     </div>
   </div>
@@ -571,46 +576,46 @@ footer .who{font-family:var(--body);font-size:.85rem;margin-bottom:8px}
 
 <!-- HOOK -->
 <div class="hook">
-  <span class="cap">48 hours. One link.</span><br>
-  <span class="cap"><em>A whole new audience.</em></span>
+  <span class="cap" data-i18n="hk4a">48 hours. One link.</span><br>
+  <span class="cap" data-i18n="hk4b"><em>A whole new audience.</em></span>
 </div>
 
 <!-- 10. FINAL CTA + FORM -->
 <section style="padding-top:0" id="start">
   <div class="final">
     <div class="final-in">
-      <h2>Start with one video. Grow to every market.</h2>
-      <p>Choose the option that fits your goal. Start with a free sample or get full video for localization.</p>
+      <h2 data-i18n="f_h2">Start with one video. Grow to every market.</h2>
+      <p data-i18n="f_p">Choose the option that fits your goal. Start with a free sample or get full video for localization.</p>
       <form class="form" id="pilotForm">
         <div>
-          <label>How would you like to start?</label>
+          <label data-i18n="f_how">How would you like to start?</label>
           <div class="choice">
             <span>
               <input type="radio" name="offer" id="o-sample" value="Free Sample (€0, first 60 sec)" checked>
-              <label class="opt" for="o-sample"><b>Free Sample</b><small>€0 · hear your voice in another language · first 60 seconds</small></label>
+              <label class="opt" for="o-sample"><span data-i18n="f_o1"><b>Free Sample</b><small>€0 · hear your voice in another language · first 60 seconds</small></span></label>
             </span>
             <span>
               <input type="radio" name="offer" id="o-market" value="Market Test (€69, voice localization, up to 60 min)">
-              <label class="opt" for="o-market"><b>Market Test</b><small>€69 · voice localization · up to 60 min</small></label>
+              <label class="opt" for="o-market"><span data-i18n="f_o2"><b>Market Test</b><small>€69 · voice localization · up to 60 min</small></span></label>
             </span>
             <span>
               <input type="radio" name="offer" id="o-creator" value="Creator Edition (€89, voice + lip sync, up to 60 min)">
-              <label class="opt" for="o-creator"><b>Creator Edition ⭐</b><small>€89 · voice + mouth movements synchronized · up to 60 min</small></label>
+              <label class="opt" for="o-creator"><span data-i18n="f_o3"><b>Creator Edition ⭐</b><small>€89 · voice + mouth movements synchronized · up to 60 min</small></span></label>
             </span>
             <span>
               <input type="radio" name="offer" id="o-channel" value="Channel Localization (Custom, 5+ videos)">
-              <label class="opt" for="o-channel"><b>Channel Localization</b><small>Custom · 5+ videos · multiple languages</small></label>
+              <label class="opt" for="o-channel"><span data-i18n="f_o4"><b>Channel Localization</b><small>Custom · 5+ videos · multiple languages</small></span></label>
             </span>
           </div>
         </div>
         <div>
-          <label for="f-link">YouTube link (yours or your client’s) · optional</label>
-          <input id="f-link" name="link" type="url" placeholder="https://youtube.com/watch?v=... — or leave empty, we’ll ask later">
+          <label for="f-link"><span data-i18n="f_l1">YouTube link (yours or your client’s) · optional</span></label>
+          <input id="f-link" name="link" type="url" placeholder="https://youtube.com/watch?v=... — or leave empty, we’ll ask later" data-i18n-ph="f_ph1">
         </div>
         <div>
-          <label for="f-lang">Language to test</label>
+          <label for="f-lang" data-i18n="f_l2">Language to test</label>
           <select id="f-lang" name="language">
-            <option>Recommend me a language ⭐</option>
+            <option data-i18n="f_rec">Recommend me a language ⭐</option>
             <option>English</option>
             <option>Spanish</option>
             <option>French</option>
@@ -649,24 +654,24 @@ footer .who{font-family:var(--body);font-size:.85rem;margin-bottom:8px}
           </select>
         </div>
         <div>
-          <label for="f-email">Your email</label>
+          <label for="f-email" data-i18n="f_l3">Your email</label>
           <input id="f-email" name="email" type="email" placeholder="you@channel.com" required>
         </div>
-        <button class="btn btn-primary" type="submit" onclick="track('lead')">Send my request</button>
+        <button class="btn btn-primary" type="submit" onclick="track('lead')"><span data-i18n="f_btn">Send my request</span></button>
       </form>
       <div class="fallback" id="formSuccess" style="border-style:solid;border-color:#1E9E6A">
-        <p style="color:#fff;font-weight:600;font-size:1.05rem;margin:0 0 8px">🎉 You're in.</p>
-        <p style="color:#B9BEC7;margin:0 0 6px">We'll review your video and email you.</p>
-        <p style="color:#B9BEC7;margin:0 0 6px">If it's a free sample, you'll receive your localized clip within <b style="color:#fff">48 hours</b>.</p>
-        <p style="color:#B9BEC7;margin:0">If you requested a paid project, we'll confirm the details before starting.</p>
+        <p style="color:#fff;font-weight:600;font-size:1.05rem;margin:0 0 8px" data-i18n="s_1">🎉 You're in.</p>
+        <p style="color:#B9BEC7;margin:0 0 6px" data-i18n="s_2">We'll review your video and email you.</p>
+        <p style="color:#B9BEC7;margin:0 0 6px" data-i18n="s_3">If it's a free sample, you'll receive your localized clip within <b style="color:#fff">48 hours</b>.</p>
+        <p style="color:#B9BEC7;margin:0" data-i18n="s_4">If you requested a paid project, we'll confirm the details before starting.</p>
       </div>
       <div class="fallback" id="fallback">
-        <p>Automatic sending didn't go through — no problem. Copy this and email it to <b style="color:#fff">suzven9@gmail.com</b>, or tap the mail button:</p>
+        <p><span data-i18n="fb_1">Automatic sending didn't go through — no problem. Copy this and email it to</span> <b style="color:#fff">suzven9@gmail.com</b>, or tap the mail button:</p>
         <textarea id="fallbackText" readonly></textarea>
-        <button type="button" id="copyBtn">Copy to clipboard</button>
-        <a id="mailBtn" href="#" style="display:inline-block;margin:10px 0 0 10px;background:#2A2F38;color:#fff;border-radius:8px;padding:9px 16px;font-weight:600;text-decoration:none;font-size:.9rem">Open mail app</a>
+        <button type="button" id="copyBtn"><span data-i18n="fb_copy">Copy to clipboard</span></button>
+        <a id="mailBtn" href="#" style="display:inline-block;margin:10px 0 0 10px;background:#2A2F38;color:#fff;border-radius:8px;padding:9px 16px;font-weight:600;text-decoration:none;font-size:.9rem"><span data-i18n="fb_mail">Open mail app</span></a>
       </div>
-      <p class="form-note">No subscriptions. No credits. Just finished videos.</p>
+      <p class="form-note" data-i18n="f_note">No subscriptions. No credits. Just finished videos.</p>
     </div>
   </div>
 </section>
@@ -674,37 +679,37 @@ footer .who{font-family:var(--body);font-size:.85rem;margin-bottom:8px}
 <!-- 9. FAQ -->
 <section id="faq">
   <div class="wrap center">
-    <span class="eyebrow"><span class="ts">▶ 11:58</span>FAQ</span>
-    <h2>Quick answers</h2>
+    <span class="eyebrow"><span class="ts">▶ 11:58</span><span data-i18n="ey_faq">FAQ</span></span>
+    <h2 data-i18n="q_h2">Quick answers</h2>
   </div>
   <div class="wrap faq">
     <details onclick="track('faq_open', {number:'1'})">
-      <summary>How does this actually work?</summary>
-      <p>You send us a YouTube link. AI translates and recreates your voice in another language. A native speaker reviews everything, and we deliver a publish-ready video within 48 hours.</p>
+      <summary data-i18n="q1a">How does this actually work?</summary>
+      <p data-i18n="q1b">You send us a YouTube link. AI translates and recreates your voice in another language. A native speaker reviews everything, and we deliver a publish-ready video within 48 hours.</p>
     </details>
     <details onclick="track('faq_open', {number:'2'})">
-      <summary>How I can use translated result? I'm not technical.</summary>
-      <p>Two options: add it as an extra audio track on your existing video (if your channel has YouTube's multi-language audio feature), or publish it as a standalone localized video. We deliver both formats, with step-by-step instructions.</p>
+      <summary data-i18n="q2a">How I can use translated result? I'm not technical.</summary>
+      <p data-i18n="q2b">Two options: add it as an extra audio track on your existing video (if your channel has YouTube's multi-language audio feature), or publish it as a standalone localized video. We deliver both formats, with step-by-step instructions.</p>
     </details>
     <details onclick="track('faq_open', {number:'3'})">
-      <summary>Will it really sound like me?</summary>
-      <p>Yes. We recreate your voice from your original video, preserving your tone, pacing and speaking style. You'll hear it yourself in the free sample before paying anything.</p>
+      <summary data-i18n="q3a">Will it really sound like me?</summary>
+      <p data-i18n="q3b">Yes. We recreate your voice from your original video, preserving your tone, pacing and speaking style. You'll hear it yourself in the free sample before paying anything.</p>
     </details>
     <details onclick="track('faq_open', {number:'4'})">
-      <summary>Is everything done by AI?</summary>
-      <p>AI handles transcription, translation and voice generation. Then a native speaker reviews every line before delivery, so awkward wording and translation mistakes don't make it into your final video.</p>
+      <summary data-i18n="q4a">Is everything done by AI?</summary>
+      <p data-i18n="q4b">AI handles transcription, translation and voice generation. Then a native speaker reviews every line before delivery, so awkward wording and translation mistakes don't make it into your final video.</p>
     </details>
     <details onclick="track('faq_open', {number:'5'})">
-      <summary>Do I need to record anything again?</summary>
-      <p>Just send your existing YouTube video. We handle transcription, translation, voice recreation, lip sync (if included) and delivery.</p>
+      <summary data-i18n="q5a">Do I need to record anything again?</summary>
+      <p data-i18n="q5b">Just send your existing YouTube video. We handle transcription, translation, voice recreation, lip sync (if included) and delivery.</p>
     </details>
     <details onclick="track('faq_open', {number:'6'})">
-      <summary>Can I test it before paying?</summary>
-      <p>We localize the first 60 seconds of your own video for free, so you can judge the quality before ordering a full version.</p>
+      <summary data-i18n="q6a">Can I test it before paying?</summary>
+      <p data-i18n="q6b">We localize the first 60 seconds of your own video for free, so you can judge the quality before ordering a full version.</p>
     </details>
     <details onclick="track('faq_open', {number:'7'})">
-      <summary>I'm not sure which language I should start with.</summary>
-      <p>No problem. Choose <b>"Recommend me a language"</b> in the request form, and we'll review your channel, audience, and best-performing videos. Then we'll recommend the language most likely to help you reach new viewers first.</p>
+      <summary data-i18n="q7a">I'm not sure which language I should start with.</summary>
+      <p data-i18n="q7b">No problem. Choose <b>"Recommend me a language"</b> in the request form, and we'll review your channel, audience, and best-performing videos. Then we'll recommend the language most likely to help you reach new viewers first.</p>
     </details>
     <div class="advisor">
       <svg class="compass" viewBox="0 0 54 54" fill="none" aria-hidden="true">
@@ -713,11 +718,11 @@ footer .who{font-family:var(--body);font-size:.85rem;margin-bottom:8px}
         <circle cx="27" cy="27" r="2.5" fill="#fff"/>
       </svg>
       <div>
-        <h3>Not sure which language to start with?</h3>
-        <p>Send us your channel — we'll assess your content, your existing geo analytics and the competition in each market, and reply with the best first language for <em>your</em> niche. Free, no strings.</p>
-        <div class="tags"><span>YOUR NICHE</span><span>YOUR GEO STATS</span><span>MARKET COMPETITION</span></div>
+        <h3 data-i18n="adv_h">Not sure which language to start with?</h3>
+        <p data-i18n="adv_p">Send us your channel — we'll assess your content, your existing geo analytics and the competition in each market, and reply with the best first language for <em>your</em> niche. Free, no strings.</p>
+        <div class="tags"><span data-i18n="adv_t1">YOUR NICHE</span><span data-i18n="adv_t2">YOUR GEO STATS</span><span data-i18n="adv_t3">MARKET COMPETITION</span></div>
       </div>
-      <a class="btn btn-ghost" href="#start" id="advisorBtn">Get my language pick</a>
+      <a class="btn btn-ghost" href="#start" id="advisorBtn"><span data-i18n="adv_btn">Get my language pick</span></a>
     </div>
   </div>
 </section>
@@ -727,8 +732,8 @@ footer .who{font-family:var(--body);font-size:.85rem;margin-bottom:8px}
 
 <footer>
   <div class="wrap">
-    <div class="who">A small team of localization editors and native reviewers. Every video is checked by a human before it reaches you — and yes, a human made this page too.</div>
-    Dublift · Localize your best videos, grow everywhere · killagroup22@gmail.com · build v12-video<br>We store only what you send in the form, only to reply. Email us to delete it anytime.
+    <div class="who" data-i18n="ft_who">A small team of localization editors and native reviewers. Every video is checked by a human before it reaches you — and yes, a human made this page too.</div>
+    Dublift · <span data-i18n="ft_tag">Localize your best videos, grow everywhere</span> · killagroup22@gmail.com · build v12-video<br><span data-i18n="ft_priv">We store only what you send in the form, only to reply. Email us to delete it anytime.</span>
   </div>
 </footer>
 
@@ -784,7 +789,7 @@ console.log("Dublift landing build: v12-video (local demo player)");
       };
       counting = requestAnimationFrame(step);
     }
-    retype(nameEl, d.name);
+    retype(nameEl, (window.__dlNames && window.__dlNames[i]) ? window.__dlNames[i] : d.name);
     retype(shareEl, d.share);
     chips.forEach(function(c, j){ c.classList.toggle('active', j === i); });
   }
@@ -982,6 +987,250 @@ document.getElementById('copyBtn').addEventListener('click', function(){
   try { navigator.clipboard.writeText(ta.value); this.textContent = 'Copied ✓'; }
   catch(err){ document.execCommand('copy'); this.textContent = 'Copied ✓'; }
 });
+</script>
+
+<script>
+// ================= DUBLIFT I18N =================
+(function(){
+var META = {
+ en:{t:"Dublift — Grow your YouTube audience by localizing your best videos", n:["English","Spanish","French","German","Polish","Ukrainian"], d:"We turn your best-performing YouTube videos into ready-to-publish localized versions. AI speed, native human review, flat prices. Free 30-second sample of your own video.", badge:"⭐ MOST POPULAR"},
+ es:{t:"Dublift — Haz crecer tu audiencia de YouTube localizando tus mejores vídeos", n:["inglés","español","francés","alemán","polaco","ucraniano"], d:"Servicio de doblaje IA llave en mano para YouTube: tu voz clonada, revisión por nativos, lip sync. Vídeo listo en 48 h. Muestra gratis de 60 s.", badge:"⭐ MÁS POPULAR"},
+ fr:{t:"Dublift — Développez votre audience YouTube en localisant vos meilleures vidéos", n:["anglais","espagnol","français","allemand","polonais","ukrainien"], d:"Service de doublage IA clé en main pour YouTube : votre voix clonée, relecture par des natifs, lip sync. Vidéo prête en 48 h. Échantillon gratuit de 60 s.", badge:"⭐ LE PLUS POPULAIRE"},
+ de:{t:"Dublift — Lass deinen YouTube-Kanal mit lokalisierten Videos wachsen", n:["Englisch","Spanisch","Französisch","Deutsch","Polnisch","Ukrainisch"], d:"KI-Dubbing-Service für YouTube: deine geklonte Stimme, Muttersprachler-Review, Lip Sync. Fertiges Video in 48 h. Gratis 60-Sekunden-Probe.", badge:"⭐ AM BELIEBTESTEN"},
+ pl:{t:"Dublift — Rozwijaj kanał YouTube dzięki lokalizacji najlepszych filmów", n:["angielskim","hiszpańskim","francuskim","niemieckim","polskim","ukraińskim"], d:"Usługa dubbingu AI dla YouTube: Twój sklonowany głos, korekta native speakera, lip sync. Gotowy film w 48 h. Darmowa 60-sekundowa próbka.", badge:"⭐ NAJPOPULARNIEJSZY"},
+ uk:{t:"Dublift — Розвивайте YouTube-аудиторію, локалізуючи найкращі відео", n:["англійською","іспанською","французькою","німецькою","польською","українською"], d:"AI-дубляж для YouTube під ключ: твій клонований голос, перевірка носієм, ліпсинк. Готове відео за 48 год. Безплатний 60-секундний семпл.", badge:"⭐ НАЙПОПУЛЯРНІШИЙ"}
+};
+var I18N = {
+es:{nav_proof:"Casos",nav_demo:"Demo",nav_pricing:"Precios",nav_cta:"Muestra gratis",
+ey_hero:"Para creadores de YouTube, educadores y equipos pequeños",ey_proof:"Casos reales",ey_demo:"• Míralo. Escúchalo. Compáralo.",ey_comp:"Estudio de doblaje vs doblaje IA",ey_price:"Precios transparentes",ey_faq:"FAQ",
+h_h1:"Haz crecer tu YouTube con los vídeos que ya tienes.",h_sub:"Traducimos, doblamos y sincronizamos labios en tus mejores vídeos para llegar a nuevas audiencias y crecer internacionalmente — sin volver a grabar nada.",h_cta1:"Muestra gratis de 60 seg",h_cta2:"Escucha un antes/después real",
+tr1:"Traducción a 75+ idiomas",tr2:"Sin estudio. Sin regrabar.",tr3:"Suena como tú (clonación de voz)",tr4:"Revisión por nativos",tr5:"Llega a nuevas audiencias",
+d_en:"Inglés",d_es:"+ Español",d_fr:"+ Francés",d_de:"+ Alemán",d_foot:"Mismo vídeo. Mismo canal. <b>Nuevas audiencias.</b>",d_note:"← tu catálogo antiguo, trabajando horas extra",
+don_a:"¿Grabas en ",don_b:"? Publicas solo para el ",don_c:" del mundo.",don_p:"Tus mejores vídeos ya demostraron que funcionan. Tradúcelos una vez y deja que millones de nuevos espectadores los descubran — sin volver a grabar nada.",don_c2:"NO ENTIENDE TUS VÍDEOS",
+hk1a:"Un idioma extra le dio a MrBeast",hk1b:"<em>+30% de vistas.</em> Mismos vídeos, cero regrabaciones.",hk1c:"BASADO EN DATOS PÚBLICOS DE YOUTUBE",
+pr_h2:"El doblaje IA es una de las formas más rápidas de crecer en YouTube.",pr_c1h:"de tiempo de visualización desde otros idiomas",pr_c1p:"De media, los creadores con Multi-Language Audio recibieron más del 25% de su tiempo de visualización de espectadores en idiomas no principales.",pr_c2h:"más vistas — Jamie Oliver",pr_c2p:"El audio multilingüe ayudó a Jamie Oliver a triplicar las vistas de vídeos existentes.",pr_c3h:"menos costes vs doblaje tradicional",pr_c3p:"El doblaje IA con sincronización labial reduce drásticamente los costes de localización — hasta un 70% menos por vídeo.",pr_src1:"Blog oficial de YouTube →",pr_src3:"Informe Market Intelo →",
+hk2a:"3 idiomas. 3 audiencias.",hk2b:"<em>Un solo vídeo.</em>",
+dm_h2:"Tu voz. El mismo vídeo. Un nuevo idioma.",dm_p:"Mira cómo recreamos la voz del creador, traducimos cada frase con naturalidad y sincronizamos los labios — sin volver a grabar nada.",dm_f1:"<b>Voz</b> — clonada de la grabación original",dm_f2:"<b>Traducción</b> — cada frase suena nativa",dm_f3:"<b>Lip sync</b> — los labios coinciden con el nuevo idioma",dm_cta:"Envíanos un vídeo. Recibe una muestra doblada en 48 horas.",dm_cap:"🔊 demo de 18 segundos · activa el sonido",dm_h2b:"Un vídeo exitoso. Múltiples audiencias nuevas.",dm_pb:"Este vídeo ya demostró que podía atraer millones de espectadores. En lugar de grabarlo de nuevo, el creador lo localizó al español y llegó a una audiencia totalmente nueva con el mismo contenido.",dm_t1:"▶ ENGLISH · original",dm_t2:"▶ ESPAÑOL · doblado",
+c_h2:"Todo lo que esperas de un estudio de doblaje. Sin el estudio.",c_th1:"Estudio de doblaje tradicional",
+c_r1:"Coste",c_r2:"Entrega",c_r3:"Tu propia voz",c_r4:"Emoción y ritmo",c_r5:"Idiomas",c_r6:"Lip sync",c_r7:"Revisiones",c_r8:"Listo para publicar",
+c_a1:"Cientos de euros por vídeo",c_b1:"<span class=\"yes\">Precio fijo por vídeo</span>",c_a2:"1–3 semanas",c_b2:"<span class=\"yes\">48 horas</span>",c_a3:"<span class=\"no\">✕ Actor de voz nuevo</span>",c_b3:"<span class=\"yes\">✓ Tu propia voz recreada</span>",c_a4:"Depende del actor",c_b4:"<span class=\"yes\">✓ Basado en tu interpretación original</span>",c_a5:"Se pide por separado",c_b5:"<span class=\"yes\">75+ idiomas</span>",c_a6:"Servicio extra",c_b6:"<span class=\"yes\">Incluido</span>",c_a7:"Correos de ida y vuelta",c_b7:"<span class=\"yes\">Incluidas antes de la entrega</span>",c_a8:"Varios pasos de producción",c_b8:"<span class=\"yes\">Paquete listo para subir</span>",
+c_cta:"Envíanos un vídeo. Escúchate en otro idioma.",
+p_h2:"Precios fijos. Cero créditos. Sin suscripción.",p1_n:"Muestra gratis",p2_n:"Market Test",p3_n:"Creator Edition ⭐",p4_n:"Global Channel",p1_am:"Gratis",p4_am:"A medida",p1_per:"primeros 60 segundos de tu propio vídeo",p2_per:"un vídeo terminado · hasta 60 minutos",p4_per:"para creadores listos para escalar",
+p1_1:"Escucha tu propia voz en otro idioma antes de pagar",p1_2:"Tu propio vídeo",p1_3:"Tu propia voz",p1_4:"Cualquier idioma",p1_5:"Entrega en 48h",
+p2_1:"Perfecto para narración, tutoriales, vídeos educativos y grabaciones de pantalla",p2_2:"Clonación de voz IA + traducción natural",p2_3:"Revisión por nativo",p2_4:"Pista de audio + subtítulos traducidos",p2_5:"Paquete listo para publicar",p2_6:"Una revisión",
+p3_1:"Entrevistas, cursos, creadores frente a cámara",p3_2:"Todo lo de Market Test, más:",p3_3:"Labios sincronizados",p3_4:"Vídeo listo para publicar",
+p4_1:"5+ vídeos",p4_2:"75+ idiomas",p4_3:"Voz y terminología consistentes",p4_4:"Entrega prioritaria + revisor dedicado",p4_5:"Descuentos por volumen",
+p1_btn:"Quiero mi muestra gratis",p2_btn:"Empezar a probar",p3_btn:"Crear vídeo multilingüe",p4_btn:"Escalar mi canal",
+hk4a:"48 horas. Un enlace.",hk4b:"<em>Una audiencia totalmente nueva.</em>",
+f_h2:"Empieza con un vídeo. Crece en todos los mercados.",f_p:"Elige la opción que encaje con tu objetivo: una muestra gratis o un vídeo completo localizado.",f_how:"¿Cómo quieres empezar?",
+f_o1:"<b>Muestra gratis</b><small>€0 · tu voz en otro idioma · primeros 60 segundos</small>",f_o2:"<b>Market Test</b><small>€69 · localización de voz · hasta 60 min</small>",f_o3:"<b>Creator Edition ⭐</b><small>€89 · voz + labios sincronizados · hasta 60 min</small>",f_o4:"<b>Localización de canal</b><small>A medida · 5+ vídeos · varios idiomas</small>",
+f_l1:"Enlace de YouTube (tuyo o de tu cliente) · opcional",f_l2:"Idioma a probar",f_l3:"Tu email",f_rec:"Recomiéndame un idioma ⭐",f_btn:"Enviar mi solicitud",f_note:"Sin suscripciones. Sin créditos. Solo vídeos terminados.",f_ph1:"https://youtube.com/watch?v=... — o déjalo vacío, lo pediremos luego",
+s_1:"🎉 Estás dentro.",s_2:"Revisaremos tu vídeo y te escribiremos.",s_3:"Si es una muestra gratis, recibirás tu clip localizado en <b style=\"color:#fff\">48 horas</b>.",s_4:"Si pediste un proyecto de pago, confirmaremos los detalles antes de empezar.",
+fb_1:"El envío automático no funcionó — no pasa nada. Copia esto y envíalo a",fb_copy:"Copiar",fb_mail:"Abrir app de correo",
+q_h2:"Respuestas rápidas",
+q1a:"¿Cómo funciona exactamente?",q1b:"Nos envías un enlace de YouTube. La IA traduce y recrea tu voz en otro idioma. Un hablante nativo lo revisa todo y entregamos un vídeo listo para publicar en 48 horas.",
+q2a:"¿Cómo uso el resultado? No soy técnico.",q2b:"Dos opciones: añadirlo como pista de audio extra en tu vídeo actual (si tu canal tiene la función multi-audio de YouTube) o publicarlo como vídeo localizado independiente. Entregamos ambos formatos con instrucciones paso a paso.",
+q3a:"¿De verdad sonará como yo?",q3b:"Sí. Recreamos tu voz a partir de tu vídeo original, conservando tu tono, ritmo y estilo. Lo escucharás tú mismo en la muestra gratis antes de pagar nada.",
+q4a:"¿Lo hace todo la IA?",q4b:"La IA se encarga de la transcripción, traducción y generación de voz. Luego un hablante nativo revisa cada línea antes de la entrega, para que ningún error de traducción llegue a tu vídeo final.",
+q5a:"¿Tengo que grabar algo de nuevo?",q5b:"Solo envía tu vídeo de YouTube existente. Nosotros nos encargamos de la transcripción, traducción, recreación de voz, lip sync (si está incluido) y entrega.",
+q6a:"¿Puedo probarlo antes de pagar?",q6b:"Localizamos gratis los primeros 60 segundos de tu propio vídeo, para que juzgues la calidad antes de pedir la versión completa.",
+q7a:"No sé con qué idioma empezar.",q7b:"Sin problema. Elige <b>«Recomiéndame un idioma»</b> en el formulario y revisaremos tu canal, tu audiencia y tus mejores vídeos. Te recomendaremos el idioma con más potencial para llegar a nuevos espectadores.",
+adv_h:"¿No sabes con qué idioma empezar?",adv_p:"Envíanos tu canal — evaluaremos tu contenido, tus analíticas geográficas y la competencia en cada mercado, y te responderemos con el mejor primer idioma para <em>tu</em> nicho. Gratis, sin compromiso.",adv_t1:"TU NICHO",adv_t2:"TUS DATOS GEO",adv_t3:"COMPETENCIA",adv_btn:"Recibir mi idioma",
+ft_who:"Un equipo pequeño de editores de localización y revisores nativos. Cada vídeo pasa por una persona antes de llegar a ti — y sí, esta página también la hizo una persona.",ft_tag:"Localiza tus mejores vídeos, crece en todas partes",ft_priv:"Solo guardamos lo que envías en el formulario y solo para responderte. Escríbenos para borrarlo."},
+
+fr:{nav_proof:"Preuves",nav_demo:"Démo",nav_pricing:"Tarifs",nav_cta:"Échantillon gratuit",
+ey_hero:"Pour créateurs YouTube, formateurs et petites équipes",ey_proof:"Cas réels",ey_demo:"• Voyez. Écoutez. Comparez.",ey_comp:"Studio de doublage vs doublage IA",ey_price:"Tarifs transparents",ey_faq:"FAQ",
+h_h1:"Développez votre YouTube avec les vidéos que vous avez déjà.",h_sub:"Nous traduisons, doublons et synchronisons les lèvres de vos meilleures vidéos pour toucher de nouvelles audiences et grandir à l'international — sans rien réenregistrer.",h_cta1:"Échantillon gratuit de 60 s",h_cta2:"Écoutez un avant/après réel",
+tr1:"Traduction en 75+ langues",tr2:"Pas de studio. Pas de réenregistrement.",tr3:"Votre voix (clonage vocal)",tr4:"Relecture par des natifs",tr5:"Touchez de nouvelles audiences",
+d_en:"Anglais",d_es:"+ Espagnol",d_fr:"+ Français",d_de:"+ Allemand",d_foot:"Même vidéo. Même chaîne. <b>Nouvelles audiences.</b>",d_note:"← votre ancien catalogue, en heures sup",
+don_a:"Vous filmez en ",don_b:" ? Vous ne publiez que pour ",don_c:" du monde.",don_p:"Vos meilleures vidéos ont déjà fait leurs preuves. Traduisez-les une fois et laissez des millions de nouveaux spectateurs les découvrir — sans rien réenregistrer.",don_c2:"NE COMPRENNENT PAS VOS VIDÉOS",
+hk1a:"Une langue de plus a donné à MrBeast",hk1b:"<em>+30 % de vues.</em> Mêmes vidéos, zéro retournage.",hk1c:"BASÉ SUR DES DONNÉES PUBLIQUES YOUTUBE",
+pr_h2:"Le doublage IA est l'un des moyens les plus rapides de grandir sur YouTube.",pr_c1h:"du temps de visionnage venant d'autres langues",pr_c1p:"En moyenne, les créateurs utilisant le Multi-Language Audio ont reçu plus de 25 % de leur temps de visionnage de spectateurs dans des langues non principales.",pr_c2h:"de vues en plus — Jamie Oliver",pr_c2p:"L'audio multilingue a aidé Jamie Oliver à tripler les vues de vidéos existantes.",pr_c3h:"de coûts en moins vs doublage classique",pr_c3p:"Le doublage IA avec synchronisation labiale réduit drastiquement les coûts de localisation — jusqu'à 70 % de moins par vidéo.",pr_src1:"Blog officiel YouTube →",pr_src3:"Rapport Market Intelo →",
+hk2a:"3 langues. 3 audiences.",hk2b:"<em>Toujours une seule vidéo.</em>",
+dm_h2:"Votre voix. La même vidéo. Une nouvelle langue.",dm_p:"Regardez comment nous recréons la voix du créateur, traduisons chaque phrase naturellement et synchronisons les lèvres — sans rien réenregistrer.",dm_f1:"<b>Voix</b> — clonée depuis l'enregistrement original",dm_f2:"<b>Traduction</b> — chaque phrase sonne native",dm_f3:"<b>Lip sync</b> — les lèvres suivent la nouvelle langue",dm_cta:"Envoyez-nous une vidéo. Recevez un échantillon doublé en 48 h.",dm_cap:"🔊 démo de 18 secondes · activez le son",dm_h2b:"Une vidéo à succès. Plusieurs nouvelles audiences.",dm_pb:"Cette vidéo avait déjà prouvé qu'elle pouvait attirer des millions de spectateurs. Au lieu de la refilmer, le créateur l'a localisée en espagnol et a touché une audience entièrement nouvelle avec le même contenu.",dm_t1:"▶ ENGLISH · original",dm_t2:"▶ ESPAÑOL · doublé",
+c_h2:"Tout ce qu'on attend d'un studio de doublage. Sans le studio.",c_th1:"Studio de doublage classique",
+c_r1:"Coût",c_r2:"Délai",c_r3:"Votre propre voix",c_r4:"Émotion et rythme",c_r5:"Langues",c_r6:"Lip sync",c_r7:"Révisions",c_r8:"Prêt à publier",
+c_a1:"Des centaines d'euros par vidéo",c_b1:"<span class=\"yes\">Prix fixe par vidéo</span>",c_a2:"1–3 semaines",c_b2:"<span class=\"yes\">48 heures</span>",c_a3:"<span class=\"no\">✕ Nouveau comédien voix</span>",c_b3:"<span class=\"yes\">✓ Votre voix recréée</span>",c_a4:"Dépend du comédien",c_b4:"<span class=\"yes\">✓ Basé sur votre interprétation</span>",c_a5:"Commandées séparément",c_b5:"<span class=\"yes\">75+ langues</span>",c_a6:"Service en plus",c_b6:"<span class=\"yes\">Inclus</span>",c_a7:"Allers-retours par e-mail",c_b7:"<span class=\"yes\">Incluses avant livraison</span>",c_a8:"Plusieurs étapes de production",c_b8:"<span class=\"yes\">Pack prêt à uploader</span>",
+c_cta:"Envoyez-nous une vidéo. Écoutez-vous dans une autre langue.",
+p_h2:"Prix fixes. Zéro crédit. Sans abonnement.",p1_n:"Échantillon gratuit",p2_n:"Market Test",p3_n:"Creator Edition ⭐",p4_n:"Global Channel",p1_am:"Gratuit",p4_am:"Sur devis",p1_per:"les 60 premières secondes de votre vidéo",p2_per:"une vidéo finie · jusqu'à 60 minutes",p4_per:"pour les créateurs prêts à passer à l'échelle",
+p1_1:"Écoutez votre propre voix dans une autre langue avant de payer",p1_2:"Votre propre vidéo",p1_3:"Votre propre voix",p1_4:"N'importe quelle langue",p1_5:"Livré en 48 h",
+p2_1:"Parfait pour narration, tutoriels, vidéos éducatives et enregistrements d'écran",p2_2:"Clonage vocal IA + traduction naturelle",p2_3:"Relecture par un natif",p2_4:"Piste audio + sous-titres traduits",p2_5:"Pack prêt à publier",p2_6:"Une révision incluse",
+p3_1:"Interviews, cours, créateurs face caméra",p3_2:"Tout Market Test, plus :",p3_3:"Lèvres synchronisées",p3_4:"Vidéo prête à publier",
+p4_1:"5+ vidéos",p4_2:"75+ langues",p4_3:"Voix et terminologie cohérentes",p4_4:"Livraison prioritaire + relecteur dédié",p4_5:"Remises sur volume",
+p1_btn:"Recevoir mon échantillon",p2_btn:"Commencer le test",p3_btn:"Créer une vidéo multilingue",p4_btn:"Faire grandir ma chaîne",
+hk4a:"48 heures. Un lien.",hk4b:"<em>Une audience entièrement nouvelle.</em>",
+f_h2:"Commencez avec une vidéo. Grandissez sur tous les marchés.",f_p:"Choisissez l'option qui correspond à votre objectif : échantillon gratuit ou vidéo complète localisée.",f_how:"Comment voulez-vous commencer ?",
+f_o1:"<b>Échantillon gratuit</b><small>0 € · votre voix dans une autre langue · 60 premières secondes</small>",f_o2:"<b>Market Test</b><small>69 € · localisation de la voix · jusqu'à 60 min</small>",f_o3:"<b>Creator Edition ⭐</b><small>89 € · voix + lèvres synchronisées · jusqu'à 60 min</small>",f_o4:"<b>Localisation de chaîne</b><small>Sur devis · 5+ vidéos · plusieurs langues</small>",
+f_l1:"Lien YouTube (le vôtre ou celui d'un client) · optionnel",f_l2:"Langue à tester",f_l3:"Votre e-mail",f_rec:"Recommandez-moi une langue ⭐",f_btn:"Envoyer ma demande",f_note:"Pas d'abonnement. Pas de crédits. Juste des vidéos finies.",f_ph1:"https://youtube.com/watch?v=... — ou laissez vide, on demandera plus tard",
+s_1:"🎉 C'est parti.",s_2:"Nous examinerons votre vidéo et vous écrirons.",s_3:"Pour un échantillon gratuit, vous recevrez votre clip localisé sous <b style=\"color:#fff\">48 heures</b>.",s_4:"Pour un projet payant, nous confirmerons les détails avant de commencer.",
+fb_1:"L'envoi automatique n'a pas fonctionné — pas de souci. Copiez ceci et envoyez-le à",fb_copy:"Copier",fb_mail:"Ouvrir la messagerie",
+q_h2:"Réponses rapides",
+q1a:"Comment ça marche exactement ?",q1b:"Vous nous envoyez un lien YouTube. L'IA traduit et recrée votre voix dans une autre langue. Un locuteur natif relit tout, et nous livrons une vidéo prête à publier sous 48 heures.",
+q2a:"Comment utiliser le résultat ? Je ne suis pas technique.",q2b:"Deux options : l'ajouter comme piste audio supplémentaire à votre vidéo existante (si votre chaîne dispose du multi-audio YouTube), ou la publier comme vidéo localisée indépendante. Nous livrons les deux formats avec un guide pas à pas.",
+q3a:"Est-ce que ça sonnera vraiment comme moi ?",q3b:"Oui. Nous recréons votre voix à partir de votre vidéo originale, en conservant votre ton, votre rythme et votre style. Vous l'entendrez vous-même dans l'échantillon gratuit avant de payer.",
+q4a:"Tout est fait par l'IA ?",q4b:"L'IA gère la transcription, la traduction et la génération de voix. Puis un locuteur natif relit chaque ligne avant livraison, pour qu'aucune erreur de traduction n'atteigne votre vidéo finale.",
+q5a:"Dois-je réenregistrer quelque chose ?",q5b:"Envoyez simplement votre vidéo YouTube existante. Nous gérons transcription, traduction, recréation de la voix, lip sync (si inclus) et livraison.",
+q6a:"Puis-je tester avant de payer ?",q6b:"Nous localisons gratuitement les 60 premières secondes de votre propre vidéo, pour juger la qualité avant de commander la version complète.",
+q7a:"Je ne sais pas par quelle langue commencer.",q7b:"Pas de problème. Choisissez <b>« Recommandez-moi une langue »</b> dans le formulaire : nous analyserons votre chaîne, votre audience et vos meilleures vidéos, puis nous vous recommanderons la langue la plus prometteuse.",
+adv_h:"Vous hésitez sur la langue de départ ?",adv_p:"Envoyez-nous votre chaîne — nous évaluerons votre contenu, vos statistiques géographiques et la concurrence sur chaque marché, puis nous vous indiquerons la meilleure première langue pour <em>votre</em> niche. Gratuit, sans engagement.",adv_t1:"VOTRE NICHE",adv_t2:"VOS STATS GÉO",adv_t3:"CONCURRENCE",adv_btn:"Recevoir ma langue",
+ft_who:"Une petite équipe d'éditeurs de localisation et de relecteurs natifs. Chaque vidéo passe par un humain avant de vous parvenir — et oui, cette page aussi a été faite par un humain.",ft_tag:"Localisez vos meilleures vidéos, grandissez partout",ft_priv:"Nous ne conservons que ce que vous envoyez via le formulaire, uniquement pour vous répondre. Écrivez-nous pour le supprimer."},
+
+de:{nav_proof:"Beweise",nav_demo:"Demo",nav_pricing:"Preise",nav_cta:"Gratis-Probe",
+ey_hero:"Für YouTube-Creator, Bildungsanbieter und kleine Teams",ey_proof:"Echte Fälle",ey_demo:"• Sehen. Hören. Vergleichen.",ey_comp:"Synchronstudio vs. KI-Dubbing",ey_price:"Transparente Preise",ey_faq:"FAQ",
+h_h1:"Lass deinen YouTube-Kanal mit Videos wachsen, die du schon hast.",h_sub:"Wir übersetzen, synchronisieren und lippensynchronisieren deine besten Videos, damit du neue Zielgruppen erreichst und international wächst — ohne alles neu aufzunehmen.",h_cta1:"Gratis 60-Sek.-Probe",h_cta2:"Echtes Vorher/Nachher anhören",
+tr1:"Übersetzung in 75+ Sprachen",tr2:"Kein Studio. Keine Neuaufnahme.",tr3:"Klingt wie du (Voice Cloning)",tr4:"Prüfung durch Muttersprachler",tr5:"Erreiche neue Zielgruppen",
+d_en:"Englisch",d_es:"+ Spanisch",d_fr:"+ Französisch",d_de:"+ Deutsch",d_foot:"Gleiches Video. Gleicher Kanal. <b>Neue Zielgruppen.</b>",d_note:"← dein Backkatalog macht Überstunden",
+don_a:"Du filmst auf ",don_b:"? Du veröffentlichst nur für ",don_c:" der Welt.",don_p:"Deine besten Videos haben sich bereits bewährt. Übersetze sie einmal und lass Millionen neuer Zuschauer sie entdecken — ohne alles neu aufzunehmen.",don_c2:"VERSTEHEN DEINE VIDEOS NICHT",
+hk1a:"Eine zusätzliche Sprache brachte MrBeast",hk1b:"<em>+30 % Aufrufe.</em> Gleiche Videos, kein Neudreh.",hk1c:"BASIEREND AUF ÖFFENTLICHEN YOUTUBE-DATEN",
+pr_h2:"KI-Dubbing ist einer der schnellsten Wege, auf YouTube zu wachsen.",pr_c1h:"der Wiedergabezeit aus anderen Sprachen",pr_c1p:"Creator mit Multi-Language Audio erhielten im Schnitt über 25 % ihrer Wiedergabezeit von Zuschauern in Nicht-Hauptsprachen.",pr_c2h:"mehr Aufrufe — Jamie Oliver",pr_c2p:"Mehrsprachiges Audio half Jamie Oliver, die Aufrufe bestehender Videos zu verdreifachen.",pr_c3h:"geringere Kosten vs. klassisches Dubbing",pr_c3p:"KI-Dubbing mit Lippensynchronisation senkt die Lokalisierungskosten drastisch — bis zu 70 % weniger pro Video.",pr_src1:"Offizieller YouTube-Blog →",pr_src3:"Market-Intelo-Report →",
+hk2a:"3 Sprachen. 3 Zielgruppen.",hk2b:"<em>Immer noch ein Video.</em>",
+dm_h2:"Deine Stimme. Gleiches Video. Neue Sprache.",dm_p:"Sieh, wie wir die Stimme des Creators nachbilden, jeden Satz natürlich übersetzen und die Lippenbewegungen synchronisieren — ohne Neuaufnahme.",dm_f1:"<b>Stimme</b> — geklont aus der Originalaufnahme",dm_f2:"<b>Übersetzung</b> — jeder Satz klingt muttersprachlich",dm_f3:"<b>Lip Sync</b> — Lippen passen zur neuen Sprache",dm_cta:"Schick uns ein Video. Erhalte in 48 Stunden eine synchronisierte Probe.",dm_cap:"🔊 18-Sekunden-Demo · Ton einschalten",dm_h2b:"Ein erfolgreiches Video. Mehrere neue Zielgruppen.",dm_pb:"Dieses Video hatte bereits Millionen Zuschauer angezogen. Statt es neu zu drehen, lokalisierte der Creator es auf Spanisch und erreichte mit demselben Inhalt eine völlig neue Zielgruppe.",dm_t1:"▶ ENGLISH · Original",dm_t2:"▶ ESPAÑOL · synchronisiert",
+c_h2:"Alles, was du von einem Synchronstudio erwartest. Ohne das Studio.",c_th1:"Klassisches Synchronstudio",
+c_r1:"Kosten",c_r2:"Lieferung",c_r3:"Deine eigene Stimme",c_r4:"Emotion und Tempo",c_r5:"Sprachen",c_r6:"Lip Sync",c_r7:"Korrekturen",c_r8:"Bereit zum Upload",
+c_a1:"Hunderte Euro pro Video",c_b1:"<span class=\"yes\">Festpreis pro Video</span>",c_a2:"1–3 Wochen",c_b2:"<span class=\"yes\">48 Stunden</span>",c_a3:"<span class=\"no\">✕ Neuer Synchronsprecher</span>",c_b3:"<span class=\"yes\">✓ Deine eigene Stimme nachgebildet</span>",c_a4:"Abhängig vom Sprecher",c_b4:"<span class=\"yes\">✓ Basierend auf deiner Original-Performance</span>",c_a5:"Meist separat zu bestellen",c_b5:"<span class=\"yes\">75+ Sprachen</span>",c_a6:"Zusatzleistung",c_b6:"<span class=\"yes\">Inklusive</span>",c_a7:"E-Mail-Pingpong",c_b7:"<span class=\"yes\">Vor Lieferung inklusive</span>",c_a8:"Mehrere Produktionsschritte",c_b8:"<span class=\"yes\">Upload-fertiges Paket</span>",
+c_cta:"Schick uns ein Video. Hör dich in einer anderen Sprache.",
+p_h2:"Festpreise. Null Credits. Kein Abo nötig.",p1_n:"Gratis-Probe",p2_n:"Market Test",p3_n:"Creator Edition ⭐",p4_n:"Global Channel",p1_am:"Gratis",p4_am:"Individuell",p1_per:"die ersten 60 Sekunden deines eigenen Videos",p2_per:"ein fertiges Video · bis zu 60 Minuten",p4_per:"für Creator, die skalieren wollen",
+p1_1:"Hör deine eigene Stimme in einer anderen Sprache, bevor du zahlst",p1_2:"Dein eigenes Video",p1_3:"Deine eigene Stimme",p1_4:"Jede Sprache",p1_5:"Lieferung in 48 h",
+p2_1:"Perfekt für Narration, Tutorials, Lernvideos und Screen-Recordings",p2_2:"KI-Voice-Cloning + natürliche Übersetzung",p2_3:"Prüfung durch Muttersprachler",p2_4:"Audiospur + übersetzte Untertitel",p2_5:"Veröffentlichungsfertiges Paket",p2_6:"Eine Korrekturrunde",
+p3_1:"Interviews, Kurse, Creator vor der Kamera",p3_2:"Alles aus Market Test, plus:",p3_3:"Lippenbewegungen synchronisiert",p3_4:"Veröffentlichungsfertiges Video",
+p4_1:"5+ Videos",p4_2:"75+ Sprachen",p4_3:"Konsistente Stimme und Terminologie",p4_4:"Priorisierte Lieferung + fester Reviewer",p4_5:"Mengenrabatte",
+p1_btn:"Gratis-Probe anfordern",p2_btn:"Test starten",p3_btn:"Mehrsprachiges Video erstellen",p4_btn:"Kanal skalieren",
+hk4a:"48 Stunden. Ein Link.",hk4b:"<em>Eine völlig neue Zielgruppe.</em>",
+f_h2:"Starte mit einem Video. Wachse in jeden Markt.",f_p:"Wähle die Option, die zu deinem Ziel passt: Gratis-Probe oder komplettes lokalisiertes Video.",f_how:"Wie möchtest du starten?",
+f_o1:"<b>Gratis-Probe</b><small>0 € · deine Stimme in anderer Sprache · erste 60 Sekunden</small>",f_o2:"<b>Market Test</b><small>69 € · Stimm-Lokalisierung · bis 60 Min.</small>",f_o3:"<b>Creator Edition ⭐</b><small>89 € · Stimme + Lippensynchronisation · bis 60 Min.</small>",f_o4:"<b>Kanal-Lokalisierung</b><small>Individuell · 5+ Videos · mehrere Sprachen</small>",
+f_l1:"YouTube-Link (deiner oder vom Kunden) · optional",f_l2:"Zu testende Sprache",f_l3:"Deine E-Mail",f_rec:"Empfiehl mir eine Sprache ⭐",f_btn:"Anfrage senden",f_note:"Keine Abos. Keine Credits. Nur fertige Videos.",f_ph1:"https://youtube.com/watch?v=... — oder leer lassen, wir fragen später",
+s_1:"🎉 Du bist dabei.",s_2:"Wir prüfen dein Video und melden uns per E-Mail.",s_3:"Bei einer Gratis-Probe erhältst du deinen lokalisierten Clip innerhalb von <b style=\"color:#fff\">48 Stunden</b>.",s_4:"Bei einem bezahlten Projekt bestätigen wir vorab die Details.",
+fb_1:"Der automatische Versand hat nicht geklappt — kein Problem. Kopiere das und sende es an",fb_copy:"Kopieren",fb_mail:"Mail-App öffnen",
+q_h2:"Schnelle Antworten",
+q1a:"Wie funktioniert das genau?",q1b:"Du schickst uns einen YouTube-Link. KI übersetzt und bildet deine Stimme in einer anderen Sprache nach. Ein Muttersprachler prüft alles, und wir liefern innerhalb von 48 Stunden ein veröffentlichungsfertiges Video.",
+q2a:"Wie nutze ich das Ergebnis? Ich bin nicht technisch.",q2b:"Zwei Wege: als zusätzliche Audiospur zu deinem bestehenden Video (wenn dein Kanal YouTubes Multi-Audio-Funktion hat) oder als eigenständiges lokalisiertes Video. Wir liefern beide Formate mit Schritt-für-Schritt-Anleitung.",
+q3a:"Klingt es wirklich wie ich?",q3b:"Ja. Wir bilden deine Stimme aus deinem Originalvideo nach — Ton, Tempo und Sprechstil bleiben erhalten. In der Gratis-Probe hörst du es selbst, bevor du zahlst.",
+q4a:"Macht das alles die KI?",q4b:"KI übernimmt Transkription, Übersetzung und Stimmerzeugung. Danach prüft ein Muttersprachler jede Zeile vor der Lieferung, damit keine Übersetzungsfehler in dein finales Video gelangen.",
+q5a:"Muss ich etwas neu aufnehmen?",q5b:"Schick einfach dein bestehendes YouTube-Video. Wir übernehmen Transkription, Übersetzung, Stimm-Nachbildung, Lip Sync (falls enthalten) und Lieferung.",
+q6a:"Kann ich vor dem Kauf testen?",q6b:"Wir lokalisieren die ersten 60 Sekunden deines eigenen Videos kostenlos, damit du die Qualität beurteilen kannst, bevor du die Vollversion bestellst.",
+q7a:"Ich weiß nicht, mit welcher Sprache ich starten soll.",q7b:"Kein Problem. Wähle im Formular <b>„Empfiehl mir eine Sprache“</b> — wir analysieren deinen Kanal, dein Publikum und deine besten Videos und empfehlen die Sprache mit dem größten Potenzial.",
+adv_h:"Unsicher, mit welcher Sprache du starten sollst?",adv_p:"Schick uns deinen Kanal — wir bewerten deinen Content, deine Geo-Statistiken und den Wettbewerb in jedem Markt und antworten mit der besten ersten Sprache für <em>deine</em> Nische. Kostenlos, unverbindlich.",adv_t1:"DEINE NISCHE",adv_t2:"DEINE GEO-DATEN",adv_t3:"WETTBEWERB",adv_btn:"Meine Sprache erhalten",
+ft_who:"Ein kleines Team aus Lokalisierungs-Editoren und muttersprachlichen Prüfern. Jedes Video geht durch menschliche Hände — und ja, auch diese Seite hat ein Mensch gebaut.",ft_tag:"Lokalisiere deine besten Videos, wachse überall",ft_priv:"Wir speichern nur, was du im Formular sendest — nur, um zu antworten. Schreib uns, und wir löschen es."},
+
+pl:{nav_proof:"Dowody",nav_demo:"Demo",nav_pricing:"Cennik",nav_cta:"Darmowa próbka",
+ey_hero:"Dla twórców YouTube, edukatorów i małych zespołów",ey_proof:"Prawdziwe przypadki",ey_demo:"• Zobacz. Posłuchaj. Porównaj.",ey_comp:"Studio dubbingowe vs dubbing AI",ey_price:"Przejrzysty cennik",ey_faq:"FAQ",
+h_h1:"Rozwijaj swój YouTube dzięki filmom, które już masz.",h_sub:"Tłumaczymy, dubbingujemy i synchronizujemy usta w Twoich najlepszych filmach, byś dotarł do nowych widzów i rósł międzynarodowo — bez ponownego nagrywania.",h_cta1:"Darmowa 60-sek. próbka",h_cta2:"Posłuchaj przed/po",
+tr1:"Tłumaczenie na 75+ języków",tr2:"Bez studia. Bez nagrywania.",tr3:"Brzmi jak Ty (klonowanie głosu)",tr4:"Korekta przez native speakera",tr5:"Docieraj do nowych widzów",
+d_en:"Angielski",d_es:"+ Hiszpański",d_fr:"+ Francuski",d_de:"+ Niemiecki",d_foot:"Ten sam film. Ten sam kanał. <b>Nowi widzowie.</b>",d_note:"← Twój stary katalog pracuje po godzinach",
+don_a:"Nagrywasz po ",don_b:"? Publikujesz tylko dla ",don_c:" świata.",don_p:"Twoje najlepsze filmy już się sprawdziły. Przetłumacz je raz i pozwól milionom nowych widzów je odkryć — bez ponownego nagrywania.",don_c2:"NIE ROZUMIE TWOICH FILMÓW",
+hk1a:"Jeden dodatkowy język dał MrBeastowi",hk1b:"<em>+30% wyświetleń.</em> Te same filmy, zero dogrywek.",hk1c:"NA PODSTAWIE PUBLICZNYCH DANYCH YOUTUBE",
+pr_h2:"Dubbing AI to jeden z najszybszych sposobów na wzrost na YouTube.",pr_c1h:"czasu oglądania z innych języków",pr_c1p:"Twórcy używający Multi-Language Audio otrzymywali średnio ponad 25% czasu oglądania od widzów w językach innych niż główny.",pr_c2h:"więcej wyświetleń — Jamie Oliver",pr_c2p:"Wielojęzyczne audio pomogło Jamiemu Oliverowi potroić wyświetlenia istniejących filmów.",pr_c3h:"niższe koszty vs tradycyjny dubbing",pr_c3p:"Dubbing AI z synchronizacją ust drastycznie obniża koszty lokalizacji — nawet o 70% na film.",pr_src1:"Oficjalny blog YouTube →",pr_src3:"Raport Market Intelo →",
+hk2a:"3 języki. 3 grupy widzów.",hk2b:"<em>Wciąż jeden film.</em>",
+dm_h2:"Twój głos. Ten sam film. Nowy język.",dm_p:"Zobacz, jak odtwarzamy głos twórcy, naturalnie tłumaczymy każde zdanie i synchronizujemy ruch ust — bez ponownego nagrywania.",dm_f1:"<b>Głos</b> — sklonowany z oryginalnego nagrania",dm_f2:"<b>Tłumaczenie</b> — każde zdanie brzmi natywnie",dm_f3:"<b>Lip sync</b> — usta pasują do nowego języka",dm_cta:"Wyślij nam film. Odbierz zdubbingowaną próbkę w 48 godzin.",dm_cap:"🔊 18-sekundowe demo · włącz dźwięk",dm_h2b:"Jeden udany film. Wiele nowych grup widzów.",dm_pb:"Ten film już udowodnił, że przyciąga miliony widzów. Zamiast nagrywać go od nowa, twórca zlokalizował go na hiszpański i dotarł do zupełnie nowej publiczności z tą samą treścią.",dm_t1:"▶ ENGLISH · oryginał",dm_t2:"▶ ESPAÑOL · dubbing",
+c_h2:"Wszystko, czego oczekujesz od studia dubbingowego. Bez studia.",c_th1:"Tradycyjne studio dubbingowe",
+c_r1:"Koszt",c_r2:"Termin",c_r3:"Twój własny głos",c_r4:"Emocje i tempo",c_r5:"Języki",c_r6:"Lip sync",c_r7:"Poprawki",c_r8:"Gotowe do publikacji",
+c_a1:"Setki euro za film",c_b1:"<span class=\"yes\">Stała cena za film</span>",c_a2:"1–3 tygodnie",c_b2:"<span class=\"yes\">48 godzin</span>",c_a3:"<span class=\"no\">✕ Nowy lektor</span>",c_b3:"<span class=\"yes\">✓ Twój własny głos odtworzony</span>",c_a4:"Zależy od lektora",c_b4:"<span class=\"yes\">✓ Na bazie Twojego oryginalnego wykonania</span>",c_a5:"Zwykle zamawiane osobno",c_b5:"<span class=\"yes\">75+ języków</span>",c_a6:"Usługa dodatkowa",c_b6:"<span class=\"yes\">W cenie</span>",c_a7:"Niekończące się maile",c_b7:"<span class=\"yes\">W cenie przed dostawą</span>",c_a8:"Kilka etapów produkcji",c_b8:"<span class=\"yes\">Paczka gotowa do wrzucenia</span>",
+c_cta:"Wyślij nam jeden film. Usłysz siebie w innym języku.",
+p_h2:"Stałe ceny. Zero kredytów. Bez subskrypcji.",p1_n:"Darmowa próbka",p2_n:"Market Test",p3_n:"Creator Edition ⭐",p4_n:"Global Channel",p1_am:"Za darmo",p4_am:"Indywidualnie",p1_per:"pierwsze 60 sekund Twojego filmu",p2_per:"jeden gotowy film · do 60 minut",p4_per:"dla twórców gotowych na skalowanie",
+p1_1:"Usłysz swój głos w innym języku, zanim zapłacisz",p1_2:"Twój własny film",p1_3:"Twój własny głos",p1_4:"Dowolny język",p1_5:"Dostawa w 48 h",
+p2_1:"Idealne do narracji, tutoriali, filmów edukacyjnych i nagrań ekranu",p2_2:"Klonowanie głosu AI + naturalne tłumaczenie",p2_3:"Korekta native speakera",p2_4:"Ścieżka audio + przetłumaczone napisy",p2_5:"Paczka gotowa do publikacji",p2_6:"Jedna poprawka",
+p3_1:"Wywiady, kursy, twórcy przed kamerą",p3_2:"Wszystko z Market Test, plus:",p3_3:"Synchronizacja ruchu ust",p3_4:"Film gotowy do publikacji",
+p4_1:"5+ filmów",p4_2:"75+ języków",p4_3:"Spójny głos i terminologia",p4_4:"Priorytetowa dostawa + dedykowany korektor",p4_5:"Rabaty ilościowe",
+p1_btn:"Odbierz darmową próbkę",p2_btn:"Rozpocznij test",p3_btn:"Stwórz film wielojęzyczny",p4_btn:"Skaluj mój kanał",
+hk4a:"48 godzin. Jeden link.",hk4b:"<em>Zupełnie nowa publiczność.</em>",
+f_h2:"Zacznij od jednego filmu. Rośnij na każdym rynku.",f_p:"Wybierz opcję pasującą do Twojego celu: darmowa próbka lub pełny zlokalizowany film.",f_how:"Jak chcesz zacząć?",
+f_o1:"<b>Darmowa próbka</b><small>0 € · Twój głos w innym języku · pierwsze 60 sekund</small>",f_o2:"<b>Market Test</b><small>69 € · lokalizacja głosu · do 60 min</small>",f_o3:"<b>Creator Edition ⭐</b><small>89 € · głos + synchronizacja ust · do 60 min</small>",f_o4:"<b>Lokalizacja kanału</b><small>Indywidualnie · 5+ filmów · wiele języków</small>",
+f_l1:"Link YouTube (Twój lub klienta) · opcjonalnie",f_l2:"Język do przetestowania",f_l3:"Twój e-mail",f_rec:"Poleć mi język ⭐",f_btn:"Wyślij zgłoszenie",f_note:"Bez subskrypcji. Bez kredytów. Tylko gotowe filmy.",f_ph1:"https://youtube.com/watch?v=... — albo zostaw puste, zapytamy później",
+s_1:"🎉 Jesteś w środku.",s_2:"Sprawdzimy Twój film i odezwiemy się mailem.",s_3:"Jeśli to darmowa próbka, otrzymasz zlokalizowany klip w ciągu <b style=\"color:#fff\">48 godzin</b>.",s_4:"Jeśli to płatny projekt, potwierdzimy szczegóły przed startem.",
+fb_1:"Automatyczna wysyłka nie zadziałała — nic straconego. Skopiuj to i wyślij na",fb_copy:"Kopiuj",fb_mail:"Otwórz pocztę",
+q_h2:"Szybkie odpowiedzi",
+q1a:"Jak to właściwie działa?",q1b:"Wysyłasz nam link do YouTube. AI tłumaczy i odtwarza Twój głos w innym języku. Native speaker wszystko sprawdza, a my dostarczamy film gotowy do publikacji w 48 godzin.",
+q2a:"Jak użyć wyniku? Nie jestem techniczny.",q2b:"Dwie opcje: dodać jako dodatkową ścieżkę audio do istniejącego filmu (jeśli Twój kanał ma funkcję multi-audio YouTube) albo opublikować jako osobny zlokalizowany film. Dostarczamy oba formaty z instrukcją krok po kroku.",
+q3a:"Czy naprawdę będzie brzmiało jak ja?",q3b:"Tak. Odtwarzamy Twój głos z oryginalnego filmu, zachowując ton, tempo i styl mówienia. Usłyszysz to sam w darmowej próbce, zanim cokolwiek zapłacisz.",
+q4a:"Czy wszystko robi AI?",q4b:"AI zajmuje się transkrypcją, tłumaczeniem i generowaniem głosu. Potem native speaker sprawdza każdą linijkę przed dostawą, żeby błędy tłumaczenia nie trafiły do finalnego filmu.",
+q5a:"Czy muszę coś nagrywać od nowa?",q5b:"Po prostu wyślij swój istniejący film z YouTube. My zajmujemy się transkrypcją, tłumaczeniem, odtworzeniem głosu, lip syncem (jeśli w pakiecie) i dostawą.",
+q6a:"Czy mogę przetestować przed zapłatą?",q6b:"Lokalizujemy pierwsze 60 sekund Twojego filmu za darmo, żebyś ocenił jakość przed zamówieniem pełnej wersji.",
+q7a:"Nie wiem, od którego języka zacząć.",q7b:"Żaden problem. Wybierz w formularzu <b>„Poleć mi język”</b> — przeanalizujemy Twój kanał, widownię i najlepsze filmy, a potem polecimy język z największym potencjałem.",
+adv_h:"Nie wiesz, od którego języka zacząć?",adv_p:"Wyślij nam swój kanał — ocenimy treści, statystyki geograficzne i konkurencję na każdym rynku, a potem wskażemy najlepszy pierwszy język dla <em>Twojej</em> niszy. Za darmo, bez zobowiązań.",adv_t1:"TWOJA NISZA",adv_t2:"TWOJE DANE GEO",adv_t3:"KONKURENCJA",adv_btn:"Otrzymaj mój język",
+ft_who:"Mały zespół redaktorów lokalizacji i korektorów-native'ów. Każdy film przechodzi przez człowieka, zanim trafi do Ciebie — i tak, tę stronę też zrobił człowiek.",ft_tag:"Lokalizuj najlepsze filmy, rośnij wszędzie",ft_priv:"Przechowujemy tylko to, co wyślesz w formularzu — wyłącznie, by odpowiedzieć. Napisz, a usuniemy."},
+
+uk:{nav_proof:"Докази",nav_demo:"Демо",nav_pricing:"Ціни",nav_cta:"Безплатний семпл",
+ey_hero:"Для YouTube-креаторів, освітян і малих команд",ey_proof:"Реальні кейси",ey_demo:"• Подивись. Послухай. Порівняй.",ey_comp:"Студія дубляжу vs AI-дубляж",ey_price:"Прозорі ціни",ey_faq:"FAQ",
+h_h1:"Розвивай свій YouTube з відео, які в тебе вже є.",h_sub:"Ми перекладаємо, дублюємо та синхронізуємо губи у твоїх найкращих відео, щоб ти охоплював нові аудиторії та ріс міжнародно — без жодного перезапису.",h_cta1:"Безплатний 60-сек семпл",h_cta2:"Послухай реальне до/після",
+tr1:"Переклад на 75+ мов",tr2:"Без студії. Без перезапису.",tr3:"Звучить як ти (клонування голосу)",tr4:"Перевірка носієм мови",tr5:"Охоплюй нові аудиторії",
+d_en:"Англійська",d_es:"+ Іспанська",d_fr:"+ Французька",d_de:"+ Німецька",d_foot:"Те саме відео. Той самий канал. <b>Нові аудиторії.</b>",d_note:"← твій бек-каталог працює понаднормово",
+don_a:"Знімаєш ",don_b:"? Ти публікуєш лише для ",don_c:" світу.",don_p:"Твої найкращі відео вже довели, що працюють. Переклади їх один раз — і мільйони нових глядачів їх відкриють, без жодного перезапису.",don_c2:"НЕ РОЗУМІЄ ТВОЇХ ВІДЕО",
+hk1a:"Одна додаткова мова дала MrBeast",hk1b:"<em>+30% переглядів.</em> Ті самі відео, нуль перезйомок.",hk1c:"НА ОСНОВІ ПУБЛІЧНИХ ДАНИХ YOUTUBE",
+pr_h2:"AI-дубляж — один із найшвидших способів рости на YouTube.",pr_c1h:"часу перегляду з інших мов",pr_c1p:"У середньому креатори з Multi-Language Audio отримували понад 25% часу перегляду від глядачів іншими мовами.",pr_c2h:"більше переглядів — Джеймі Олівер",pr_c2p:"Багатомовне аудіо допомогло Джеймі Оліверу потроїти перегляди наявних відео.",pr_c3h:"нижчі витрати vs традиційний дубляж",pr_c3p:"AI-дубляж із синхронізацією губ різко знижує вартість локалізації — до 70% менше за відео.",pr_src1:"Офіційний блог YouTube →",pr_src3:"Звіт Market Intelo →",
+hk2a:"3 мови. 3 аудиторії.",hk2b:"<em>Усе ще одне відео.</em>",
+dm_h2:"Твій голос. Те саме відео. Нова мова.",dm_p:"Подивись, як ми відтворюємо голос креатора, природно перекладаємо кожне речення й синхронізуємо рухи губ — без жодного перезапису.",dm_f1:"<b>Голос</b> — клонований з оригінального запису",dm_f2:"<b>Переклад</b> — кожне речення звучить як від носія",dm_f3:"<b>Ліпсинк</b> — губи збігаються з новою мовою",dm_cta:"Надішли нам відео. Отримай дубльований семпл за 48 годин.",dm_cap:"🔊 18-секундне демо · увімкни звук",dm_h2b:"Одне успішне відео. Кілька нових аудиторій.",dm_pb:"Це відео вже довело, що збирає мільйони глядачів. Замість перезйомки креатор локалізував його іспанською й охопив цілком нову аудиторію тим самим контентом.",dm_t1:"▶ ENGLISH · оригінал",dm_t2:"▶ ESPAÑOL · дубляж",
+c_h2:"Усе, що ти очікуєш від студії дубляжу. Без студії.",c_th1:"Традиційна студія дубляжу",
+c_r1:"Вартість",c_r2:"Строк",c_r3:"Твій власний голос",c_r4:"Емоції та темп",c_r5:"Мови",c_r6:"Ліпсинк",c_r7:"Правки",c_r8:"Готово до публікації",
+c_a1:"Сотні євро за відео",c_b1:"<span class=\"yes\">Фіксована ціна за відео</span>",c_a2:"1–3 тижні",c_b2:"<span class=\"yes\">48 годин</span>",c_a3:"<span class=\"no\">✕ Новий актор озвучки</span>",c_b3:"<span class=\"yes\">✓ Відтворений твій власний голос</span>",c_a4:"Залежить від актора",c_b4:"<span class=\"yes\">✓ На основі твого оригінального виконання</span>",c_a5:"Зазвичай замовляються окремо",c_b5:"<span class=\"yes\">75+ мов</span>",c_a6:"Додаткова послуга",c_b6:"<span class=\"yes\">Включено</span>",c_a7:"Нескінченні листи",c_b7:"<span class=\"yes\">Включені до доставки</span>",c_a8:"Кілька етапів продакшену",c_b8:"<span class=\"yes\">Пакет, готовий до завантаження</span>",
+c_cta:"Надішли нам одне відео. Почуй себе іншою мовою.",
+p_h2:"Фіксовані ціни. Нуль кредитів. Без підписки.",p1_n:"Безплатний семпл",p2_n:"Market Test",p3_n:"Creator Edition ⭐",p4_n:"Global Channel",p1_am:"Безплатно",p4_am:"Індивідуально",p1_per:"перші 60 секунд твого відео",p2_per:"одне готове відео · до 60 хвилин",p4_per:"для креаторів, готових масштабуватись",
+p1_1:"Почуй свій голос іншою мовою, перш ніж платити",p1_2:"Твоє власне відео",p1_3:"Твій власний голос",p1_4:"Будь-яка мова",p1_5:"Доставка за 48 год",
+p2_1:"Ідеально для нарації, туторіалів, освітніх відео та записів екрана",p2_2:"AI-клонування голосу + природний переклад",p2_3:"Перевірка носієм",p2_4:"Аудіодоріжка + перекладені субтитри",p2_5:"Пакет, готовий до публікації",p2_6:"Одна правка",
+p3_1:"Інтерв'ю, курси, креатори в кадрі",p3_2:"Усе з Market Test, плюс:",p3_3:"Синхронізація рухів губ",p3_4:"Відео, готове до публікації",
+p4_1:"5+ відео",p4_2:"75+ мов",p4_3:"Послідовний голос і термінологія",p4_4:"Пріоритетна доставка + виділений рев'юер",p4_5:"Знижки за обсяг",
+p1_btn:"Отримати безплатний семпл",p2_btn:"Почати тест",p3_btn:"Створити багатомовне відео",p4_btn:"Масштабувати канал",
+hk4a:"48 годин. Одне посилання.",hk4b:"<em>Цілком нова аудиторія.</em>",
+f_h2:"Почни з одного відео. Рости на кожному ринку.",f_p:"Обери варіант під свою мету: безплатний семпл або повне локалізоване відео.",f_how:"Як хочеш почати?",
+f_o1:"<b>Безплатний семпл</b><small>€0 · твій голос іншою мовою · перші 60 секунд</small>",f_o2:"<b>Market Test</b><small>€69 · локалізація голосу · до 60 хв</small>",f_o3:"<b>Creator Edition ⭐</b><small>€89 · голос + синхронізація губ · до 60 хв</small>",f_o4:"<b>Локалізація каналу</b><small>Індивідуально · 5+ відео · кілька мов</small>",
+f_l1:"Посилання YouTube (твоє або клієнта) · необов'язково",f_l2:"Мова для тесту",f_l3:"Твій email",f_rec:"Порадьте мені мову ⭐",f_btn:"Надіслати заявку",f_note:"Без підписок. Без кредитів. Лише готові відео.",f_ph1:"https://youtube.com/watch?v=... — або залиш порожнім, спитаємо пізніше",
+s_1:"🎉 Ти в грі.",s_2:"Ми переглянемо твоє відео й напишемо на email.",s_3:"Якщо це безплатний семпл — отримаєш локалізований кліп протягом <b style=\"color:#fff\">48 годин</b>.",s_4:"Якщо це платний проєкт — спершу підтвердимо деталі.",
+fb_1:"Автоматична відправка не спрацювала — не біда. Скопіюй це й надішли на",fb_copy:"Копіювати",fb_mail:"Відкрити пошту",
+q_h2:"Швидкі відповіді",
+q1a:"Як це насправді працює?",q1b:"Ти надсилаєш нам посилання на YouTube. AI перекладає й відтворює твій голос іншою мовою. Носій мови все перевіряє, і ми віддаємо відео, готове до публікації, за 48 годин.",
+q2a:"Як використати результат? Я не технічний.",q2b:"Два шляхи: додати як додаткову аудіодоріжку до наявного відео (якщо твій канал має функцію мультиаудіо YouTube) або опублікувати як окреме локалізоване відео. Даємо обидва формати з покроковою інструкцією.",
+q3a:"Це справді звучатиме як я?",q3b:"Так. Ми відтворюємо твій голос із оригінального відео, зберігаючи тон, темп і стиль. Ти сам почуєш це в безплатному семплі, перш ніж щось платити.",
+q4a:"Усе робить AI?",q4b:"AI виконує транскрипцію, переклад і генерацію голосу. Далі носій мови перевіряє кожен рядок перед доставкою, щоб помилки перекладу не потрапили у фінальне відео.",
+q5a:"Мені треба щось перезаписувати?",q5b:"Просто надішли своє наявне YouTube-відео. Транскрипцію, переклад, відтворення голосу, ліпсинк (якщо включено) і доставку беремо на себе.",
+q6a:"Можна протестувати до оплати?",q6b:"Ми безплатно локалізуємо перші 60 секунд твого відео, щоб ти оцінив якість перед замовленням повної версії.",
+q7a:"Не знаю, з якої мови почати.",q7b:"Без проблем. Обери у формі <b>«Порадьте мені мову»</b> — ми проаналізуємо твій канал, аудиторію та найкращі відео й порадимо мову з найбільшим потенціалом.",
+adv_h:"Не знаєш, з якої мови почати?",adv_p:"Надішли нам свій канал — ми оцінимо контент, гео-аналітику та конкуренцію на кожному ринку й відповімо найкращою першою мовою для <em>твоєї</em> ніші. Безплатно, без зобов'язань.",adv_t1:"ТВОЯ НІША",adv_t2:"ТВОЯ ГЕО-СТАТИСТИКА",adv_t3:"КОНКУРЕНЦІЯ",adv_btn:"Отримати мою мову",
+ft_who:"Маленька команда редакторів локалізації та носіїв-рев'юерів. Кожне відео проходить через людину — і так, цю сторінку теж зробила людина.",ft_tag:"Локалізуй найкращі відео, рости всюди",ft_priv:"Зберігаємо лише те, що ти надсилаєш у формі, і лише щоб відповісти. Напиши — видалимо."}
+};
+
+var SUPPORTED = ['en','es','fr','de','pl','uk'];
+var cache = {};
+function applyLang(l){
+  if (SUPPORTED.indexOf(l) < 0) l = 'en';
+  var dict = I18N[l] || {};
+  document.documentElement.lang = l;
+  document.title = META[l].t;
+  var md = document.querySelector('meta[name="description"]');
+  if (md && META[l].d) md.setAttribute('content', META[l].d);
+  window.__dlNames = META[l].n;
+  var hot = document.querySelector('.plan.hot');
+  if (hot) hot.setAttribute('data-badge', META[l].badge);
+  var els = document.querySelectorAll('[data-i18n]');
+  for (var i = 0; i < els.length; i++) {
+    var el = els[i], k = el.getAttribute('data-i18n');
+    if (!(k in cache)) cache[k] = el.innerHTML;
+    el.innerHTML = (l === 'en') ? cache[k] : (dict[k] || cache[k]);
+  }
+  var phs = document.querySelectorAll('[data-i18n-ph]');
+  for (var j = 0; j < phs.length; j++) {
+    var p = phs[j], pk = p.getAttribute('data-i18n-ph');
+    if (!(pk in cache)) cache[pk] = p.getAttribute('placeholder');
+    p.setAttribute('placeholder', (l === 'en') ? cache[pk] : (dict[pk] || cache[pk]));
+  }
+  var sel = document.getElementById('langSel');
+  if (sel) sel.value = l;
+  try { localStorage.setItem('dl_lang', l); } catch(e) {}
+}
+function detect(){
+  var saved = null;
+  try { saved = localStorage.getItem('dl_lang'); } catch(e) {}
+  if (saved && SUPPORTED.indexOf(saved) > -1) return saved;
+  var langs = navigator.languages || [navigator.language || 'en'];
+  for (var i = 0; i < langs.length; i++) {
+    var c = String(langs[i]).slice(0,2).toLowerCase();
+    if (SUPPORTED.indexOf(c) > -1) return c;
+    if (c === 'ru') return 'uk';
+  }
+  return 'en';
+}
+var sel = document.getElementById('langSel');
+if (sel) sel.addEventListener('change', function(){ applyLang(this.value); });
+applyLang(detect());
+})();
 </script>
 </body>
 </html>
