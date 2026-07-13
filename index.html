@@ -47,7 +47,7 @@
 
  
 <meta charset="UTF-8">
-<meta name="page-version" content="v25">
+<meta name="page-version" content="v26">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Dublift — Grow your YouTube audience by localizing your best videos</title>
 <meta name="description" content="We turn your best-performing YouTube videos into ready-to-publish localized versions. AI speed, native human review, flat prices. Free 30-second sample of your own video.">
@@ -256,8 +256,8 @@ nav{position:sticky;top:0;background:var(--paper);border-bottom:1px solid var(--
 .compare .no{color:#A0A6AF}
 
 /* pricing */
-.price-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:44px}
-@media(max-width:1040px){.price-grid{grid-template-columns:repeat(2,1fr)}}
+.price-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px;margin-top:44px}
+@media(max-width:1040px){.price-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:620px){.price-grid{grid-template-columns:1fr}}
 .plan{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:30px;display:flex;flex-direction:column}
 .plan.hot{border:2px solid var(--red);position:relative}
@@ -320,6 +320,95 @@ footer .who{font-family:var(--body);font-size:.85rem;margin-bottom:8px}
 .center{text-align:center}
 .center h2{max-width:42rem;margin:0 auto}
 .center .lead{max-width:40rem;margin:18px auto 0;font-size:1.05rem}
+
+/* ============================================================
+   RESPONSIVE PATCH v13
+   html[data-device="mobile"|"desktop"] is set by JS (≤760px = mobile).
+   CSS relies on the same 760px media query, so it works even before JS runs.
+   ============================================================ */
+
+/* [ALL DEVICES] fix #6: page must never be wider than the device →
+   kills the extra right gap / accidental horizontal scroll */
+html{overflow-x:hidden}
+html,body{max-width:100%;overflow-x:clip}
+/* root cause of the extra right gap: the visually-hidden radio inputs in the
+   form are position:absolute and escaped their cards, sticking out past the
+   viewport. Anchor them to their own card wrapper instead. */
+.choice>span{position:relative;display:block}
+.choice input{left:0;top:0;width:1px;height:1px}
+
+/* [DESKTOP fix #1] plan title font adapts to the column width (JS fitPlanNames
+   shrinks it); nowrap + ellipsis is the no-JS fallback so the column never grows */
+.plan .name{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+/* ---------------- MOBILE ONLY (≤760px) ---------------- */
+@media(max-width:760px){
+
+  /* --- fix #1: less vertical air (spacing tightened ~20-30%) --- */
+  body{font-size:16px}
+  section{padding:56px 0}
+  .hero{padding:28px 0 40px}
+  .hero-grid{gap:30px}
+  .hero p.sub{margin:12px 0 20px}
+  .hero-trust{margin-top:14px;gap:8px 16px}
+  .infog{padding:46px 0}
+  .infog-grid{gap:30px}
+  .infog-text h2{min-height:0;margin-bottom:10px}
+  .hook{padding:18px 0 22px}
+  .demo-grid,.fit-grid,.compare{margin-top:26px}
+  .demo-grid{gap:28px}
+  .demo-feats{margin-top:18px;gap:10px}
+  .btn-sm{margin-top:20px}
+  .advisor{margin-top:34px;padding:24px 20px;gap:16px}
+  .faq{margin-top:22px}
+  .final p{margin:12px 0 24px}
+  .center .lead{margin-top:12px}
+  .micro{margin-top:10px}
+  footer{padding:32px 0}
+
+  /* --- fix #2: pricing → compact cards + horizontal swipe,
+         next card peeks from the side so users know they can scroll --- */
+  .price-grid{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:12px;margin:22px -24px 0;padding:14px 24px 6px;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+  .price-grid::-webkit-scrollbar{display:none}
+  .plan{flex:0 0 78%;max-width:320px;scroll-snap-align:center;padding:20px 18px}
+  .plan .name{white-space:normal;overflow:visible}
+  .plan .amount{font-size:1.85rem;margin:8px 0 2px}
+  .plan .per{font-size:.8rem;margin-bottom:12px;line-height:1.4}
+  .plan ul{margin-bottom:16px}
+  .plan li{font-size:.85rem;padding:5px 0;line-height:1.45}
+  .plan .btn{padding:12px 18px;font-size:.9rem}
+  .plan.hot::before{top:-10px;left:18px}
+
+  /* --- fix #3: compare table → vertical, one card per feature
+         (labels come from data-lbl set by JS, so they follow the i18n language) --- */
+  .compare{overflow:visible;margin-top:24px}
+  .compare table{display:block;min-width:0;border:none;background:none;border-radius:0;overflow:visible}
+  .compare thead{display:none}
+  .compare tbody{display:grid;gap:12px}
+  .compare tbody tr{display:grid;grid-template-columns:1fr 1fr;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
+  .compare tbody td{border-top:none;padding:12px 14px;font-size:.88rem}
+  .compare tbody td:first-child{grid-column:1/-1;width:auto;white-space:normal;background:var(--paper);border-bottom:1px solid var(--line);padding:10px 14px}
+  .compare tbody td:nth-child(2){border-right:1px dashed var(--line)}
+  .compare tbody td:nth-child(2)::before,.compare tbody td:nth-child(3)::before{content:attr(data-lbl);display:block;font-family:var(--mono);font-size:.58rem;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:5px}
+  .compare tbody td:nth-child(3)::before{color:var(--red)}
+
+  /* --- fix #4: proof case cards → horizontal swipe with peek --- */
+  .case-grid{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:12px;margin:26px -24px 0;padding:4px 24px 6px;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+  .case-grid::-webkit-scrollbar{display:none}
+  .case{flex:0 0 80%;max-width:320px;scroll-snap-align:center;padding:22px 20px}
+  .case .num{font-size:2rem}
+
+  /* --- fix #5: tariff choice in the form → compact horizontal swipe
+         with peek; plan names stay, the rest of the form stays in view --- */
+  .form{grid-template-columns:minmax(0,1fr)}
+  .form>*{min-width:0}
+  .choice{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:10px;margin:0 -24px;padding:4px 24px 8px;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+  .choice::-webkit-scrollbar{display:none}
+  .choice>span{flex:0 0 74%;max-width:280px;scroll-snap-align:center}
+  .choice .opt{height:100%;padding:12px 14px}
+  .choice .opt b{font-size:.9rem}
+  .choice .opt small{font-size:.74rem;line-height:1.35;display:block;margin-top:2px}
+}
 </style>
 </head>
 <body>
@@ -750,12 +839,12 @@ footer .who{font-family:var(--body);font-size:.85rem;margin-bottom:8px}
 <footer>
   <div class="wrap">
     <div class="who" data-i18n="ft_who">A small team of localization editors and native reviewers. Every video is checked by a human before it reaches you — and yes, a human made this page too.</div>
-    Dublift · <span data-i18n="ft_tag">Localize your best videos, grow everywhere</span> · killagroup22@gmail.com · build v12-video<br><span data-i18n="ft_priv">We store only what you send in the form, only to reply. Email us to delete it anytime.</span>
+    Dublift · <span data-i18n="ft_tag">Localize your best videos, grow everywhere</span> · killagroup22@gmail.com · build v13-responsive<br><span data-i18n="ft_priv">We store only what you send in the form, only to reply. Email us to delete it anytime.</span>
   </div>
 </footer>
 
 <script>
-console.log("Dublift landing build: v12-video (local demo player)");
+console.log("Dublift landing build: v13-responsive (mobile carousels + compact spacing)");
 
 // Language carousel: donut + headline retype in sync
 (function(){
@@ -1006,6 +1095,76 @@ document.getElementById('copyBtn').addEventListener('click', function(){
   try { navigator.clipboard.writeText(ta.value); this.textContent = 'Copied ✓'; }
   catch(err){ document.execCommand('copy'); this.textContent = 'Copied ✓'; }
 });
+
+// ============================================================
+// RESPONSIVE PATCH v13: device detection + adaptive behaviors
+// ============================================================
+(function(){
+  var mq = window.matchMedia('(max-width:760px)');
+  function isMobile(){ return mq.matches; }
+
+  // marks the page as mobile/desktop → html[data-device="mobile"|"desktop"]
+  function setDevice(){
+    document.documentElement.setAttribute('data-device', isMobile() ? 'mobile' : 'desktop');
+  }
+
+  // Mobile compare cards: copy the (translated) column headers into every cell
+  // as data-lbl, so the vertical layout shows "Traditional studio / Dublift"
+  // labels in the current i18n language.
+  function labelCompare(){
+    var ths = document.querySelectorAll('.compare thead th');
+    if (ths.length < 3) return;
+    var l1 = ths[1].textContent.trim() || 'Traditional studio';
+    var l2 = ths[2].textContent.trim() || 'Dublift';
+    document.querySelectorAll('.compare tbody tr').forEach(function(tr){
+      var tds = tr.querySelectorAll('td');
+      if (tds[1]) tds[1].setAttribute('data-lbl', l1);
+      if (tds[2]) tds[2].setAttribute('data-lbl', l2);
+    });
+  }
+
+  // Desktop pricing: shrink the plan-title font until it fits its column,
+  // instead of letting a long translated title stretch the column.
+  function fitPlanNames(){
+    document.querySelectorAll('.plan .name').forEach(function(el){
+      el.style.fontSize = '';
+      if (isMobile()) return; // mobile cards wrap normally
+      var size = parseFloat(getComputedStyle(el).fontSize);
+      var guard = 40;
+      while (guard-- > 0 && size > 9 && el.scrollWidth > el.clientWidth){
+        size -= 0.5;
+        el.style.fontSize = size + 'px';
+      }
+    });
+  }
+
+  // Mobile: open the pricing carousel centered on the "most popular" plan,
+  // with neighbours peeking on both sides (makes swipeability obvious).
+  function centerHotPlan(){
+    if (!isMobile()) return;
+    var grid = document.querySelector('.price-grid');
+    var hot = document.querySelector('.plan.hot');
+    if (!grid || !hot) return;
+    var g = grid.getBoundingClientRect(), h = hot.getBoundingClientRect();
+    grid.scrollLeft += h.left - g.left - (grid.clientWidth - hot.offsetWidth) / 2;
+  }
+
+  // re-run after every language switch (called from applyLang in the i18n block)
+  window.__dlAfterLang = function(){ labelCompare(); fitPlanNames(); };
+
+  var rT;
+  window.addEventListener('resize', function(){
+    setDevice();
+    clearTimeout(rT);
+    rT = setTimeout(fitPlanNames, 150);
+  });
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitPlanNames);
+
+  setDevice();
+  labelCompare();
+  fitPlanNames();
+  requestAnimationFrame(centerHotPlan);
+})();
 </script>
 
 <script>
@@ -1233,6 +1392,7 @@ function applyLang(l){
   var sel = document.getElementById('langSel');
   if (sel) sel.value = l;
   try { localStorage.setItem('dl_lang', l); } catch(e) {}
+  if (window.__dlAfterLang) window.__dlAfterLang(); // re-fit plan titles + relabel compare cards
 }
 function detect(){
   var saved = null;
