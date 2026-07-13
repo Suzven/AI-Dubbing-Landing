@@ -340,6 +340,8 @@ html,body{max-width:100%;overflow-x:clip}
 /* [DESKTOP fix #1] plan title font adapts to the column width (JS fitPlanNames
    shrinks it); nowrap + ellipsis is the no-JS fallback so the column never grows */
 .plan .name{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+/* big price line ("Індивідуально", "Безплатно"...) is fitted by JS too */
+.plan .amount{white-space:nowrap}
 
 /* ---------------- MOBILE ONLY (≤760px) ---------------- */
 @media(max-width:760px){
@@ -1123,19 +1125,49 @@ document.getElementById('copyBtn').addEventListener('click', function(){
     });
   }
 
-  // Desktop pricing: shrink the plan-title font until it fits its column,
-  // instead of letting a long translated title stretch the column.
+  // Shrink an element's font until its text fits its box on one line
+  function fitText(el, min){
+    el.style.fontSize = '';
+    var size = parseFloat(getComputedStyle(el).fontSize);
+    var guard = 60;
+    while (guard-- > 0 && size > min && el.scrollWidth > el.clientWidth){
+      size -= 0.5;
+      el.style.fontSize = size + 'px';
+    }
+  }
+
+  // Pricing: fit the plan title AND the big price line ("Індивідуально",
+  // "Безплатно"…) to the column width, instead of letting long translated
+  // words stretch the column or spill out of the card.
   function fitPlanNames(){
+    document.querySelectorAll('.plan .amount').forEach(function(el){ fitText(el, 18); });
     document.querySelectorAll('.plan .name').forEach(function(el){
-      el.style.fontSize = '';
-      if (isMobile()) return; // mobile cards wrap normally
-      var size = parseFloat(getComputedStyle(el).fontSize);
-      var guard = 40;
-      while (guard-- > 0 && size > 9 && el.scrollWidth > el.clientWidth){
-        size -= 0.5;
-        el.style.fontSize = size + 'px';
-      }
+      if (isMobile()) { el.style.fontSize = ''; } // mobile cards wrap normally
+      else fitText(el, 9);
     });
+  }
+
+  // Infographic (donut) block: the headline retypes the language name/share,
+  // so its line count — and the height of the whole section — used to change,
+  // shifting the entire page. Measure the tallest variant across all six
+  // languages and reserve that height once, so nothing below ever moves.
+  function lockInfogH2(){
+    var h2 = document.querySelector('.infog-text h2');
+    var nameEl = document.getElementById('langName');
+    var shareEl = document.getElementById('langShare');
+    if (!h2 || !nameEl || !shareEl) return;
+    var names = window.__dlNames || ['English','Spanish','French','German','Polish','Ukrainian'];
+    var shares = ['14%','7%','4%','1.7%','0.6%','0.5%'];
+    var curN = nameEl.textContent, curS = shareEl.textContent;
+    h2.style.minHeight = '';
+    var max = 0;
+    for (var i = 0; i < names.length; i++){
+      nameEl.textContent = names[i];
+      shareEl.textContent = shares[i];
+      if (h2.offsetHeight > max) max = h2.offsetHeight;
+    }
+    nameEl.textContent = curN; shareEl.textContent = curS;
+    h2.style.minHeight = max + 'px';
   }
 
   // Mobile: open the pricing carousel centered on the "most popular" plan,
@@ -1149,20 +1181,31 @@ document.getElementById('copyBtn').addEventListener('click', function(){
     grid.scrollLeft += h.left - g.left - (grid.clientWidth - hot.offsetWidth) / 2;
   }
 
-  // re-run after every language switch (called from applyLang in the i18n block)
-  window.__dlAfterLang = function(){ labelCompare(); fitPlanNames(); };
+  function refit(){ fitPlanNames(); lockInfogH2(); }
+
+  // re-run after every language switch (called from applyLang in the i18n block);
+  // the delayed pass catches late-loading font subsets (e.g. Cyrillic) whose
+  // metrics differ from the fallback used at the moment of switching
+  window.__dlAfterLang = function(){
+    labelCompare(); refit();
+    setTimeout(refit, 350);
+    setTimeout(refit, 1000); // extra pass for slow font-subset downloads
+  };
 
   var rT;
   window.addEventListener('resize', function(){
     setDevice();
     clearTimeout(rT);
-    rT = setTimeout(fitPlanNames, 150);
+    rT = setTimeout(refit, 150);
   });
-  if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitPlanNames);
+  if (document.fonts){
+    if (document.fonts.ready) document.fonts.ready.then(refit);
+    if (document.fonts.addEventListener) document.fonts.addEventListener('loadingdone', refit);
+  }
 
   setDevice();
   labelCompare();
-  fitPlanNames();
+  refit();
   requestAnimationFrame(centerHotPlan);
 })();
 </script>
