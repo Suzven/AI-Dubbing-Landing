@@ -674,7 +674,7 @@ footer .who{font-family:var(--body);font-size:.85rem;margin-bottom:8px}
           <label for="f-email" data-i18n="f_l3">Your email</label>
           <input id="f-email" name="email" type="email" placeholder="you@channel.com" required>
         </div>
-        <button class="btn btn-primary" type="submit" onclick="track('lead')"><span data-i18n="f_btn">Send my request</span></button>
+        <button class="btn btn-primary" type="submit"><span data-i18n="f_btn">Send my request</span></button>
       </form>
       <div class="fallback" id="formSuccess" style="border-style:solid;border-color:#1E9E6A">
         <p style="color:#fff;font-weight:600;font-size:1.05rem;margin:0 0 8px" data-i18n="s_1">🎉 You're in.</p>
@@ -938,6 +938,8 @@ document.getElementById('pilotForm').addEventListener('submit', function(e){
               'Reply to: ' + data.email;
 
   function showPopup(){
+    track('lead')
+    fbq('track', 'Lead')
     gtag('event', 'conversion', {'send_to': 'AW-18274818295/ZYrgCL2R5swcEPexjopE'});
     document.getElementById('pilotForm').style.display = 'none';
     document.getElementById('formSuccess').style.display = 'block';
