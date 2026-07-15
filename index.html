@@ -778,6 +778,7 @@ html,body{max-width:100%;overflow-x:clip}
           </select>
         </div>
         <div>
+          <input type="text" name="company" id="f-company" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0" aria-hidden="true">
           <label for="f-email" data-i18n="f_l3">Your email</label>
           <input id="f-email" name="email" type="email" placeholder="you@channel.com" required>
         </div>
@@ -1028,16 +1029,97 @@ document.getElementById('advisorBtn').addEventListener('click', function(){
 // FORM: sends every submission by email via FormSubmit (no backend needed).
 // Primary inbox + CC. NOTE: the very first submission triggers a one-time
 // activation email to the primary inbox — click "Activate" in it once.
+// ============================================================
+// FORM DELIVERY — multi-channel, in priority order:
+//   0) OWN endpoint /api/lead (Cloudflare Pages Function -> CF Email Service)
+//      same-origin: no CORS, no third parties. See functions/api/lead.js
+//   1) Web3Forms  (backup; reliable API with proper CORS)
+//   2) FormSubmit (backup; currently having outages)
+//   3) Telegram   (optional instant notification, works in parallel)
+// The form succeeds if ANY email channel delivers.
+// ------------------------------------------------------------
+// SETUP (takes ~1 minute):
+//   Go to https://web3forms.com, enter suzven9@gmail.com,
+//   copy the Access Key from the email and paste it below.
+//   That's it — no account, no password.
+// ------------------------------------------------------------
+var W3F_KEY  = '3fbbaffd-a720-4959-93ad-70eb4745282c';   // <-- PASTE YOUR WEB3FORMS ACCESS KEY HERE (between the quotes)
+
+// Optional: instant Telegram notifications (leave empty to skip).
+// Create a bot via @BotFather -> token; get your chat id via @userinfobot.
+var TG_TOKEN = '';
+var TG_CHAT  = '';
+
 var FORM_TO = 'killagroup22@gmail.com';
 var FORM_CC = 'suzven9@gmail.com';
+// ============================================================
 
-// Delivery via a native form POST into a hidden iframe.
-// Regular POSTs are never blocked by CORS (unlike the /ajax/ endpoint,
-// which fails the preflight from this domain). This is FormSubmit's
-// standard documented mode, so it keeps working even if their CORS
-// setup changes again.
-function fsSend(target, fields, timeoutMs){
-  return new Promise(function(resolve, reject){
+function withTimeout(promise, ms, label){
+  return Promise.race([
+    promise,
+    new Promise(function(_, rej){ setTimeout(function(){ rej(new Error(label + ': timeout')); }, ms); })
+  ]);
+}
+
+// --- Channel 0: our own Pages Function (same origin -> CORS-proof) ---
+function sendOwnAPI(data){
+  return withTimeout(
+    fetch('/api/lead', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        offer: data.offer,
+        link: data.link,
+        language: data.language,
+        email: data.email,
+        company: document.getElementById('f-company') ? document.getElementById('f-company').value : ''
+      })
+    }).then(function(r){
+      if (!r.ok && r.status !== 502 && r.status !== 500) throw new Error('own-api: http ' + r.status);
+      return r.json();
+    }).then(function(res){
+      if (res && res.success) return 'own-api';
+      throw new Error('own-api: ' + ((res && res.error) || 'rejected'));
+    }),
+  10000, 'own-api');
+}
+
+// --- Channel 1: Web3Forms (JSON API, CORS enabled) ---
+function sendWeb3Forms(data, plain){
+  if (!W3F_KEY) return Promise.reject(new Error('web3forms: key not set'));
+  return withTimeout(
+    fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
+      body: JSON.stringify({
+        access_key: W3F_KEY,
+        subject: 'Dublift request: ' + data.offer,
+        from_name: 'Dublift Landing',
+        email: data.email,          // becomes reply-to
+        offer: data.offer,
+        video_link: data.link,
+        language: data.language,
+        message: plain
+      })
+    }).then(function(r){ return r.json(); }).then(function(res){
+      if (res && res.success) return 'web3forms';
+      throw new Error('web3forms: ' + ((res && res.message) || 'rejected'));
+    }),
+  12000, 'web3forms');
+}
+
+// --- Channel 2: FormSubmit via native POST into a hidden iframe (no CORS) ---
+function sendFormSubmit(fields){
+  // A hidden-iframe POST can't tell a server reply from a browser error page,
+  // so first verify the host is actually reachable (opaque no-cors ping).
+  var ping = withTimeout(
+    fetch('https://formsubmit.co/robots.txt', {mode:'no-cors', cache:'no-store'}),
+    6000, 'formsubmit ping');
+  return ping.then(function(){ return doIframePost(fields); });
+}
+
+function doIframePost(fields){
+  return withTimeout(new Promise(function(resolve, reject){
     var name = 'fs_frame_' + Date.now() + '_' + Math.floor(Math.random()*1e6);
     var iframe = document.createElement('iframe');
     iframe.name = name;
@@ -1046,7 +1128,7 @@ function fsSend(target, fields, timeoutMs){
     iframe.style.cssText = 'position:absolute;width:1px;height:1px;left:-9999px;border:0';
 
     var form = document.createElement('form');
-    form.action = 'https://formsubmit.co/' + target;
+    form.action = 'https://formsubmit.co/' + FORM_TO;
     form.method = 'POST';
     form.target = name;
     form.style.display = 'none';
@@ -1060,29 +1142,31 @@ function fsSend(target, fields, timeoutMs){
     document.body.appendChild(form);
 
     var done = false;
-    function finish(ok, err){
-      if (done) return;
-      done = true;
-      clearTimeout(timer);
-      setTimeout(function(){ form.remove(); iframe.remove(); }, 500);
-      ok ? resolve() : reject(err || new Error('send failed'));
-    }
-    var timer = setTimeout(function(){ finish(false, new Error('timeout: no response from formsubmit.co')); }, timeoutMs || 15000);
-
+    function cleanup(){ setTimeout(function(){ form.remove(); iframe.remove(); }, 500); }
     iframe.addEventListener('load', function(){
+      if (done) return;
       try {
-        // still about:blank -> the initial empty load some browsers fire; ignore
-        if (iframe.contentWindow.location.href === 'about:blank') return;
-        finish(true);
+        if (iframe.contentWindow.location.href === 'about:blank') return; // initial blank load
+        done = true; cleanup(); resolve('formsubmit');
       } catch (crossOriginErr) {
-        // cross-origin access throws -> a real formsubmit.co page has loaded
-        // -> the POST was received and processed
-        finish(true);
+        // cross-origin access throws -> a real formsubmit.co page loaded -> processed
+        done = true; cleanup(); resolve('formsubmit');
       }
     });
-
     form.submit();
-  });
+  }), 12000, 'formsubmit');
+}
+
+// --- Channel 3 (optional): Telegram — fire in parallel, never blocks the result ---
+function sendTelegram(plain){
+  if (!TG_TOKEN || !TG_CHAT) return;
+  try {
+    fetch('https://api.telegram.org/bot' + TG_TOKEN + '/sendMessage', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({chat_id: TG_CHAT, text: '🎬 Dublift lead\n\n' + plain})
+    }).catch(function(){});
+  } catch(_e){}
 }
 
 document.getElementById('pilotForm').addEventListener('submit', function(e){
@@ -1098,7 +1182,7 @@ document.getElementById('pilotForm').addEventListener('submit', function(e){
               'Language: ' + data.language + '\n' +
               'Reply to: ' + data.email;
 
-  var fields = {
+  var fsFields = {
     _subject: 'Dublift request: ' + data.offer,
     _template: 'table',
     _captcha: 'false',
@@ -1110,7 +1194,8 @@ document.getElementById('pilotForm').addEventListener('submit', function(e){
     email: data.email
   };
 
-  function showPopup(){
+  function showPopup(channel){
+    console.info('[Dublift form] delivered via:', channel);
     try { track('lead'); } catch(_e){}
     try { fbq('track', 'Lead'); } catch(_e){}
     try { gtag('event', 'conversion', {'send_to': 'AW-18274818295/ZYrgCL2R5swcEPexjopE'}); } catch(_e){}
@@ -1119,7 +1204,7 @@ document.getElementById('pilotForm').addEventListener('submit', function(e){
     document.getElementById('formSuccess').style.display = 'block';
   }
   function showFallback(reason){
-    if (reason) console.warn('[Dublift form] delivery failed:', reason);
+    if (reason) console.warn('[Dublift form] all channels failed:', reason);
     document.getElementById('fallbackText').value = plain;
     document.getElementById('fallback').style.display = 'block';
     var m = document.getElementById('mailBtn');
@@ -1131,11 +1216,21 @@ document.getElementById('pilotForm').addEventListener('submit', function(e){
   var btnLabel = btn.textContent;
   btn.disabled = true; btn.textContent = 'Sending\u2026';
 
-  fsSend(FORM_TO, fields, 15000)
-    .then(function(){ showPopup(); })
-    .catch(function(err){
+  sendTelegram(plain); // bonus channel, does not affect the outcome
+
+  sendOwnAPI(data)
+    .catch(function(err0){
+      console.warn('[Dublift form] own api failed:', err0.message, '-> trying web3forms');
+      return sendWeb3Forms(data, plain);
+    })
+    .catch(function(err1){
+      console.warn('[Dublift form] web3forms failed:', err1.message, '-> trying formsubmit');
+      return sendFormSubmit(fsFields);
+    })
+    .then(function(channel){ showPopup(channel); })
+    .catch(function(err2){
       btn.disabled = false; btn.textContent = btnLabel;
-      showFallback(err && err.message);
+      showFallback(err2 && err2.message);
     });
 });
 
