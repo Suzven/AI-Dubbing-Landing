@@ -157,7 +157,21 @@ nav{position:sticky;top:0;background:var(--paper);border-bottom:1px solid var(--
 .nav-links a:hover{color:var(--ink)}
 .langsel{font-family:var(--mono);font-size:.75rem;font-weight:500;border:1px solid var(--line);border-radius:999px;padding:6px 10px;background:var(--card);color:var(--ink-soft);cursor:pointer;-webkit-appearance:none;appearance:auto}
 .nav-cta{background:var(--ink);color:#fff !important;padding:9px 18px;border-radius:999px}
-@media(max-width:760px){.nav-links a:not(.nav-cta){display:none}}
+@media(max-width:760px){
+  .nav-links a:not(.nav-cta){display:none}
+  .nav-in{height:54px;gap:8px}
+  .logo{font-size:1.02rem;gap:6px}
+  .logo .play{width:18px;height:13px}
+  .logo .play::after{border-left-width:5px;border-top-width:3px;border-bottom-width:3px}
+  .nav-links{gap:8px}
+  .langsel,.nav-cta{height:32px;box-sizing:border-box;display:inline-flex;align-items:center;white-space:nowrap}
+  .langsel{font-size:.7rem;padding:0 8px}
+  .nav-cta{font-size:.74rem;font-weight:600;padding:0 14px;letter-spacing:.01em}
+}
+@media(max-width:380px){
+  .logo .word{display:none}
+  .nav-cta{font-size:.7rem;padding:0 11px}
+}
 
 /* hero */
 .hero{padding:44px 0 64px}
@@ -1015,6 +1029,24 @@ document.getElementById('advisorBtn').addEventListener('click', function(){
 var FORM_TO = 'killagroup22@gmail.com';
 var FORM_CC = 'suzven9@gmail.com';
 
+// NOTE (FormSubmit): each inbox must be ACTIVATED once.
+// The first submission triggers an "Activate form" email to that inbox —
+// open killagroup22@gmail.com (check Spam too) and click Activate.
+// Until then FormSubmit answers success:false and nothing is delivered.
+
+function fsSend(target, payload){
+  return fetch('https://formsubmit.co/ajax/' + encodeURIComponent(target), {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
+    body: JSON.stringify(payload)
+  }).then(function(r){ return r.json(); }).then(function(res){
+    if (res && (res.success === true || res.success === 'true')) return res;
+    var err = new Error((res && res.message) ? res.message : 'FormSubmit rejected the request');
+    err.formsubmit = res;
+    throw err;
+  });
+}
+
 document.getElementById('pilotForm').addEventListener('submit', function(e){
   e.preventDefault();
   var data = {
@@ -1028,14 +1060,27 @@ document.getElementById('pilotForm').addEventListener('submit', function(e){
               'Language: ' + data.language + '\n' +
               'Reply to: ' + data.email;
 
+  var payload = {
+    _subject: 'Dublift request: ' + data.offer,
+    _template: 'table',
+    _captcha: 'false',
+    _replyto: data.email,
+    offer: data.offer,
+    video_link: data.link,
+    language: data.language,
+    email: data.email
+  };
+
   function showPopup(){
-    track('lead')
-    fbq('track', 'Lead')
-    gtag('event', 'conversion', {'send_to': 'AW-18274818295/ZYrgCL2R5swcEPexjopE'});
+    try { track('lead'); } catch(_e){}
+    try { fbq('track', 'Lead'); } catch(_e){}
+    try { gtag('event', 'conversion', {'send_to': 'AW-18274818295/ZYrgCL2R5swcEPexjopE'}); } catch(_e){}
     document.getElementById('pilotForm').style.display = 'none';
+    document.getElementById('fallback').style.display = 'none';
     document.getElementById('formSuccess').style.display = 'block';
   }
-  function showFallback(){
+  function showFallback(reason){
+    if (reason) console.warn('[Dublift form] delivery failed:', reason);
     document.getElementById('fallbackText').value = plain;
     document.getElementById('fallback').style.display = 'block';
     var m = document.getElementById('mailBtn');
@@ -1044,29 +1089,23 @@ document.getElementById('pilotForm').addEventListener('submit', function(e){
   }
 
   var btn = document.querySelector('#pilotForm .btn');
+  var btnLabel = btn.textContent;
   btn.disabled = true; btn.textContent = 'Sending\u2026';
 
-  fetch('https://formsubmit.co/ajax/' + FORM_TO, {
-    method: 'POST',
-    headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
-    body: JSON.stringify({
-      _subject: 'Dublift request: ' + data.offer,
-      _template: 'table',
-      _captcha: 'false',
-      _cc: FORM_CC,
-      _replyto: data.email,
-      offer: data.offer,
-      video_link: data.link,
-      language: data.language,
-      email: data.email
+  // 1) primary inbox (+CC). 2) if it fails (e.g. not activated) — retry to the CC inbox.
+  var p1 = Object.assign({}, payload, {_cc: FORM_CC});
+  var p2 = Object.assign({}, payload, {_cc: FORM_TO});
+
+  fsSend(FORM_TO, p1)
+    .catch(function(err1){
+      console.warn('[Dublift form] primary inbox failed:', err1.message, err1.formsubmit || '');
+      return fsSend(FORM_CC, p2);
     })
-  }).then(function(r){ return r.json(); }).then(function(res){
-    if (res && (res.success === true || res.success === 'true')) { showPopup(); }
-    else { btn.disabled = false; btn.textContent = 'Send my request'; showPopup(); showFallback(); }
-  }).catch(function(){
-    btn.disabled = false; btn.textContent = 'Send my request';
-    showPopup(); showFallback();
-  });
+    .then(function(){ showPopup(); })
+    .catch(function(err2){
+      btn.disabled = false; btn.textContent = btnLabel;
+      showFallback(err2.message + (err2.formsubmit ? ' | ' + JSON.stringify(err2.formsubmit) : ''));
+    });
 });
 
 // Demo block: variant switch via ?hero= URL param + local video player
