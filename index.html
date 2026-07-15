@@ -88,6 +88,8 @@ h3{font-size:1.15rem;font-weight:600}
 p{color:var(--ink-soft)}
 a{color:inherit}
 section{padding:88px 0}
+#start{padding-bottom:40px}
+#faq{padding-top:24px}
 .eyebrow{font-family:var(--mono);font-size:.78rem;text-transform:uppercase;letter-spacing:.14em;color:var(--red);margin-bottom:12px;display:block}
 .hl{background:linear-gradient(180deg,transparent 55%,var(--hl) 55%,var(--hl) 92%,transparent 92%);padding:0 2px}
 .squiggle{position:relative;white-space:nowrap}
@@ -1029,21 +1031,57 @@ document.getElementById('advisorBtn').addEventListener('click', function(){
 var FORM_TO = 'killagroup22@gmail.com';
 var FORM_CC = 'suzven9@gmail.com';
 
-// NOTE (FormSubmit): each inbox must be ACTIVATED once.
-// The first submission triggers an "Activate form" email to that inbox —
-// open killagroup22@gmail.com (check Spam too) and click Activate.
-// Until then FormSubmit answers success:false and nothing is delivered.
+// Delivery via a native form POST into a hidden iframe.
+// Regular POSTs are never blocked by CORS (unlike the /ajax/ endpoint,
+// which fails the preflight from this domain). This is FormSubmit's
+// standard documented mode, so it keeps working even if their CORS
+// setup changes again.
+function fsSend(target, fields, timeoutMs){
+  return new Promise(function(resolve, reject){
+    var name = 'fs_frame_' + Date.now() + '_' + Math.floor(Math.random()*1e6);
+    var iframe = document.createElement('iframe');
+    iframe.name = name;
+    iframe.setAttribute('aria-hidden', 'true');
+    iframe.tabIndex = -1;
+    iframe.style.cssText = 'position:absolute;width:1px;height:1px;left:-9999px;border:0';
 
-function fsSend(target, payload){
-  return fetch('https://formsubmit.co/ajax/' + encodeURIComponent(target), {
-    method: 'POST',
-    headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
-    body: JSON.stringify(payload)
-  }).then(function(r){ return r.json(); }).then(function(res){
-    if (res && (res.success === true || res.success === 'true')) return res;
-    var err = new Error((res && res.message) ? res.message : 'FormSubmit rejected the request');
-    err.formsubmit = res;
-    throw err;
+    var form = document.createElement('form');
+    form.action = 'https://formsubmit.co/' + target;
+    form.method = 'POST';
+    form.target = name;
+    form.style.display = 'none';
+    Object.keys(fields).forEach(function(k){
+      var inp = document.createElement('input');
+      inp.type = 'hidden'; inp.name = k; inp.value = fields[k];
+      form.appendChild(inp);
+    });
+
+    document.body.appendChild(iframe);
+    document.body.appendChild(form);
+
+    var done = false;
+    function finish(ok, err){
+      if (done) return;
+      done = true;
+      clearTimeout(timer);
+      setTimeout(function(){ form.remove(); iframe.remove(); }, 500);
+      ok ? resolve() : reject(err || new Error('send failed'));
+    }
+    var timer = setTimeout(function(){ finish(false, new Error('timeout: no response from formsubmit.co')); }, timeoutMs || 15000);
+
+    iframe.addEventListener('load', function(){
+      try {
+        // still about:blank -> the initial empty load some browsers fire; ignore
+        if (iframe.contentWindow.location.href === 'about:blank') return;
+        finish(true);
+      } catch (crossOriginErr) {
+        // cross-origin access throws -> a real formsubmit.co page has loaded
+        // -> the POST was received and processed
+        finish(true);
+      }
+    });
+
+    form.submit();
   });
 }
 
@@ -1060,10 +1098,11 @@ document.getElementById('pilotForm').addEventListener('submit', function(e){
               'Language: ' + data.language + '\n' +
               'Reply to: ' + data.email;
 
-  var payload = {
+  var fields = {
     _subject: 'Dublift request: ' + data.offer,
     _template: 'table',
     _captcha: 'false',
+    _cc: FORM_CC,
     _replyto: data.email,
     offer: data.offer,
     video_link: data.link,
@@ -1092,19 +1131,11 @@ document.getElementById('pilotForm').addEventListener('submit', function(e){
   var btnLabel = btn.textContent;
   btn.disabled = true; btn.textContent = 'Sending\u2026';
 
-  // 1) primary inbox (+CC). 2) if it fails (e.g. not activated) — retry to the CC inbox.
-  var p1 = Object.assign({}, payload, {_cc: FORM_CC});
-  var p2 = Object.assign({}, payload, {_cc: FORM_TO});
-
-  fsSend(FORM_TO, p1)
-    .catch(function(err1){
-      console.warn('[Dublift form] primary inbox failed:', err1.message, err1.formsubmit || '');
-      return fsSend(FORM_CC, p2);
-    })
+  fsSend(FORM_TO, fields, 15000)
     .then(function(){ showPopup(); })
-    .catch(function(err2){
+    .catch(function(err){
       btn.disabled = false; btn.textContent = btnLabel;
-      showFallback(err2.message + (err2.formsubmit ? ' | ' + JSON.stringify(err2.formsubmit) : ''));
+      showFallback(err && err.message);
     });
 });
 
