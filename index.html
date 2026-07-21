@@ -232,6 +232,66 @@ details p{padding:0 24px 20px;font-size:.95rem}
 .fallback textarea{width:100%;background:#0E1116;color:#B9BEC7;border:1px solid #2A2F38;border-radius:8px;padding:10px;font-family:var(--mono);font-size:.78rem;min-height:96px}
 .fallback button{margin-top:10px;background:#2A2F38;color:#fff;border:none;border-radius:8px;padding:9px 16px;font-family:var(--body);font-weight:600;cursor:pointer}
 
+/* how it works */
+.how{padding:72px 0 88px}
+.how-head{margin-bottom:40px}
+.how-head h2{max-width:620px}
+.how-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:64px;position:relative;width:100%}
+.how-card{--step-color:var(--red);position:relative;min-width:0;background:var(--card);border:1px solid var(--line);border-radius:20px;padding:16px;box-shadow:0 16px 42px rgba(14,17,22,.055);overflow:visible}
+.how-step{margin-bottom:16px}
+.how-num{font-family:var(--display);font-size:.78rem;font-weight:800;letter-spacing:.04em;text-transform:uppercase;color:var(--step-color)}
+.how-visual{height:162px;border-radius:14px;background:#F7F8FA;border:1px solid #E7E9ED;margin-bottom:20px;position:relative;overflow:hidden}
+.how-card h3{font-size:1.28rem;margin-bottom:8px}
+.how-card>p{font-size:.93rem;line-height:1.55}
+.flow-arrow{position:absolute;z-index:3;top:105px;right:-56px;width:48px;height:48px;border-radius:50%;background:var(--ink);border:4px solid var(--paper);font-size:0}
+.flow-arrow::before{content:"";position:absolute;left:9px;top:13px;width:22px;height:14px;background:#fff;clip-path:polygon(0 43%,64% 43%,64% 0,100% 50%,64% 100%,64% 57%,0 57%)}
+
+/* step 1: link */
+.link-window{position:absolute;inset:23px 18px auto;background:#fff;border:1px solid var(--line);border-radius:11px;box-shadow:0 10px 24px rgba(14,17,22,.07)}
+.link-bar{display:flex;gap:4px;padding:9px 10px;border-bottom:1px solid var(--line)}
+.link-bar i{width:5px;height:5px;border-radius:50%;background:#C8CDD4}
+.link-field{margin:14px 12px 12px;border:1px solid var(--line);border-radius:8px;padding:10px;display:flex;align-items:center;gap:8px;color:#737B86;font-family:var(--mono);font-size:.58rem;white-space:nowrap}
+.yt-mini{width:24px;height:17px;background:var(--red);border-radius:5px;position:relative;flex:0 0 auto}
+.yt-mini::after{content:"";position:absolute;left:10px;top:5px;border-left:6px solid white;border-top:4px solid transparent;border-bottom:4px solid transparent}
+.link-send{margin:0 12px 14px;background:var(--ink);color:#fff;border-radius:8px;text-align:center;padding:8px;font-size:.66rem;font-weight:600}
+
+/* step 2: localization */
+.voice-stage{position:absolute;inset:0;background:linear-gradient(145deg,#101319,#202631);color:white;padding:19px 16px}
+.voice-top{display:flex;align-items:center;justify-content:space-between;font-family:var(--mono);font-size:.58rem;color:#AEB5C0}
+.voice-live{color:#FF7069}
+.wave{height:58px;display:flex;align-items:center;justify-content:center;gap:3px;margin:16px 0 12px}
+.wave i{display:block;width:3px;height:var(--h);border-radius:5px;background:linear-gradient(to top,var(--red),#FF8A68)}
+.language-track{display:flex;align-items:center;gap:8px;background:#2A303A;border:1px solid #38404C;border-radius:8px;padding:8px 10px;font-family:var(--mono);font-size:.61rem;color:#D8DCE2}
+.language-track b{margin-left:auto;color:#65D3A5;font-weight:500}
+
+/* step 3: growth */
+.growth-stage{position:absolute;inset:14px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:15px 16px 12px;box-shadow:0 8px 22px rgba(14,17,22,.05)}
+.growth-head{display:flex;justify-content:space-between;align-items:flex-start;position:relative;z-index:2}
+.growth-label{font-size:.68rem;font-weight:600;color:var(--ink-soft)}
+.growth-value{font-family:var(--display);font-size:1.45rem;font-weight:800;line-height:1;color:var(--red)}
+.growth-chart{height:82px;display:flex;align-items:flex-end;gap:7px;padding:11px 3px 0;border-bottom:1px solid var(--line);position:relative}
+.growth-chart::before{content:"";position:absolute;left:0;right:0;top:33px;border-top:1px dashed #E6E8EC}
+.growth-chart i{flex:1;height:var(--h);background:linear-gradient(to top,#E4E7EB,#F7F8FA);border:1px solid #D9DDE2;border-bottom:0;border-radius:4px 4px 1px 1px;position:relative;z-index:1}
+.growth-chart i:nth-child(n+4){background:linear-gradient(to top,#F4B0AC,var(--red));border-color:var(--red)}
+
+@media(max-width:900px){
+  .how-grid{grid-template-columns:1fr;width:100%;gap:42px}
+  .how-card{display:grid;grid-template-columns:220px 1fr;gap:0 22px;align-items:center}
+  .how-step{grid-column:1/-1}
+  .how-visual{grid-row:2/4;margin-bottom:0}
+  .flow-arrow{top:auto;right:50%;bottom:-45px;transform:translateX(50%) rotate(90deg)}
+}
+@media(max-width:620px){
+  .how{padding:52px 0 64px}
+  .how-head{margin-bottom:26px}
+  .how-card{display:block;padding:15px}
+  .how-visual{height:168px;margin-bottom:18px}
+  .how-card>p{padding-bottom:4px}
+  .flow-arrow{bottom:-45px}
+  .growth-stage{inset:8px;padding:15px 12px 10px}
+  .growth-chart{gap:6px;padding-left:0;padding-right:0}
+}
+
 footer{padding:44px 0;text-align:center;font-family:var(--mono);font-size:.75rem;color:var(--ink-soft)}
 footer .who{font-family:var(--body);font-size:.85rem;margin-bottom:8px}
 .center{text-align:center}
@@ -313,7 +373,7 @@ html,body{max-width:100%;overflow-x:clip}
       <p class="sub" data-i18n="h_sub">Translate your own voice into 20+ languages and reach new audiences with the videos you've already published. Perfect for YouTubers, educators and creators who narrate their videos with their own voice — without recording everything again.</p>
       <div class="cta-row">
         <a class="btn btn-primary" href="#start" onclick="track('cta_click', {location:'header'})"><span data-i18n="h_cta1">Get a free 60-sec sample</span></a>
-        <a class="btn btn-ghost" href="#faq" onclick="track('cta_click', {location:'header_faq'})"><span data-i18n="h_faq">How it works?</span></a>
+        <a class="btn btn-ghost" href="#how-it-works" onclick="track('cta_click', {location:'header_how'})"><span data-i18n="h_faq">How it works?</span></a>
       </div>
     </div>
     <div class="deck notranslate" translate="no" id="growthDeck" aria-label="Analytics: the same video gaining views in new languages">
@@ -398,6 +458,57 @@ html,body{max-width:100%;overflow-x:clip}
         <a id="mailBtn" href="#" style="display:inline-block;margin:10px 0 0 10px;background:#2A2F38;color:#fff;border-radius:8px;padding:9px 16px;font-weight:600;text-decoration:none;font-size:.9rem"><span data-i18n="fb_mail">Open mail app</span></a>
       </div>
     </div>
+  </div>
+</section>
+
+<!-- 3. HOW IT WORKS -->
+<section class="how" id="how-it-works">
+  <div class="wrap">
+    <div class="how-head">
+      <h2 data-i18n="how_h2">How it works — you send the video, we handle the rest.</h2>
+    </div>
+    <div class="how-grid">
+      <article class="how-card">
+        <div class="how-step"><span class="how-num" data-i18n="how_step1">Step 1</span></div>
+        <div class="how-visual" aria-hidden="true">
+          <div class="link-window">
+            <div class="link-bar"><i></i><i></i><i></i></div>
+            <div class="link-field"><span class="yt-mini"></span><span>youtube.com/your-video</span></div>
+            <div class="link-send"><span data-i18n="how_send">Send video link</span>&nbsp; →</div>
+          </div>
+        </div>
+        <h3 data-i18n="how_1t">Submit the form with your YouTube link</h3>
+        <p data-i18n="how_1p">Fill out and send the form with a link to a video or your YouTube channel.</p>
+        <span class="flow-arrow" aria-hidden="true"></span>
+      </article>
+
+      <article class="how-card">
+        <div class="how-step"><span class="how-num" data-i18n="how_step2">Step 2</span></div>
+        <div class="how-visual" aria-hidden="true">
+          <div class="voice-stage">
+            <div class="voice-top"><span data-i18n="how_voice">VOICE LOCALIZATION</span><span class="voice-live">● <span data-i18n="how_processing">PROCESSING</span></span></div>
+            <div class="wave"><i style="--h:18px"></i><i style="--h:30px"></i><i style="--h:43px"></i><i style="--h:25px"></i><i style="--h:50px"></i><i style="--h:36px"></i><i style="--h:22px"></i><i style="--h:45px"></i><i style="--h:31px"></i><i style="--h:17px"></i><i style="--h:38px"></i><i style="--h:26px"></i><i style="--h:48px"></i><i style="--h:20px"></i><i style="--h:34px"></i></div>
+            <div class="language-track"><span>EN</span><span>→</span><span>ES · <span data-i18n="how_your_voice">Your voice</span></span><b>✓</b></div>
+          </div>
+        </div>
+        <h3 data-i18n="how_2t">Receive a ready dubbed version</h3>
+        <p data-i18n="how_2p">We translate, recreate your voice and match the timing. A native speaker reviews the result before delivery.</p>
+        <span class="flow-arrow" aria-hidden="true"></span>
+      </article>
+
+      <article class="how-card">
+        <div class="how-step"><span class="how-num" data-i18n="how_step3">Step 3</span></div>
+        <div class="how-visual" aria-hidden="true">
+          <div class="growth-stage">
+            <div class="growth-head"><span class="growth-label" data-i18n="how_views">Views</span><strong class="growth-value">+100%</strong></div>
+            <div class="growth-chart"><i style="--h:20%"></i><i style="--h:29%"></i><i style="--h:39%"></i><i style="--h:55%"></i><i style="--h:73%"></i><i style="--h:96%"></i></div>
+          </div>
+        </div>
+        <h3 data-i18n="how_3t">Publish the way that fits you</h3>
+        <p data-i18n="how_3p">Add the translated audio track to your existing video or upload the complete localized version to your channel, reach more views!</p>
+      </article>
+    </div>
+
   </div>
 </section>
 
@@ -955,6 +1066,7 @@ document.getElementById('copyBtn').addEventListener('click', function(){
 };
 var I18N = {
 es:{h_faq:"¿Cómo funciona?",hk4a:"Traduce tu voz.",hk4b:"<em>Llega a nuevos mercados.</em>",f_h2:"Envía tu vídeo. Escucha tu voz en otro idioma.",f_l1:"Enlace de YouTube de tu vídeo / canal",f_dm:"¿Dónde quieres recibir tu demo?",f_tap:"Toca para elegir",f_btn:"Recibir mi demo gratis de 60 s",
+how_h2:"Cómo funciona: tú envías el vídeo y nosotros nos encargamos del resto.",how_step1:"Paso 1",how_step2:"Paso 2",how_step3:"Paso 3",how_send:"Enviar enlace",how_1t:"Envía el formulario con tu enlace de YouTube",how_1p:"Completa y envía el formulario con un enlace a un vídeo o a tu canal de YouTube.",how_voice:"LOCALIZACIÓN DE VOZ",how_processing:"PROCESANDO",how_your_voice:"Tu voz",how_2t:"Recibe una versión doblada lista para usar",how_2p:"Traducimos, recreamos tu voz y ajustamos los tiempos. Un hablante nativo revisa el resultado antes de la entrega.",how_views:"Visualizaciones",how_3t:"Publica como prefieras",how_3p:"Añade la pista de audio traducida a tu vídeo actual o sube la versión localizada completa a tu canal para conseguir más visualizaciones.",
 nav_cta:"Muestra gratis",
 h_h1:"Haz crecer tu YouTube con los vídeos que ya tienes.",h_sub:"Traducimos, doblamos y sincronizamos labios en tus mejores vídeos para llegar a nuevas audiencias y crecer internacionalmente — sin volver a grabar nada.",h_cta1:"Muestra gratis de 60 seg",
 d_en:"Inglés",d_es:"+ Español",d_fr:"+ Francés",d_de:"+ Alemán",d_foot:"Mismo vídeo. Mismo canal. <b>Nuevas audiencias.</b>",d_note:"← tu catálogo antiguo, trabajando horas extra",
@@ -974,6 +1086,7 @@ q5a:"¿Tengo que grabar algo de nuevo?",q5b:"Solo envía tu vídeo de YouTube ex
 q6a:"¿Puedo probarlo antes de pagar?",q6b:"Localizamos gratis los primeros 60 segundos de tu propio vídeo, para que juzgues la calidad antes de pedir la versión completa.",
 ft_tag:"Localiza tus mejores vídeos, crece en todas partes",ft_priv:"Solo guardamos lo que envías en el formulario y solo para responderte. Escríbenos para borrarlo."},
 fr:{h_faq:"Comment ça marche ?",hk4a:"Traduisez votre voix.",hk4b:"<em>Touchez de nouveaux marchés.</em>",f_h2:"Envoyez votre vidéo. Écoutez votre voix dans une autre langue.",f_l1:"Lien YouTube de votre vidéo / chaîne",f_dm:"Où souhaitez-vous recevoir votre démo ?",f_tap:"Touchez pour choisir",f_btn:"Recevoir ma démo gratuite de 60 s",
+how_h2:"Comment ça marche : vous envoyez la vidéo, nous nous occupons du reste.",how_step1:"Étape 1",how_step2:"Étape 2",how_step3:"Étape 3",how_send:"Envoyer le lien",how_1t:"Envoyez le formulaire avec votre lien YouTube",how_1p:"Remplissez et envoyez le formulaire avec un lien vers une vidéo ou votre chaîne YouTube.",how_voice:"LOCALISATION DE LA VOIX",how_processing:"EN COURS",how_your_voice:"Votre voix",how_2t:"Recevez une version doublée prête à l’emploi",how_2p:"Nous traduisons, recréons votre voix et ajustons le timing. Un locuteur natif vérifie le résultat avant la livraison.",how_views:"Vues",how_3t:"Publiez comme vous le souhaitez",how_3p:"Ajoutez la piste audio traduite à votre vidéo existante ou importez la version localisée complète sur votre chaîne pour obtenir plus de vues.",
 nav_cta:"Échantillon gratuit",
 h_h1:"Développez votre chaîne YouTube avec les vidéos que vous avez déjà.",
 h_sub:"Traduisez votre propre voix dans plus de 20 langues et touchez de nouveaux publics avec les vidéos que vous avez déjà publiées. Idéal pour les YouTubeurs, les formateurs et les créateurs qui utilisent leur propre voix dans leurs vidéos — sans rien avoir à réenregistrer.",
@@ -1045,6 +1158,7 @@ q6b:"Oui. Nous localisons gratuitement les 60 premières secondes de votre propr
 ft_tag:"Localisez vos meilleures vidéos et développez votre audience partout dans le monde.",
 ft_priv:"Nous conservons uniquement les informations que vous nous envoyez via le formulaire, et uniquement pour vous répondre. Il vous suffit de nous écrire si vous souhaitez les supprimer."},
 de:{h_faq:"Wie funktioniert es?",hk4a:"Übersetze deine Stimme.",hk4b:"<em>Erreiche neue Märkte.</em>",f_h2:"Sende dein Video. Höre deine Stimme in einer anderen Sprache.",f_l1:"YouTube-Link deines Videos / Kanals",f_dm:"Wohin sollen wir deine Demo schicken?",f_tap:"Zum Auswählen tippen",f_btn:"Gratis 60-Sekunden-Demo erhalten",
+how_h2:"So funktioniert es: Du sendest das Video, wir kümmern uns um den Rest.",how_step1:"Schritt 1",how_step2:"Schritt 2",how_step3:"Schritt 3",how_send:"Link senden",how_1t:"Sende das Formular mit deinem YouTube-Link",how_1p:"Fülle das Formular aus und sende es mit einem Link zu einem Video oder deinem YouTube-Kanal ab.",how_voice:"STIMMENLOKALISIERUNG",how_processing:"IN BEARBEITUNG",how_your_voice:"Deine Stimme",how_2t:"Erhalte eine fertig synchronisierte Version",how_2p:"Wir übersetzen, bilden deine Stimme nach und passen das Timing an. Ein Muttersprachler prüft das Ergebnis vor der Lieferung.",how_views:"Aufrufe",how_3t:"Veröffentliche auf deine Weise",how_3p:"Füge die übersetzte Audiospur zu deinem bestehenden Video hinzu oder lade die vollständige lokalisierte Version auf deinen Kanal hoch und erziele mehr Aufrufe.",
 nav_cta:"Gratis-Probe",
 h_h1:"Lass deinen YouTube-Kanal mit Videos wachsen, die du schon hast.",h_sub:"Wir übersetzen, synchronisieren und lippensynchronisieren deine besten Videos, damit du neue Zielgruppen erreichst und international wächst — ohne alles neu aufzunehmen.",h_cta1:"Gratis 60-Sek.-Probe",
 d_en:"Englisch",d_es:"+ Spanisch",d_fr:"+ Französisch",d_de:"+ Deutsch",d_foot:"Gleiches Video. Gleicher Kanal. <b>Neue Zielgruppen.</b>",d_note:"← dein Backkatalog macht Überstunden",
@@ -1064,6 +1178,7 @@ q5a:"Muss ich etwas neu aufnehmen?",q5b:"Schick einfach dein bestehendes YouTube
 q6a:"Kann ich vor dem Kauf testen?",q6b:"Wir lokalisieren die ersten 60 Sekunden deines eigenen Videos kostenlos, damit du die Qualität beurteilen kannst, bevor du die Vollversion bestellst.",
 ft_tag:"Lokalisiere deine besten Videos, wachse überall",ft_priv:"Wir speichern nur, was du im Formular sendest — nur, um zu antworten. Schreib uns, und wir löschen es."},
 pl:{h_faq:"Jak to działa?",hk4a:"Przetłumacz swój głos.",hk4b:"<em>Dotrzyj na nowe rynki.</em>",f_h2:"Wyślij swój film. Usłysz swój głos w innym języku.",f_l1:"Link YouTube do Twojego filmu / kanału",f_dm:"Gdzie chcesz otrzymać demo?",f_tap:"Dotknij, aby wybrać",f_btn:"Odbierz darmowe 60-sekundowe demo",
+how_h2:"Jak to działa: Ty wysyłasz film, a my zajmujemy się resztą.",how_step1:"Krok 1",how_step2:"Krok 2",how_step3:"Krok 3",how_send:"Wyślij link",how_1t:"Wyślij formularz z linkiem do YouTube",how_1p:"Wypełnij i wyślij formularz z linkiem do filmu lub swojego kanału YouTube.",how_voice:"LOKALIZACJA GŁOSU",how_processing:"PRZETWARZANIE",how_your_voice:"Twój głos",how_2t:"Odbierz gotową wersję z dubbingiem",how_2p:"Tłumaczymy, odtwarzamy Twój głos i dopasowujemy czas. Przed dostarczeniem native speaker sprawdza rezultat.",how_views:"Wyświetlenia",how_3t:"Opublikuj tak, jak Ci wygodnie",how_3p:"Dodaj przetłumaczoną ścieżkę audio do istniejącego filmu lub prześlij pełną zlokalizowaną wersję na swój kanał i zdobywaj więcej wyświetleń.",
 nav_cta:"Darmowa próbka",
 h_h1:"Rozwijaj swój kanał YouTube dzięki filmom, które już masz.",h_sub:"Tłumaczymy, dubbingujemy i synchronizujemy ruch ust w Twoich najlepszych filmach, aby pomóc Ci dotrzeć do nowych odbiorców i rozwijać kanał na całym świecie — bez ponownego nagrywania.",h_cta1:"Darmowa 60-sekundowa próbka",
 d_en:"Angielski",d_es:"+ Hiszpański",d_fr:"+ Francuski",d_de:"+ Niemiecki",d_foot:"Ten sam film. Ten sam kanał. <b>Nowi odbiorcy.</b>",d_note:"← Twój archiwalny katalog pracuje za Ciebie",
@@ -1124,6 +1239,7 @@ q6b:"Tak. Za darmo lokalizujemy pierwsze 60 sekund Twojego filmu, abyś mógł o
 ft_tag:"Lokalizuj swoje najlepsze filmy i rozwijaj kanał na całym świecie.",
 ft_priv:"Przechowujemy wyłącznie dane przesłane przez formularz i wykorzystujemy je tylko po to, aby odpowiedzieć na Twoje zgłoszenie. Jeśli zechcesz je usunąć, po prostu do nas napisz."},
 uk:{h_faq:"Як це працює?",hk4a:"Переклади свій голос.",hk4b:"<em>Охопи нові ринки.</em>",f_h2:"Надішли своє відео. Почуй свій голос іншою мовою.",f_l1:"Посилання на YouTube твого відео / каналу",f_dm:"Куди надіслати твоє демо?",f_tap:"Натисни, щоб обрати",f_btn:"Отримати безкоштовне 60-секундне демо",
+how_h2:"Як це працює: ти надсилаєш відео, а ми дбаємо про решту.",how_step1:"Крок 1",how_step2:"Крок 2",how_step3:"Крок 3",how_send:"Надіслати посилання",how_1t:"Надішли форму з посиланням на YouTube",how_1p:"Заповни та надішли форму з посиланням на відео або свій YouTube-канал.",how_voice:"ЛОКАЛІЗАЦІЯ ГОЛОСУ",how_processing:"ОБРОБКА",how_your_voice:"Твій голос",how_2t:"Отримай готову дубльовану версію",how_2p:"Ми перекладаємо, відтворюємо твій голос і синхронізуємо таймінг. Перед передачею результат перевіряє носій мови.",how_views:"Перегляди",how_3t:"Публікуй так, як тобі зручно",how_3p:"Додай перекладену аудіодоріжку до наявного відео або завантаж повну локалізовану версію на свій канал і отримуй більше переглядів.",
 nav_cta:"Безкоштовний семпл",
 h_h1:"Розвивай свій YouTube з відео, які в тебе вже є.",h_sub:"Ми перекладаємо, дублюємо та синхронізуємо рух губ у твоїх найкращих відео, щоб ти охоплював нові аудиторії та зростав на міжнародному рівні — без жодного перезапису.",h_cta1:"Безкоштовний 60-секундний семпл",
 d_en:"Англійська",d_es:"+ Іспанська",d_fr:"+ Французька",d_de:"+ Німецька",d_foot:"Те саме відео. Той самий канал. <b>Нові аудиторії.</b>",d_note:"← твій архів відео працює понаднормово",
